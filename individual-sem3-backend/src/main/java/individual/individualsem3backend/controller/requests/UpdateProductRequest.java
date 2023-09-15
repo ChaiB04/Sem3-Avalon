@@ -7,9 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateProductRequest {
-    private Long id;
+    private int id;
     @NonNull
     private String name;
     @NonNull
-    private Long countryId;
+    private Double price;
+    private String description;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class fakeProductRepositoryImpl implements ProductRepository {
@@ -44,11 +45,12 @@ public class fakeProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
+
         return Collections.unmodifiableList(savedProducts);
     }
 
     @Override
-    public int count() {
-        return this.savedProducts.size();
+    public void deleteById(int productId) {
+        this.savedProducts.removeIf(product -> product.getId() == productId);
     }
 }
