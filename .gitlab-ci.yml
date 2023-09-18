@@ -8,8 +8,8 @@ stages:
 build: 
     stage: build 
     script: 
-        ./gradlew assemble
+    - ./gradlew assemble
 test: 
     stage: test 
     script: 
-        ./gradlew test
+    - ./gradlew test
