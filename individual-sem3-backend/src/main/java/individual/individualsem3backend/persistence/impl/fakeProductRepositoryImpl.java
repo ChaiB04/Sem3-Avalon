@@ -35,6 +35,12 @@ public class fakeProductRepositoryImpl implements ProductRepository {
                 .orElse(null);
     }
 
+
+    @Override
+    public void update(Product product){
+        savedProducts.set(product.getId() -1 , product);
+    }
+
     @Override
     public Product save(Product product) {
         product.setId(NEXT_ID);

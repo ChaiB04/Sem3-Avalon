@@ -69,14 +69,11 @@ public class ProductManagerImpl implements ProductManagerUseCase {
     public void updateProduct(UpdateProductRequest request) {
         Product product = productRepository.findById(request.getId());
 
-        updateFields(request, product);
-    }
-
-    private void updateFields(UpdateProductRequest request, Product product) {
         product.setName(request.getName());
         product.setPrice(request.getPrice());
         product.setDescription(request.getDescription());
 
-        productRepository.save(product);
+        productRepository.update(product);
+
     }
 }
