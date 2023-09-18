@@ -1,5 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
+import individual.individualsem3backend.business.DecorationManagerUseCase;
+import individual.individualsem3backend.business.FlowerManagerUseCase;
 import individual.individualsem3backend.business.ProductManagerUseCase;
 import individual.individualsem3backend.business.exception.IdAlreadyExistsException;
 import individual.individualsem3backend.business.exception.InvalidProductException;
@@ -8,7 +10,11 @@ import individual.individualsem3backend.controller.requests.UpdateProductRequest
 import individual.individualsem3backend.controller.responses.CreateProductResponse;
 import individual.individualsem3backend.controller.responses.GetAllProductsResponse;
 import individual.individualsem3backend.controller.requests.GetAllProductRequest;
+import individual.individualsem3backend.domain.Decoraction;
+import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.domain.Product;
+import individual.individualsem3backend.persistence.DecorationRepository;
+import individual.individualsem3backend.persistence.FlowerRepository;
 import individual.individualsem3backend.persistence.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,60 +26,22 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ProductManagerImpl implements ProductManagerUseCase {
-    private ProductRepository productRepository;
 
+    private DecorationRepository decorationRepository;
+    private FlowerRepository flowerManagerUseCase;
     @Override
     public GetAllProductsResponse getProducts(final GetAllProductRequest request) {
-        List<Product> results = productRepository.findAll();
+        List<Flower> resultsFlowers = flowerManagerUseCase.findAll();
+        List<Decoraction> resultsDecoration = decorationRepository.findAll();
+
+        //List<Product> resultsAll =
 
         final GetAllProductsResponse response = new GetAllProductsResponse();
 
-        response.setAllProducts(results);
+        response.setAllFlowers(resultsFlowers);
+        response.setAllDecorations(resultsDecoration);
 
         return response;
     }
 
-    @Override
-    public CreateProductResponse createProduct(CreateProductRequest request) {
-        if (productRepository.existsById(request.getId())) {
-            throw new IdAlreadyExistsException();
-        }
-
-        Product newProduct = saveNewProduct(request);
-
-        return CreateProductResponse.builder()
-                .productId(newProduct.getId()).build();
-    }
-
-    private Product saveNewProduct(CreateProductRequest request) {
-        Product newStudent = Product.builder()
-                .name(request.getName())
-                .price(request.getPrice())
-                .description(request.getDescription())
-                .build();
-        return productRepository.save(newStudent);
-    }
-
-    @Override
-    public void deleteProduct(int productId) {
-
-        this.productRepository.deleteById(productId);
-    }
-
-    @Override
-    public Optional<Product> getProduct(int productId) {
-        return Optional.ofNullable(productRepository.findById(productId));
-    }
-
-    @Override
-    public void updateProduct(UpdateProductRequest request) {
-        Product product = productRepository.findById(request.getId());
-
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-        product.setDescription(request.getDescription());
-
-        productRepository.update(product);
-
-    }
 }

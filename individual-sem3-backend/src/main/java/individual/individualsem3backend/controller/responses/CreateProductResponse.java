@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateProductResponse {
-    private int productId;
+    private Integer productId;
 }

@@ -1,19 +1,20 @@
 package individual.individualsem3backend.persistence;
 
+import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.domain.Product;
 
 import java.util.List;
 
-public interface ProductRepository {
+public interface FlowerRepository {
 
     boolean existsById(Integer productId);
 
-    Product findById(Integer productId);
+    Flower findById(Integer productId);
 
-    Product save(Product product);
+    Flower save(Flower product);
 
-    List<Product> findAll();
+    List<Flower> findAll();
 
     void deleteById(Integer productId);
-    void update(Product product);
+    void update(Flower product);
 }

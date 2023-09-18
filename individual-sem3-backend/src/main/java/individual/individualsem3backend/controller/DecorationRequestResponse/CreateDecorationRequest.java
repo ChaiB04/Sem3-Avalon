@@ -1,21 +1,19 @@
-package individual.individualsem3backend.domain;
+package individual.individualsem3backend.controller.DecorationRequestResponse;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
-
-@Getter
-@Setter
-//@Builder
-@SuperBuilder(toBuilder = true)
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class CreateDecorationRequest {
     private Integer id;
     @NotBlank
     private String name;
     @NotBlank
     private Double price;
     private String description;
+    private int warranty;
+    private String category;
 }

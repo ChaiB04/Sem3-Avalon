@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateProductRequest {
-    private int id;
+    private Integer id;
     @NonNull
     private String name;
     @NonNull
