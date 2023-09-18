@@ -9,8 +9,8 @@ stages:
 build: 
     stage: build 
     script: 
-        ./gradle -w assemble 
+        "./gradle -w assemble"
 test: 
     stage: test 
     script: 
-        ./gradle -w test
+        "./gradle -w test"
