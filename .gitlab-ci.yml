@@ -8,9 +8,11 @@ stages:
 build: 
     stage: build 
     script: 
-    - ./gradlew assemble
+        - cd C:\individual-project-sem3\individual-sem3-backend
+        - ./gradlew assemble
     
 test: 
     stage: test 
     script: 
-    - ./gradlew test
+        - cd C:\individual-project-sem3\individual-sem3-backend
+        - ./gradlew test
