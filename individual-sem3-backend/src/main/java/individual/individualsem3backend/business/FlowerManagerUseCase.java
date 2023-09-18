@@ -1,7 +1,6 @@
 package individual.individualsem3backend.business;
 
 import individual.individualsem3backend.controller.FlowerRequestResponse.*;
-import individual.individualsem3backend.controller.requests.CreateProductRequest;
 import individual.individualsem3backend.domain.Flower;
 
 

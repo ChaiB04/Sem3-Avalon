@@ -3,11 +3,13 @@ package individual.individualsem3backend.persistence.impl;
 import individual.individualsem3backend.domain.Bouquet;
 import individual.individualsem3backend.domain.Decoraction;
 import individual.individualsem3backend.persistence.BouquetRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class FakeBouquetRepositoryImpl implements BouquetRepository {
     private static Integer NEXT_ID = 1;
 
@@ -36,7 +38,7 @@ public class FakeBouquetRepositoryImpl implements BouquetRepository {
 
     @Override
     public void update(Bouquet product){
-        savedProducts.set(product.getId() -1 , product);
+        ///savedProducts.set(product.getId() -1 , product);
     }
 
     @Override
