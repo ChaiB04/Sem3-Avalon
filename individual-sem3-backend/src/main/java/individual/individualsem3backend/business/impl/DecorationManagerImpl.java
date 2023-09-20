@@ -1,13 +1,10 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.DecorationManagerUseCase;
-import individual.individualsem3backend.business.exception.IdAlreadyExistsException;
+import individual.individualsem3backend.business.exception.NameAlreadyExistsException;
 import individual.individualsem3backend.controller.DecorationRequestResponse.*;
-import individual.individualsem3backend.controller.FlowerRequestResponse.*;
 import individual.individualsem3backend.domain.Decoraction;
-import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.persistence.DecorationRepository;
-import individual.individualsem3backend.persistence.FlowerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +28,9 @@ public class DecorationManagerImpl implements DecorationManagerUseCase {
 
     @Override
     public CreateDecorationResponse createProduct(CreateDecorationRequest request) {
-        if (decorationRepository.existsById(request.getId())) {
-            throw new IdAlreadyExistsException();
+        if (decorationRepository.existsByName(request.getName())) {
+            throw new NameAlreadyExistsException();
         }
-
         Decoraction newProduct = saveNewProduct(request);
 
         return CreateDecorationResponse.builder()

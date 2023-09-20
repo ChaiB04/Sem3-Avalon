@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class Flower extends Product{
     private String color;
-    private int lifeExpectancy;
+    private Integer lifeExpectancy;
 }

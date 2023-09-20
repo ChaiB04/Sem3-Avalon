@@ -1,7 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.BouquetManagerUseCase;
-import individual.individualsem3backend.business.exception.IdAlreadyExistsException;
+import individual.individualsem3backend.business.exception.NameAlreadyExistsException;
 import individual.individualsem3backend.controller.BouquetRequestResponse.*;
 import individual.individualsem3backend.domain.Bouquet;
 import individual.individualsem3backend.persistence.BouquetRepository;
@@ -29,8 +29,8 @@ public class BouquetManagerImpl implements BouquetManagerUseCase {
 
     @Override
     public CreateBouquetResponse createProduct(CreateBouquetRequest request) {
-        if (bouquetRepository.existsById(request.getId())) {
-            throw new IdAlreadyExistsException();
+        if (bouquetRepository.existsByName(request.getName())) {
+            throw new NameAlreadyExistsException();
         }
 
         Bouquet newProduct = saveNewProduct(request);

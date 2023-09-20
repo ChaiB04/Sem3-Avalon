@@ -6,7 +6,7 @@ import individual.individualsem3backend.domain.Decoraction;
 import java.util.List;
 
 public interface BouquetRepository {
-    boolean existsById(Integer productId);
+    boolean existsByName(String productName);
 
     Bouquet findById(Integer productId);
 

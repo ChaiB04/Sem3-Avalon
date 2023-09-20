@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.responses;
+package individual.individualsem3backend.controller.ProductRequestResponse;
 
 import individual.individualsem3backend.domain.Bouquet;
 import individual.individualsem3backend.domain.Decoraction;

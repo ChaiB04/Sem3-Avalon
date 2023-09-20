@@ -6,7 +6,7 @@ import individual.individualsem3backend.domain.Flower;
 import java.util.List;
 
 public interface DecorationRepository {
-    boolean existsById(Integer productId);
+    boolean existsByName(String productName);
 
     Decoraction findById(Integer productId);
 

@@ -1,7 +1,8 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.FlowerManagerUseCase;
-import individual.individualsem3backend.business.exception.IdAlreadyExistsException;
+import individual.individualsem3backend.business.exception.InvalidProductException;
+import individual.individualsem3backend.business.exception.NameAlreadyExistsException;
 import individual.individualsem3backend.controller.FlowerRequestResponse.*;
 import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.persistence.FlowerRepository;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Service
 @AllArgsConstructor
@@ -28,10 +30,9 @@ public class FlowerManagerImpl implements FlowerManagerUseCase {
 
     @Override
     public CreateFlowerResponse createProduct(CreateFlowerRequest request) {
-        if (flowerRepository.existsById(request.getId())) {
-            throw new IdAlreadyExistsException();
+        if (flowerRepository.existsByName(request.getName())) {
+            throw new NameAlreadyExistsException();
         }
-
         Flower newProduct = saveNewProduct(request);
 
         return CreateFlowerResponse.builder()
@@ -61,6 +62,10 @@ public class FlowerManagerImpl implements FlowerManagerUseCase {
     @Override
     public void updateProduct(UpdateFlowerRequest request) {
         Flower product = flowerRepository.findById(request.getId());
+
+        if(Objects.isNull(product)){
+            throw new InvalidProductException("No product found.");
+        }
 
         product.setName(request.getName());
         product.setPrice(request.getPrice());

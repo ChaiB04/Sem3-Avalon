@@ -67,8 +67,6 @@ class BouquetManagerImplTest {
         verify(bouquetRepositoryMock).findAll();
     }
 
-
-
     @Test
     void createProduct() {
         CreateBouquetResponse response = CreateBouquetResponse.builder().build();
@@ -122,6 +120,8 @@ class BouquetManagerImplTest {
         bouquetManager.deleteProduct(bouquet1.getId());
 
         verify(bouquetRepositoryMock).deleteById(bouquet1.getId());
+
+
     }
 
     @Test

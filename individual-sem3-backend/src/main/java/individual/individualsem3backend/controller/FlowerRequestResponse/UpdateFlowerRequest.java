@@ -1,5 +1,6 @@
 package individual.individualsem3backend.controller.FlowerRequestResponse;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -7,12 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateFlowerRequest {
+    @NotBlank
     private Integer id;
-    @NonNull
+    @NotBlank
     private String name;
-    @NonNull
     private Double price;
     private String description;
+    @NotBlank
     private String color;
-    private int lifeExpectancy;
+    @NotBlank
+    private Integer lifeExpectancy;
 }

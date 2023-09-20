@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Decoraction extends Product{
-    private int warranty;
+    private Integer warranty;
     private String category;
 }

@@ -1,12 +1,8 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.DecorationManagerUseCase;
-import individual.individualsem3backend.business.FlowerManagerUseCase;
 import individual.individualsem3backend.controller.DecorationRequestResponse.*;
-import individual.individualsem3backend.controller.FlowerRequestResponse.*;
-import individual.individualsem3backend.controller.responses.CreateProductResponse;
 import individual.individualsem3backend.domain.Decoraction;
-import individual.individualsem3backend.domain.Flower;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

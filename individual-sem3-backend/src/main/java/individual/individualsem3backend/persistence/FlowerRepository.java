@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FlowerRepository {
 
-    boolean existsById(Integer productId);
+    boolean existsByName(String productName);
 
     Flower findById(Integer productId);
 
