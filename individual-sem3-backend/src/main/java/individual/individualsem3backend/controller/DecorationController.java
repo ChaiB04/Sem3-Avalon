@@ -1,6 +1,7 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.DecorationManagerUseCase;
+import individual.individualsem3backend.controller.Converters.DecorationConverter;
 import individual.individualsem3backend.controller.DecorationRequestResponse.*;
 import individual.individualsem3backend.domain.Decoraction;
 import lombok.AllArgsConstructor;
@@ -15,16 +16,24 @@ import java.util.Optional;
 public class DecorationController {
     private final DecorationManagerUseCase decorationManagerUseCase;
 
+    private DecorationConverter decorationConverter;
+
     @GetMapping
     public ResponseEntity<GetAllDecorationResponse> getAllProducts() {
-        GetAllDecorationRequest request = GetAllDecorationRequest.builder().build();
-        GetAllDecorationResponse response = decorationManagerUseCase.getProducts(request);
+       //Filtering
+        // GetAllDecorationRequest request = GetAllDecorationRequest.builder().build();
+
+        GetAllDecorationResponse response = decorationConverter.decorationListConvertToGetAllDecorationResponse(decorationManagerUseCase.getProducts());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping()
     public ResponseEntity<CreateDecorationResponse> createStudent(@RequestBody CreateDecorationRequest request) {
-        CreateDecorationResponse response = decorationManagerUseCase.createProduct(request);
+        Decoraction convertRequest = decorationConverter.createDecorationRequestConvertToDecoration(request);
+
+        Decoraction product = decorationManagerUseCase.createProduct(convertRequest);
+
+        CreateDecorationResponse response = decorationConverter.intConvertToCreateDecorationResponse(product.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -48,7 +57,9 @@ public class DecorationController {
                                               @RequestBody UpdateDecorationRequest request)
     {
         request.setId(productId);
-        decorationManagerUseCase.updateProduct(request);
+
+        Decoraction convertRequest = decorationConverter.updateDecorationRequestConvertToDecoration(request);
+        decorationManagerUseCase.updateProduct(convertRequest);
 
         return ResponseEntity.noContent().build();
     }

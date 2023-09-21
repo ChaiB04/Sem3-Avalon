@@ -1,6 +1,7 @@
 package individual.individualsem3backend.controller.FlowerRequestResponse;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -8,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateFlowerRequest {
-    @NotBlank
+
+    //Notnull got a big error idk why
     private Integer id;
     @NotBlank
     private String name;
@@ -16,6 +18,5 @@ public class UpdateFlowerRequest {
     private String description;
     @NotBlank
     private String color;
-    @NotBlank
     private Integer lifeExpectancy;
 }

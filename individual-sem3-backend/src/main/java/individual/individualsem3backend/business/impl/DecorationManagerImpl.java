@@ -2,6 +2,7 @@ package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.DecorationManagerUseCase;
 import individual.individualsem3backend.business.exception.NameAlreadyExistsException;
+import individual.individualsem3backend.controller.Converters.DecorationConverter;
 import individual.individualsem3backend.controller.DecorationRequestResponse.*;
 import individual.individualsem3backend.domain.Decoraction;
 import individual.individualsem3backend.persistence.DecorationRepository;
@@ -16,37 +17,29 @@ public class DecorationManagerImpl implements DecorationManagerUseCase {
     private DecorationRepository decorationRepository;
 
     @Override
-    public GetAllDecorationResponse getProducts(final GetAllDecorationRequest request) {
-        List<Decoraction> results = decorationRepository.findAll();
-
-        final GetAllDecorationResponse response = new GetAllDecorationResponse();
-
-        response.setAllDecorations(results);
-
-        return response;
+    public List<Decoraction> getProducts() {
+        return decorationRepository.findAll();
     }
 
     @Override
-    public CreateDecorationResponse createProduct(CreateDecorationRequest request) {
+    public Decoraction createProduct(Decoraction request) {
         if (decorationRepository.existsByName(request.getName())) {
             throw new NameAlreadyExistsException();
         }
-        Decoraction newProduct = saveNewProduct(request);
 
-        return CreateDecorationResponse.builder()
-                .id(newProduct.getId()).build();
+        return decorationRepository.save(request);
     }
 
-    private Decoraction saveNewProduct(CreateDecorationRequest request) {
-        //why not working with parent class
-        //Flower newFlower = Flower.builder().name(request.getName()).builder();
-
-        Decoraction newDecoration = Decoraction.builder().name(request.getName())
-                .price(request.getPrice()).description(request.getDescription()).warranty(request.getWarranty())
-                .category(request.getCategory()).build();
-
-        return decorationRepository.save(newDecoration);
-    }
+//    private Decoraction saveNewProduct(CreateDecorationRequest request) {
+//        //why not working with parent class
+//        //Flower newFlower = Flower.builder().name(request.getName()).builder();
+//
+//        Decoraction newDecoration = Decoraction.builder().name(request.getName())
+//                .price(request.getPrice()).description(request.getDescription()).warranty(request.getWarranty())
+//                .category(request.getCategory()).build();
+//
+//        return decorationRepository.save(newDecoration);
+//    }
 
     @Override
     public void deleteProduct(Integer productId) {
@@ -59,7 +52,7 @@ public class DecorationManagerImpl implements DecorationManagerUseCase {
     }
 
     @Override
-    public void updateProduct(UpdateDecorationRequest request) {
+    public void updateProduct(Decoraction request) {
         Decoraction product = decorationRepository.findById(request.getId());
 
         product.setName(request.getName());

@@ -39,11 +39,11 @@ class FlowerManagerImplTest {
 
         when(flowerRepositoryMock.findAll()).thenReturn(List.of(flower1, flower2));
 
-        GetAllFlowerRequest request = GetAllFlowerRequest.builder().build();
+        String colorFilter = "";
 
-        GetAllFlowerResponse actualResult = flowerManager.getProducts(request);
+        List<Flower> actualResult = flowerManager.getProducts(colorFilter);
 
-        GetAllFlowerResponse expectedResult = GetAllFlowerResponse.builder().allFlowers(List.of(flower1, flower2)).build();
+        List<Flower> expectedResult = List.of(flower1, flower2);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -52,11 +52,11 @@ class FlowerManagerImplTest {
     void getEmptyListOfProducts(){
        when(flowerRepositoryMock.findAll()).thenReturn(List.of());
 
-        GetAllFlowerRequest request = GetAllFlowerRequest.builder().build();
+        String colorFilter = "";
 
-        GetAllFlowerResponse actualResult = flowerManager.getProducts(request);
+        List<Flower> actualResult = flowerManager.getProducts(colorFilter);
 
-        GetAllFlowerResponse expectedResult = GetAllFlowerResponse.builder().allFlowers(List.of()).build();
+        List<Flower> expectedResult =List.of();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -70,17 +70,16 @@ class FlowerManagerImplTest {
 
         when(flowerRepositoryMock.save(any(Flower.class))).thenReturn(flower1);
 
-        CreateFlowerRequest request = CreateFlowerRequest.builder().name("Neuvilette")
+        Flower request = Flower.builder().name("Neuvilette")
                 .price(13.32).description("Pretty boy").color("Blue")
                 .lifeExpectancy(32).build();
 
-        CreateFlowerResponse actualResult = flowerManager.createProduct(request);
+        Flower actualResult = flowerManager.createProduct(request);
 
         verify(flowerRepositoryMock, times(1)).save(any(Flower.class));
 
-        CreateFlowerResponse expectedResult = CreateFlowerResponse.builder().id(1).build();
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(flower1, actualResult);
 
     }
 
@@ -93,7 +92,7 @@ class FlowerManagerImplTest {
 
         when(flowerRepositoryMock.existsByName(flower1.getName())).thenReturn(true);
 
-        CreateFlowerRequest request = CreateFlowerRequest.builder().id(1).name("Neuvilette")
+        Flower request = Flower.builder().id(1).name("Neuvilette")
                 .price(13.32).description("Pretty boy").color("Blue")
                 .lifeExpectancy(32).build();
 
@@ -162,7 +161,7 @@ class FlowerManagerImplTest {
 
         when(flowerRepositoryMock.findById(any())).thenReturn(flower3);
 
-        UpdateFlowerRequest request = UpdateFlowerRequest.builder().id(2).name("Chlorande")
+        Flower request = Flower.builder().id(2).name("Chlorande")
                 .price(342.24).description("Handsome girl").color("Purple")
                 .lifeExpectancy(90).build();
 
@@ -182,7 +181,7 @@ class FlowerManagerImplTest {
     void updateNonExistentProduct_throwsInvalidProductException(){
         when(flowerRepositoryMock.findById(2)).thenReturn(null);
 
-        UpdateFlowerRequest request = UpdateFlowerRequest.builder().id(2).name("Chlorande")
+        Flower request = Flower.builder().id(2).name("Chlorande")
                 .price(342.24).description("Handsome girl").color("Purple")
                 .lifeExpectancy(90).build();
 
