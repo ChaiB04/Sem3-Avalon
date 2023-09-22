@@ -7,6 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @SuperBuilder
 @AllArgsConstructor
 public class Bouquet extends Product{
