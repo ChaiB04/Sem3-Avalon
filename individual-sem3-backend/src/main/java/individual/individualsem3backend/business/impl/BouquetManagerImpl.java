@@ -1,7 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.BouquetManagerUseCase;
-import individual.individualsem3backend.business.exception.IdAlreadyExistsException;
+import individual.individualsem3backend.business.exception.NameAlreadyExistsException;
 import individual.individualsem3backend.controller.BouquetRequestResponse.*;
 import individual.individualsem3backend.domain.Bouquet;
 import individual.individualsem3backend.persistence.BouquetRepository;
@@ -17,35 +17,26 @@ public class BouquetManagerImpl implements BouquetManagerUseCase {
     private BouquetRepository bouquetRepository;
 
     @Override
-    public GetAllBouquetResponse getProducts(final GetAllBouquetRequest request) {
-        List<Bouquet> results = bouquetRepository.findAll();
-
-        final GetAllBouquetResponse response = new GetAllBouquetResponse();
-
-        response.setAllBouquets(results);
-
-        return response;
+    public List<Bouquet> getProducts() {
+        return bouquetRepository.findAll();
     }
 
     @Override
-    public CreateBouquetResponse createProduct(CreateBouquetRequest request) {
-        if (bouquetRepository.existsById(request.getId())) {
-            throw new IdAlreadyExistsException();
+    public Bouquet createProduct(Bouquet request) {
+        if (bouquetRepository.existsByName(request.getName())) {
+            throw new NameAlreadyExistsException();
         }
 
-        Bouquet newProduct = saveNewProduct(request);
-
-        return CreateBouquetResponse.builder()
-                .id(newProduct.getId()).build();
+        return bouquetRepository.save(request);
     }
 
-    private Bouquet saveNewProduct(CreateBouquetRequest request) {
-        Bouquet newDecoration = Bouquet.builder().name(request.getName())
-                .price(request.getPrice()).description(request.getDescription()).colorOfBow(request.getColorOfBow())
-                .flowers(request.getFlowers()).build();
-
-        return bouquetRepository.save(newDecoration);
-    }
+//    private Bouquet saveNewProduct(CreateBouquetRequest request) {
+//        Bouquet newDecoration = Bouquet.builder().name(request.getName())
+//                .price(request.getPrice()).description(request.getDescription()).colorOfBow(request.getColorOfBow())
+//                .flowers(request.getFlowers()).build();
+//
+//        return bouquetRepository.save(newDecoration);
+//    }
 
     @Override
     public void deleteProduct(Integer productId) {
@@ -58,7 +49,7 @@ public class BouquetManagerImpl implements BouquetManagerUseCase {
     }
 
     @Override
-    public void updateProduct(UpdateBouquetRequest request) {
+    public void updateProduct(Bouquet request) {
         Bouquet product = bouquetRepository.findById(request.getId());
 
         product.setName(request.getName());

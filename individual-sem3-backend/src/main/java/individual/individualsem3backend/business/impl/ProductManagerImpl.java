@@ -1,8 +1,8 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.ProductManagerUseCase;
-import individual.individualsem3backend.controller.responses.GetAllProductsResponse;
-import individual.individualsem3backend.controller.requests.GetAllProductRequest;
+import individual.individualsem3backend.controller.ProductRequestResponse.GetAllProductsResponse;
+import individual.individualsem3backend.controller.ProductRequestResponse.GetAllProductRequest;
 import individual.individualsem3backend.domain.Bouquet;
 import individual.individualsem3backend.domain.Decoraction;
 import individual.individualsem3backend.domain.Flower;
@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

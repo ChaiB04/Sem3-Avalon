@@ -20,10 +20,10 @@ public class fakeProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public boolean existsById(Integer productId) {
+    public boolean existsByName(String productName){
         return this.savedProducts
                 .stream()
-                .anyMatch(productEntity -> productEntity.getId() == productId);
+                .anyMatch(productEntity -> productEntity.getName() == productName);
     }
 
     @Override

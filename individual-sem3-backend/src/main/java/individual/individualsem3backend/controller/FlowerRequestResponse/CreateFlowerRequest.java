@@ -1,18 +1,24 @@
 package individual.individualsem3backend.controller.FlowerRequestResponse;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-@Data
+
+
 @Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class        CreateFlowerRequest {
+@NoArgsConstructor
+public class CreateFlowerRequest {
     private Integer id;
-    @NonNull
+    @NotBlank
     private String name;
-    @NonNull
+    @NotNull
     private Double price;
     private String description;
+    @NotBlank
     private String color;
-    private int lifeExpectancy;
+    @NotNull
+    private Integer lifeExpectancy;
 }

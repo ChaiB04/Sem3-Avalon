@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductRepository {
 
-    boolean existsById(Integer productId);
+    boolean existsByName(String productName);
 
     Product findById(Integer productId);
 

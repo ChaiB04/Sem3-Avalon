@@ -2,6 +2,7 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.BouquetManagerUseCase;
 import individual.individualsem3backend.controller.BouquetRequestResponse.*;
+import individual.individualsem3backend.controller.Converters.BouquetConverter;
 import individual.individualsem3backend.domain.Bouquet;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,24 @@ import java.util.Optional;
 public class BouquetController {
     private final BouquetManagerUseCase bouquetManagerUseCase;
 
+    private BouquetConverter bouquetConverter;
+
     @GetMapping
     public ResponseEntity<GetAllBouquetResponse> getAllProducts() {
-        GetAllBouquetRequest request = GetAllBouquetRequest.builder().build();
-        GetAllBouquetResponse response = bouquetManagerUseCase.getProducts(request);
+        //filtering
+        //GetAllBouquetRequest request = GetAllBouquetRequest.builder().build();
+
+        GetAllBouquetResponse response = bouquetConverter.bouquetListConvertToGetAllBouquetResponse(bouquetManagerUseCase.getProducts());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping()
     public ResponseEntity<CreateBouquetResponse> createStudent(@RequestBody CreateBouquetRequest request) {
-        CreateBouquetResponse response = bouquetManagerUseCase.createProduct(request);
+        Bouquet convertRequest = bouquetConverter.createBouquetRequestConvertToBouquet(request);
+
+        Bouquet product = bouquetManagerUseCase.createProduct(convertRequest);
+
+        CreateBouquetResponse response = bouquetConverter.intConvertToCreateBouquetResponse(product.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -49,7 +58,9 @@ public class BouquetController {
                                               @RequestBody UpdateBouquetRequest request)
     {
         request.setId(productId);
-        bouquetManagerUseCase.updateProduct(request);
+        Bouquet convertRequest = bouquetConverter.updateBouquetRequestConvertToBouquet(request);
+
+        bouquetManagerUseCase.updateProduct(convertRequest);
 
         return ResponseEntity.noContent().build();
     }

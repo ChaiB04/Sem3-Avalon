@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 //@Builder
+@EqualsAndHashCode
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,6 @@ public class Product {
     private Integer id;
     @NotBlank
     private String name;
-    @NotBlank
     private Double price;
     private String description;
 }

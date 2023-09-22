@@ -1,19 +1,11 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.ProductManagerUseCase;
-import individual.individualsem3backend.business.*;
-import individual.individualsem3backend.controller.requests.CreateProductRequest;
-import individual.individualsem3backend.controller.requests.UpdateProductRequest;
-import individual.individualsem3backend.controller.responses.CreateProductResponse;
-import individual.individualsem3backend.domain.*;
-import individual.individualsem3backend.controller.requests.GetAllProductRequest;
-import individual.individualsem3backend.controller.responses.GetAllProductsResponse;
+import individual.individualsem3backend.controller.ProductRequestResponse.GetAllProductRequest;
+import individual.individualsem3backend.controller.ProductRequestResponse.GetAllProductsResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")

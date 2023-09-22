@@ -5,10 +5,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Decoraction extends Product{
-    private int warranty;
+    private Integer warranty;
     private String category;
 }

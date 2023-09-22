@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.requests;
+package individual.individualsem3backend.controller.ProductRequestResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

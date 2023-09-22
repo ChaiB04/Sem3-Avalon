@@ -1,10 +1,7 @@
 package individual.individualsem3backend.controller.DecorationRequestResponse;
 
 import individual.individualsem3backend.domain.Decoraction;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
