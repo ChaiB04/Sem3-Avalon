@@ -1,15 +1,15 @@
-package individual.individualsem3backend.domain;
+package individual.individualsem3backend.controller.UserRequestResponse;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private Integer id;
+public class CreateUserRequest {
     private String email;
     private String password;
     private String firstname;
@@ -20,5 +20,4 @@ public class User {
     private String city;
     private String country;
     private String phonenumber;
-
 }

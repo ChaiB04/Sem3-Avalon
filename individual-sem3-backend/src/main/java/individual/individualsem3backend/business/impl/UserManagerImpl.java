@@ -6,11 +6,13 @@ import individual.individualsem3backend.persistence.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserManagerImpl implements UserManagerUseCase {
+        private UserRepository userRepository;
 
-    private UserRepository userRepository;
     public User userLogin(String email, String password){
         if(!email.isEmpty() && !password.isEmpty()){
           return userRepository.findByEmailAndPassword(email, password);
@@ -18,22 +20,22 @@ public class UserManagerImpl implements UserManagerUseCase {
         return null;
     }
 
-    public User createUser(User newUser) throws Exception {
-        try{
-            return userRepository.save(newUser);
-        }
-        catch(Exception ex){
-            throw new Exception();
-        }
+    public User createUser(User newUser) {
+
+        return userRepository.save(newUser);
+    }
+    @Override
+    public Optional<User> getUser(int userId) {
+        return Optional.ofNullable(userRepository.findById(userId));
     }
 
-    public void deleteUser(User user){
-        userRepository.deleteById(user.getId());
+    public void deleteUser(int userid){
+        userRepository.deleteById(userid);
     }
 
     public void editUser(User editedUser){
         //get user from database
-        User user = userRepository.findByEmail(editedUser.getEmail());
+        User user = userRepository.findUserById(editedUser.getId());
 
         //change the information
         user.setEmail(editedUser.getEmail());

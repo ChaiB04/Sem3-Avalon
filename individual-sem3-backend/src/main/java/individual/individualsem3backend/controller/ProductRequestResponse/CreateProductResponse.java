@@ -4,7 +4,8 @@ import lombok.*;
 
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class GetAllProductRequest {
-    //private String countryCode;
+public class CreateProductResponse {
+    private int productId;
 }

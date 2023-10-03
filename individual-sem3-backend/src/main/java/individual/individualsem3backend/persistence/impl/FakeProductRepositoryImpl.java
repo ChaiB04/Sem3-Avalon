@@ -1,33 +1,30 @@
 package individual.individualsem3backend.persistence.impl;
 
-import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.domain.Product;
-import individual.individualsem3backend.persistence.FlowerRepository;
+import individual.individualsem3backend.persistence.ProductRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
-public class FakeFlowerRepositoryImpl implements FlowerRepository {
-    private static Integer NEXT_ID = 1;
+public class FakeProductRepositoryImpl implements ProductRepository {
+    private static int NEXT_ID = 1;
 
-    private final List<Flower> savedProducts;
+    private List<Product> savedProducts;
 
-    public FakeFlowerRepositoryImpl() {
+    public FakeProductRepositoryImpl() {
         this.savedProducts = new ArrayList<>();
     }
 
     @Override
-    public boolean existsByName(String productName){
+    public boolean existsById(int productId) {
         return this.savedProducts
                 .stream()
-                .anyMatch(productEntity -> productEntity.getName() == productName);
+                .anyMatch(productEntity -> productEntity.getId() == productId);
     }
 
     @Override
-    public Flower findById(Integer productId) {
+    public Product findById(int productId) {
         return this.savedProducts
                 .stream()
                 .filter(productEntity -> productEntity.getId() == productId)
@@ -37,13 +34,12 @@ public class FakeFlowerRepositoryImpl implements FlowerRepository {
 
 
     @Override
-    public void update(Flower product){
-//        savedProducts.set(product.getId() - 1 , product);
-//        savedProducts.
+    public void update(Product product){
+        savedProducts.set(product.getId() -1 , product);
     }
 
     @Override
-    public Flower save(Flower product) {
+    public Product save(Product product) {
         product.setId(NEXT_ID);
         NEXT_ID++;
         this.savedProducts.add(product);
@@ -51,15 +47,13 @@ public class FakeFlowerRepositoryImpl implements FlowerRepository {
     }
 
     @Override
-    public List<Flower> findAll() {
+    public List<Product> findAll() {
 
         return Collections.unmodifiableList(savedProducts);
     }
 
     @Override
-    public void deleteById(Integer productId) {
+    public void deleteById(int productId) {
         this.savedProducts.removeIf(product -> product.getId() == productId);
     }
-
-
 }

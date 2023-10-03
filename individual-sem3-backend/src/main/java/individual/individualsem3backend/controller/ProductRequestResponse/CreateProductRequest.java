@@ -1,20 +1,17 @@
-package individual.individualsem3backend.domain;
+package individual.individualsem3backend.controller.ProductRequestResponse;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-
-@Getter
-@Setter
+@Data
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
-
-    private Integer id;
+public class CreateProductRequest {
+    private int id;
     @NotBlank
     private String name;
+    @NotNull
     private Double price;
     private String description;
     private String color;
