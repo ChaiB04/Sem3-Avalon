@@ -47,14 +47,6 @@ public class FakeUserRepositoryImpl implements UserRepository {
                 .findFirst()
                 .orElse(null);
     }
-    @Override
-    public User findById(int userID) {
-        return this.savedUsers
-                .stream()
-                .filter(user -> user.getId() == userID)
-                .findFirst()
-                .orElse(null);
-    }
 
     public User save(User user) {
         user.setId(NEXT_ID);

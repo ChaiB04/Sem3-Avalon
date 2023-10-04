@@ -21,11 +21,11 @@ public class ProductManagerImpl implements ProductManagerUseCase {
 
     @Override
     public Product createProduct(Product request) {
-
         Product newProduct = Product.builder()
                 .name(request.getName())
                 .price(request.getPrice())
                 .description(request.getDescription())
+                .color(request.getColor())
                 .build();
 
         return productRepository.save(newProduct);
@@ -49,6 +49,7 @@ public class ProductManagerImpl implements ProductManagerUseCase {
 
         product.setName(request.getName());
         product.setPrice(request.getPrice());
+        product.setColor(request.getColor());
         product.setDescription(request.getDescription());
 
         productRepository.update(product);

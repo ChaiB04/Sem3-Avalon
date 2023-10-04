@@ -5,7 +5,6 @@ import individual.individualsem3backend.domain.User;
 public interface UserRepository {
 
     void update(User user);
-    User findById(int userID);
     User findByEmail(String productId);
     void deleteById(int userId);
 

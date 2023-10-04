@@ -21,12 +21,11 @@ public class UserManagerImpl implements UserManagerUseCase {
     }
 
     public User createUser(User newUser) {
-
         return userRepository.save(newUser);
     }
     @Override
     public Optional<User> getUser(int userId) {
-        return Optional.ofNullable(userRepository.findById(userId));
+        return Optional.ofNullable(userRepository.findUserById(userId));
     }
 
     public void deleteUser(int userid){
