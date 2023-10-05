@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@CrossOrigin
 public class UserController {
     private UserManagerUseCase userManagerUseCase;
     private UserConverter converter;

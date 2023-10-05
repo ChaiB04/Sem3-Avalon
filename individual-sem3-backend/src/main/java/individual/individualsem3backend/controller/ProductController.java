@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
+@CrossOrigin
 public class ProductController {
     private final ProductManagerUseCase productManagerUseCase;
     private ProductConverter converter;

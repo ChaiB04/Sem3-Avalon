@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
+@CrossOrigin
 public class OrderController {
     private OrderManagerUseCase orderManagerUseCase;
 
