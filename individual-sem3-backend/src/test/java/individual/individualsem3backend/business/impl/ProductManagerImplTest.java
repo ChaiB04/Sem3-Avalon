@@ -86,8 +86,6 @@ public class ProductManagerImplTest {
         verify(productRepositoryMock).findById(1);
 
         assertEquals(expectedResult, actualResult.get());
-
-
     }
 
     @Test

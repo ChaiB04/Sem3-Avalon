@@ -1,5 +1,6 @@
 package individual.individualsem3backend.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -9,10 +10,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     private Integer id;
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
+    @NotBlank
     private String firstname;
+    @NotBlank
     private String lastname;
     private String street;
     private Integer housenumber;
@@ -20,5 +26,4 @@ public class User {
     private String city;
     private String country;
     private String phonenumber;
-
 }

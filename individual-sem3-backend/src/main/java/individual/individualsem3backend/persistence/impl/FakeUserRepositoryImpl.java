@@ -2,6 +2,7 @@ package individual.individualsem3backend.persistence.impl;
 
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.UserRepository;
+import individual.individualsem3backend.persistence.exception.DatabaseException;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -22,36 +23,63 @@ public class FakeUserRepositoryImpl implements UserRepository {
     }
 
     public User findUserById(int userId){
-        return this.savedUsers
+          Optional<User> getUser = this.savedUsers
                 .stream()
                 .filter(user -> user.getId() == userId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
+
+          if(getUser != null){
+              return getUser.get();
+          }
+          else{
+              throw new DatabaseException("User not found.");
+          }
     }
     public void update(User user){
-        savedUsers.set(user.getId() -1 , user);
+        try{
+            savedUsers.set(user.getId() -1 , user);
+        }
+        catch(Exception ex){
+            throw new DatabaseException("User could not be updated.");
+        }
 
     }
     public User findByEmail(String email) {
-        return this.savedUsers
-                .stream()
-                .filter(user -> user.getEmail() == email)
-                .findFirst()
-                .orElse(null);
+        try{
+            return this.savedUsers
+                    .stream()
+                    .filter(user -> user.getEmail() == email)
+                    .findFirst()
+                    .orElse(null);
+        }
+        catch(Exception ex){
+            throw new DatabaseException("User could not be found by email.");
+        }
     }
 
     public User findByEmailAndPassword(String email, String password){
-        return this.savedUsers
-                .stream()
-                .filter(user -> user.getEmail() == email && user.getPassword() == password)
-                .findFirst()
-                .orElse(null);
+      try{
+          return this.savedUsers
+                  .stream()
+                  .filter(user -> user.getEmail() == email && user.getPassword() == password)
+                  .findFirst()
+                  .orElse(null);
+      }
+      catch(Exception ex){
+          throw new DatabaseException("User could not be found by credentials.");
+      }
     }
 
     public User save(User user) {
-        user.setId(NEXT_ID);
-        NEXT_ID++;
-        this.savedUsers.add(user);
-        return user;
+        try{
+            user.setId(NEXT_ID);
+            NEXT_ID++;
+            this.savedUsers.add(user);
+            return user;
+        }
+        catch(Exception ex)
+        {
+            throw new DatabaseException("Could not save new user.");
+        }
     }
 }
