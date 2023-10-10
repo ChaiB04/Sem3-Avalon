@@ -1,5 +1,6 @@
 package individual.individualsem3backend.business.impl;
 
+import individual.individualsem3backend.business.exception.ProductException;
 import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,6 +42,11 @@ public class ProductManagerImplTest {
 
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    public void createProduct_WithNullRequest_ThrowsProductException(){
+        assertThrows(ProductException.class, () -> productManager.createProduct(null));
     }
 
     @Test
@@ -73,6 +80,12 @@ public class ProductManagerImplTest {
     }
 
     @Test
+    public void deleteProduct_WithNegativeID_ThrowsProductException(){
+        assertThrows(ProductException.class, () -> productManager.deleteProduct(-1));
+    }
+
+
+    @Test
     public void getProduct_Successful_ReturnsProduct(){
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
@@ -89,7 +102,12 @@ public class ProductManagerImplTest {
     }
 
     @Test
-    public void UpdateProduct_Successful(){
+    public void getProduct_WithNegativeID_ThrowsProductException(){
+        assertThrows(ProductException.class, () -> productManager.getProduct(-1));
+    }
+
+    @Test
+    public void updateProduct_Successful(){
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -101,6 +119,19 @@ public class ProductManagerImplTest {
         productManager.updateProduct(updatedProduct);
 
         verify(productRepositoryMock).update(updatedProduct);
+    }
+
+    @Test
+    public void updateProduct_WithNullParameters_ThrowsProductException(){
+        assertThrows(ProductException.class, () -> productManager.updateProduct(null));
+    }
+
+    @Test
+    public void updateProduct_WithNegativeId_ThrowsProductException(){
+        Product product1 = Product.builder().id(-1).name("Neuvi").description("A blue flower")
+                .price(23.22).color("Blue").build();
+
+        assertThrows(ProductException.class, () -> productManager.updateProduct(product1));
     }
 
 }

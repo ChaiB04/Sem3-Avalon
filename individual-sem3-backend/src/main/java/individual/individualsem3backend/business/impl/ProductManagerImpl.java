@@ -1,6 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.ProductManagerUseCase;
+import individual.individualsem3backend.business.exception.ProductException;
 import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -16,43 +17,67 @@ public class ProductManagerImpl implements ProductManagerUseCase {
 
     @Override
     public List<Product>  getProducts() {
-        return productRepository.findAll();
+        try{
+            return productRepository.findAll();
+        }
+        catch(Exception ex){
+            throw new ProductException("Something went wrong with getting all the products.");
+        }
     }
 
     @Override
     public Product createProduct(Product request) {
-        Product newProduct = Product.builder()
-                .name(request.getName())
-                .price(request.getPrice())
-                .description(request.getDescription())
-                .color(request.getColor())
-                .build();
+        if(request != null){
+            Product newProduct = Product.builder()
+                    .name(request.getName())
+                    .price(request.getPrice())
+                    .description(request.getDescription())
+                    .color(request.getColor())
+                    .build();
 
-        return productRepository.save(newProduct);
+            return productRepository.save(newProduct);
+        }
+        else{
+            throw new ProductException("Something went wrong while creating product.");
+        }
     }
 
 
     @Override
     public void deleteProduct(int productId) {
-
-        this.productRepository.deleteById(productId);
+        if(productId > -1){
+            this.productRepository.deleteById(productId);
+        }
+        else{
+            throw new ProductException("Cannot find product with negative id.");
+        }
     }
 
     @Override
     public Optional<Product> getProduct(int productId) {
-        return Optional.ofNullable(productRepository.findById(productId));
+       if(productId > -1){
+           return Optional.ofNullable(productRepository.findById(productId));
+       }
+       else{
+           throw new ProductException("Cannot find product with negative id.");
+       }
     }
 
     @Override
     public void updateProduct(Product request) {
-        Product product = productRepository.findById(request.getId());
+        if(request != null && request.getId() > -1){
+            Product product = productRepository.findById(request.getId());
 
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-        product.setColor(request.getColor());
-        product.setDescription(request.getDescription());
+            product.setName(request.getName());
+            product.setPrice(request.getPrice());
+            product.setColor(request.getColor());
+            product.setDescription(request.getDescription());
 
-        productRepository.update(product);
+            productRepository.update(product);
+        }
+        else{
+            throw new ProductException("Something went wrong while updating product.");
+        }
 
     }
 
