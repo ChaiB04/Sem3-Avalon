@@ -18,6 +18,19 @@ public class UserConverter {
                 .phonenumber(request.getPhonenumber()).build();
     }
 
+    public User loginUserRequestConvertToUser(UserLoginRequest request){
+        return User.builder().email(request.getEmail()).password(request.getPassword()).build();
+    }
+
+    public UserLoginGetUserResponse userConvertToUserLoginGetUserResponse(User user){
+        return UserLoginGetUserResponse.builder().id(user.getId()).email(user.getEmail())
+                .password(user.getPassword())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname()).country(user.getCountry()).city(user.getCity())
+                .street(user.getStreet()).housenumber(user.getHousenumber()).zipcode(user.getZipcode())
+                .phonenumber(user.getPhonenumber()).build();
+    }
+
     public CreateUserResponse userConvertToCreateUserResponse(User user){
         return CreateUserResponse.builder().id(user.getId()).build();
     }

@@ -23,7 +23,7 @@ public class FakeOrderRepositoryImpl implements OrderRepository {
     public Order findOrderById(Integer orderId) {
         return this.savedOrders
                 .stream()
-                .filter(order -> order.getId() == orderId)
+                .filter(order -> order.getId().equals(orderId))
                 .findFirst()
                 .orElse(null);
     }
@@ -45,12 +45,12 @@ public class FakeOrderRepositoryImpl implements OrderRepository {
     public List<Order> findAll(Integer userId) {
         return this.savedOrders
                 .stream()
-                .filter(order -> order.getUserId() == userId)
+                .filter(order -> order.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void deleteById(Integer orderId) {
-        this.savedOrders.removeIf(order -> order.getId() == orderId);
+        this.savedOrders.removeIf(order ->order.getId().equals(orderId));
     }
 }

@@ -35,6 +35,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("login")
+    public ResponseEntity<UserLoginGetUserResponse> LoginUser(@RequestBody UserLoginRequest request){
+
+        User user = userManagerUseCase.userLogin(request.getEmail(), request.getPassword());
+
+        UserLoginGetUserResponse response = converter.userConvertToUserLoginGetUserResponse(user);
+
+        return ResponseEntity.ok().body(response);
+    }
+
 
     @GetMapping("{userId}")
     public ResponseEntity<User> getUser(@PathVariable Integer userId){

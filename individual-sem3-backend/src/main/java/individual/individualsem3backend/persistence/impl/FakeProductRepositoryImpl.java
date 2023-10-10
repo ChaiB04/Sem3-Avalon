@@ -20,14 +20,14 @@ public class FakeProductRepositoryImpl implements ProductRepository {
     public boolean existsById(int productId) {
         return this.savedProducts
                 .stream()
-                .anyMatch(productEntity -> productEntity.getId() == productId);
+                .anyMatch(productEntity -> productEntity.getId().equals(productId));
     }
 
     @Override
     public Product findById(int productId) {
         return this.savedProducts
                 .stream()
-                .filter(productEntity -> productEntity.getId() == productId)
+                .filter(productEntity -> productEntity.getId().equals(productId))
                 .findFirst()
                 .orElse(null);
     }
@@ -54,6 +54,6 @@ public class FakeProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void deleteById(int productId) {
-        this.savedProducts.removeIf(product -> product.getId() == productId);
+        this.savedProducts.removeIf(product -> product.getId().equals(productId));
     }
 }

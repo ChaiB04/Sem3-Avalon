@@ -19,7 +19,7 @@ public class FakeUserRepositoryImpl implements UserRepository {
     }
 
     public void deleteById(int userId) {
-        this.savedUsers.removeIf(user -> user.getId() == userId);
+        this.savedUsers.removeIf(user -> user.getId().equals(userId));
     }
 
     public User findUserById(int userId){
@@ -48,7 +48,7 @@ public class FakeUserRepositoryImpl implements UserRepository {
         try{
             return this.savedUsers
                     .stream()
-                    .filter(user -> user.getEmail() == email)
+                    .filter(user -> user.getEmail().equals(email) )
                     .findFirst()
                     .orElse(null);
         }
@@ -61,9 +61,11 @@ public class FakeUserRepositoryImpl implements UserRepository {
       try{
           return this.savedUsers
                   .stream()
-                  .filter(user -> user.getEmail() == email && user.getPassword() == password)
+                  .filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password))
                   .findFirst()
-                  .orElse(null);
+                  .orElse(null); // Return null if no matching user is found
+
+
       }
       catch(Exception ex){
           throw new DatabaseException("User could not be found by credentials.");
