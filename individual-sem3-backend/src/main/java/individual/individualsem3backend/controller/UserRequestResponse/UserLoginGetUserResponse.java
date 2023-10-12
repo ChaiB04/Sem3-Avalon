@@ -14,15 +14,8 @@ public class UserLoginGetUserResponse {
     @NotBlank
     private String email;
     @NotBlank
-    private String password;
-    @NotBlank
     private String firstname;
     @NotBlank
     private String lastname;
-    private String street;
-    private Integer housenumber;
-    private String zipcode;
-    private String city;
-    private String country;
-    private String phonenumber;
+    private String accessToken;
 }

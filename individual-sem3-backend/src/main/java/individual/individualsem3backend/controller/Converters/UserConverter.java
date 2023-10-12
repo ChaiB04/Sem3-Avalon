@@ -24,11 +24,8 @@ public class UserConverter {
 
     public UserLoginGetUserResponse userConvertToUserLoginGetUserResponse(User user){
         return UserLoginGetUserResponse.builder().id(user.getId()).email(user.getEmail())
-                .password(user.getPassword())
                 .firstname(user.getFirstname())
-                .lastname(user.getLastname()).country(user.getCountry()).city(user.getCity())
-                .street(user.getStreet()).housenumber(user.getHousenumber()).zipcode(user.getZipcode())
-                .phonenumber(user.getPhonenumber()).build();
+                .lastname(user.getLastname()).build();
     }
 
     public CreateUserResponse userConvertToCreateUserResponse(User user){

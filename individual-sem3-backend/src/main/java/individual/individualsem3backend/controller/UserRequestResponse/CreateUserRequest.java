@@ -1,5 +1,6 @@
 package individual.individualsem3backend.controller.UserRequestResponse;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -7,9 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
+    @NotBlank
     private String firstname;
+    @NotBlank
     private String lastname;
     private String street;
     private Integer housenumber;
