@@ -1,22 +1,16 @@
 package individual.individualsem3backend.controller.ProductRequestResponse;
 
-import individual.individualsem3backend.domain.Bouquet;
-import individual.individualsem3backend.domain.Decoraction;
-import individual.individualsem3backend.domain.Flower;
 import individual.individualsem3backend.domain.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetAllProductsResponse {
-    private List<Flower> allFlowers;
-    private List<Decoraction> allDecorations;
-    private List<Bouquet> allBouquets;
+    private List<Product> allProducts;
 
 }

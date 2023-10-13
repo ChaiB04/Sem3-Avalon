@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface ProductRepository {
 
-    boolean existsByName(String productName);
+    boolean existsById(int productId);
 
-    Product findById(Integer productId);
+    Product findById(int productId);
 
     Product save(Product product);
 
     List<Product> findAll();
 
-    void deleteById(Integer productId);
+    void deleteById(int productId);
     void update(Product product);
 }
