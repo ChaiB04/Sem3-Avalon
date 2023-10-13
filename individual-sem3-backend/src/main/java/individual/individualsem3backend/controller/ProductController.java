@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
-@CrossOrigin
+//@CrossOrigin("http://localhost:5173/")
 public class ProductController {
     private final ProductManagerUseCase productManagerUseCase;
     private ProductConverter converter;

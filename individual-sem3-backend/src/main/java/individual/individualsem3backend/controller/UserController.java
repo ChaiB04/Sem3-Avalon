@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@CrossOrigin
+//@CrossOrigin("http://localhost:5173/")
 public class UserController {
     private UserManagerUseCase userManagerUseCase;
     private UserConverter converter;
