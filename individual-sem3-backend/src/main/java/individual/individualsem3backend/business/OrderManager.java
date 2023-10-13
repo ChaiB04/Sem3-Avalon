@@ -4,7 +4,7 @@ import individual.individualsem3backend.domain.Order;
 
 import java.util.*;
 
-public interface OrderManagerUseCase {
+public interface OrderManager {
     List<Order> getAllOrders(Integer userId);
 
     Optional<Order> findOrderById(Integer orderId);

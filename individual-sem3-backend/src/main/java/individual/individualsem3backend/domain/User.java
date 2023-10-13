@@ -1,5 +1,6 @@
 package individual.individualsem3backend.domain;
 
+import individual.individualsem3backend.domain.enumerations.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,4 +28,5 @@ public class User {
     private String city;
     private String country;
     private String phonenumber;
+    private Role role;
 }

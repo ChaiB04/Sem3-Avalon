@@ -1,5 +1,6 @@
 package individual.individualsem3backend.controller.UserRequestResponse;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,11 +12,8 @@ import lombok.*;
 public class UserLoginGetUserResponse {
     @NotNull
     private Integer id;
-    @NotBlank
+//    @NotBlank
+//    @Email(message = "Invalid email address")
     private String email;
-    @NotBlank
-    private String firstname;
-    @NotBlank
-    private String lastname;
     private String accessToken;
 }

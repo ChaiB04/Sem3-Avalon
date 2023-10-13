@@ -1,34 +1,27 @@
 package individual.individualsem3backend.business.impl;
 
-import individual.individualsem3backend.business.UserManagerUseCase;
+import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserManagerImpl implements UserManagerUseCase {
+public class UserManagerImpl implements UserManager {
         private UserRepository userRepository;
-
-    public User userLogin(String email, String password){
-        try{
-            if(!email.isEmpty() && !password.isEmpty()){
-                return userRepository.findByEmailAndPassword(email, password);
-            }
-        }
-        catch(Exception ex){
-            throw new UserException("Logging in went wrong.");
-        }
-        return null;
-    }
-
+    private final PasswordEncoder passwordEncoder;
 
     public User createUser(User newUser) {
         if(newUser != null){
+            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+
+            newUser.setPassword(encodedPassword);
+
             return userRepository.save(newUser);
         }
         else{

@@ -1,6 +1,6 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.business.ProductManagerUseCase;
+import individual.individualsem3backend.business.ProductManager;
 import individual.individualsem3backend.controller.Converters.ProductConverter;
 import individual.individualsem3backend.controller.ProductRequestResponse.*;
 import individual.individualsem3backend.domain.Product;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 //@CrossOrigin("http://localhost:5173/")
 public class ProductController {
-    private final ProductManagerUseCase productManagerUseCase;
+    private final ProductManager productManagerUseCase;
     private ProductConverter converter;
 
     @GetMapping

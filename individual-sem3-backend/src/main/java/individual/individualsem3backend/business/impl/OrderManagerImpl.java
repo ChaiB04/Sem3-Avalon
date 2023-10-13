@@ -1,6 +1,6 @@
 package individual.individualsem3backend.business.impl;
 
-import individual.individualsem3backend.business.OrderManagerUseCase;
+import individual.individualsem3backend.business.OrderManager;
 import individual.individualsem3backend.business.exception.OrderException;
 import individual.individualsem3backend.domain.Order;
 import individual.individualsem3backend.persistence.OrderRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class OrderManagerImpl implements OrderManagerUseCase {
+public class OrderManagerImpl implements OrderManager {
 
     private OrderRepository orderRepository;
 

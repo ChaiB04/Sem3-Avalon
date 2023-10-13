@@ -22,11 +22,11 @@ public class UserConverter {
         return User.builder().email(request.getEmail()).password(request.getPassword()).build();
     }
 
-    public UserLoginGetUserResponse userConvertToUserLoginGetUserResponse(User user){
-        return UserLoginGetUserResponse.builder().id(user.getId()).email(user.getEmail())
-                .firstname(user.getFirstname())
-                .lastname(user.getLastname()).build();
-    }
+//    public UserLoginGetUserResponse userConvertToUserLoginGetUserResponse(User user){
+//        return UserLoginGetUserResponse.builder().id(user.getId()).email(user.getEmail())
+//                .firstname(user.getFirstname())
+//                .lastname(user.getLastname()).build();
+//    }
 
     public CreateUserResponse userConvertToCreateUserResponse(User user){
         return CreateUserResponse.builder().id(user.getId()).build();

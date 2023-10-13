@@ -1,6 +1,6 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.business.OrderManagerUseCase;
+import individual.individualsem3backend.business.OrderManager;
 import individual.individualsem3backend.controller.Converters.OrderConverter;
 import individual.individualsem3backend.controller.OrderRequestRespone.*;
 import individual.individualsem3backend.domain.Order;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 //@CrossOrigin("http://localhost:5173/")
 public class OrderController {
-    private OrderManagerUseCase orderManagerUseCase;
+    private OrderManager orderManagerUseCase;
 
     private OrderConverter converter;
 

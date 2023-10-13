@@ -1,6 +1,6 @@
 package individual.individualsem3backend.business.impl;
 
-import individual.individualsem3backend.business.ProductManagerUseCase;
+import individual.individualsem3backend.business.ProductManager;
 import individual.individualsem3backend.business.exception.ProductException;
 import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.ProductRepository;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ProductManagerImpl implements ProductManagerUseCase {
+public class ProductManagerImpl implements ProductManager {
 
     private ProductRepository productRepository;
 

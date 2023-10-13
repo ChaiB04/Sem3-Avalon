@@ -55,41 +55,6 @@ public class UserManagerImplTest {
         assertThrows(UserException.class, () -> userManager.createUser(null));
     }
 
-    @Test
-    public void userLogsIn_Successfully_ReturnsUser(){
-        String email = "Neuvi@gmail.com";
-        String password = "idontlikefurina";
-
-        User expectedUser = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
-                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
-                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
-
-        when(userRepositoryMock.findByEmailAndPassword(email, password)).thenReturn(expectedUser);
-
-        User actualResult = userManager.userLogin(email, password);
-
-        verify(userRepositoryMock).findByEmailAndPassword(email, password);
-
-        assertEquals(expectedUser, actualResult);
-    }
-
-    @Test
-    public void userLogsIn_WithNoInput_ReturnsUserException(){
-        assertThrows(UserException.class, () -> userManager.userLogin(null, null));
-    }
-    @Test
-    public void userLogsIn_Unsuccessfully_ReturnsNull(){
-        String email = "Neuvi@gmail.com";
-        String password = "idontlikefurina";
-
-        when(userRepositoryMock.findByEmailAndPassword(email, password)).thenReturn(null);
-
-        User actualResult = userManager.userLogin(email, password);
-
-        verify(userRepositoryMock).findByEmailAndPassword(email, password);
-
-        assertEquals(null, actualResult);
-    }
 
     @Test
     public void getUser_Successfully_ReturnsUser(){

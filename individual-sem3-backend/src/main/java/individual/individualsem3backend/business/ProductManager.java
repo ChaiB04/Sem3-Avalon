@@ -4,7 +4,7 @@ import individual.individualsem3backend.domain.Product;
 
 import java.util.*;
 
-public interface ProductManagerUseCase {
+public interface ProductManager {
     List<Product> getProducts();
     Product createProduct(Product request);
     void deleteProduct(int productId);
