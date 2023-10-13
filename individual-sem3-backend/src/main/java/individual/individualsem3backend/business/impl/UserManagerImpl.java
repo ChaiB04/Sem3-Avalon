@@ -9,13 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class UserManagerImpl implements UserManager {
         private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+    @Override
     public User createUser(User newUser) {
         if(newUser != null){
             String encodedPassword = passwordEncoder.encode(newUser.getPassword());
