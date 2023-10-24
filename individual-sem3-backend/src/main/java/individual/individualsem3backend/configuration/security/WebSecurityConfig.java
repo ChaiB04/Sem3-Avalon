@@ -1,6 +1,7 @@
-package individual.individualsem3backend.configuration.security.token;
+package individual.individualsem3backend.configuration.security;
 
 import individual.individualsem3backend.configuration.security.auth.AuthenticationRequestFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -23,7 +24,7 @@ public class WebSecurityConfig {
             "/swagger-ui.html",
             "/swagger-ui/**"};
 
-    //@Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
                                            AuthenticationEntryPoint authenticationEntryPoint,
                                            AuthenticationRequestFilter authenticationRequestFilter) throws Exception {
@@ -34,7 +35,11 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()                 // CORS pre-flight requests should be public
-                                .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a student and login are public
+                                .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
+                                .requestMatchers(HttpMethod.GET, "/users/{userId}").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/users/{userId}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/users/{userId}").permitAll()
+                                //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
                 )

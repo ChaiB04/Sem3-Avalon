@@ -3,6 +3,7 @@ package individual.individualsem3backend.business.impl;
 import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
+import individual.individualsem3backend.domain.enumerations.Role;
 import individual.individualsem3backend.persistence.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ public class UserManagerImpl implements UserManager {
     @Override
     public User createUser(User newUser) {
         if(newUser != null){
+            newUser.setRole(Role.Customer);
             String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 
             newUser.setPassword(encodedPassword);

@@ -1,8 +1,7 @@
 package individual.individualsem3backend.business;
 
-import individual.individualsem3backend.controller.UserRequestResponse.UserLoginGetUserResponse;
-import individual.individualsem3backend.domain.User;
+import individual.individualsem3backend.controller.UserRequestResponse.UserLoginResponse;
 
 public interface LoginManager {
-    UserLoginGetUserResponse userLogin(String email, String password);
+    UserLoginResponse userLogin(String email, String password);
 }

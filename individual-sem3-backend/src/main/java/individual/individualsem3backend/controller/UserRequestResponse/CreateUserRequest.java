@@ -1,5 +1,6 @@
 package individual.individualsem3backend.controller.UserRequestResponse;
 
+import individual.individualsem3backend.domain.enumerations.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

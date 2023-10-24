@@ -26,9 +26,11 @@ public class UserController {
         User user = converter.createUserRequestConvertToUser(request);
 
         CreateUserResponse response = converter.userConvertToCreateUserResponse(userManagerUseCase.createUser(user));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @RolesAllowed({"Customer", "Administrator"})
+
+    @RolesAllowed({"Administrator"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);
@@ -36,14 +38,10 @@ public class UserController {
     }
 
 
-    @RolesAllowed({"Customer", "Administrator"})
     @GetMapping("{userId}")
     public ResponseEntity<User> getUser(@PathVariable Integer userId){
         final Optional<User> UserOptional = userManagerUseCase.getUser(userId);
-        if (UserOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(UserOptional.get());
+        return UserOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @RolesAllowed({"Customer", "Administrator"})
