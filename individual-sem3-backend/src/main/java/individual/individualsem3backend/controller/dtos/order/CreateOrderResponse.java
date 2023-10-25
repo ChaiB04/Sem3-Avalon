@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.OrderRequestRespone;
+package individual.individualsem3backend.controller.dtos.order;
 import lombok.*;
 
 @Data

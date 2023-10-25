@@ -37,8 +37,8 @@ public class OrderManagerImpl implements OrderManager {
 
         if(neworder != null){
             Order order = Order.builder().userId(neworder.getUserId()).products(neworder.getProducts())
-                    .bundle_or_not(neworder.isBundle_or_not())
-                    .date_of_purchase(neworder.getDate_of_purchase()).build();
+                    .isBundled(neworder.isBundled())
+                    .dateOfPurchase(neworder.getDateOfPurchase()).build();
 
             return orderRepository.save(order);
         }
@@ -62,8 +62,8 @@ public class OrderManagerImpl implements OrderManager {
                 Order oldOrder = orderRepository.findOrderById(updatedOrder.getId());
 
                 oldOrder.setProducts(updatedOrder.getProducts());
-                oldOrder.setBundle_or_not(updatedOrder.isBundle_or_not());
-                oldOrder.setDate_of_purchase(updatedOrder.getDate_of_purchase());
+                oldOrder.setBundled(updatedOrder.isBundled());
+                oldOrder.setDateOfPurchase(updatedOrder.getDateOfPurchase());
 
                 orderRepository.update(oldOrder);
 

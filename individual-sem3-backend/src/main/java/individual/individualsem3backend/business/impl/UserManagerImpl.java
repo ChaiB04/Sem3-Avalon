@@ -20,7 +20,7 @@ public class UserManagerImpl implements UserManager {
     @Override
     public User createUser(User newUser) {
         if(newUser != null){
-            newUser.setRole(Role.Customer);
+            newUser.setRole(Role.CUSTOMER);
             String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 
             newUser.setPassword(encodedPassword);

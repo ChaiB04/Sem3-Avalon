@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.UserRequestResponse;
+package individual.individualsem3backend.controller.dtos.user;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

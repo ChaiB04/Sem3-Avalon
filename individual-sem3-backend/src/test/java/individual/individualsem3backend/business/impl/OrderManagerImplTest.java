@@ -31,9 +31,9 @@ public class OrderManagerImplTest {
         Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
                 .price(324.2).color("Pink").build();
 
-        Order order1 = Order.builder().id(1).userId(1).products(List.of(product1)).date_of_purchase(Date.valueOf("2023-01-01")).bundle_or_not(false).build();
+        Order order1 = Order.builder().id(1).userId(1).products(List.of(product1)).dateOfPurchase(Date.valueOf("2023-01-01")).isBundled(false).build();
 
-        Order order2 = Order.builder().id(2).userId(1).products(List.of(product1, product2)).date_of_purchase(Date.valueOf("2023-11-31")).bundle_or_not(true).build();
+        Order order2 = Order.builder().id(2).userId(1).products(List.of(product1, product2)).dateOfPurchase(Date.valueOf("2023-11-31")).isBundled(true).build();
 
         when(orderRepositoryMock.findAll(1)).thenReturn(List.of(order1, order2));
 
@@ -64,7 +64,7 @@ public class OrderManagerImplTest {
         Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
                 .price(324.2).color("Pink").build();
 
-        Order order2 = Order.builder().id(2).userId(1).products(List.of(product1, product2)).date_of_purchase(Date.valueOf("2023-11-31")).bundle_or_not(true).build();
+        Order order2 = Order.builder().id(2).userId(1).products(List.of(product1, product2)).dateOfPurchase(Date.valueOf("2023-11-31")).isBundled(true).build();
 
         when(orderRepositoryMock.findOrderById(order2.getId())).thenReturn(order2);
 
@@ -84,9 +84,9 @@ public class OrderManagerImplTest {
         Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
                 .price(324.2).color("Pink").build();
 
-        Order order2 = Order.builder().userId(1).products(List.of(product1, product2)).date_of_purchase(Date.valueOf("2023-11-31")).bundle_or_not(true).build();
+        Order order2 = Order.builder().userId(1).products(List.of(product1, product2)).dateOfPurchase(Date.valueOf("2023-11-31")).isBundled(true).build();
 
-        Order returnOrder = Order.builder().id(1).userId(1).products(List.of(product1, product2)).date_of_purchase(Date.valueOf("2023-11-31")).bundle_or_not(true).build();
+        Order returnOrder = Order.builder().id(1).userId(1).products(List.of(product1, product2)).dateOfPurchase(Date.valueOf("2023-11-31")).isBundled(true).build();
 
         when(orderRepositoryMock.save(order2)).thenReturn(returnOrder);
 
@@ -122,9 +122,9 @@ public class OrderManagerImplTest {
         Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
                 .price(324.2).color("Pink").build();
 
-        Order order1 = Order.builder().id(1).userId(1).products(List.of(product1)).date_of_purchase(Date.valueOf("2023-01-01")).bundle_or_not(false).build();
+        Order order1 = Order.builder().id(1).userId(1).products(List.of(product1)).dateOfPurchase(Date.valueOf("2023-01-01")).isBundled(false).build();
 
-        Order order2 = Order.builder().id(1).userId(1).products(List.of(product1, product2)).date_of_purchase(Date.valueOf("2023-11-31")).bundle_or_not(true).build();
+        Order order2 = Order.builder().id(1).userId(1).products(List.of(product1, product2)).dateOfPurchase(Date.valueOf("2023-11-31")).isBundled(true).build();
 
         when(orderRepositoryMock.findOrderById(1)).thenReturn(order1);
 
@@ -148,7 +148,7 @@ public class OrderManagerImplTest {
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
-        Order order1 = Order.builder().id(-1).userId(1).products(List.of(product1)).date_of_purchase(Date.valueOf("2023-01-01")).bundle_or_not(false).build();
+        Order order1 = Order.builder().id(-1).userId(1).products(List.of(product1)).dateOfPurchase(Date.valueOf("2023-01-01")).isBundled(false).build();
 
 
         assertThrows(OrderException.class, () -> orderManager.update(order1));

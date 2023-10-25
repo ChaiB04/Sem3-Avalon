@@ -1,8 +1,11 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.OrderManager;
-import individual.individualsem3backend.controller.Converters.OrderConverter;
-import individual.individualsem3backend.controller.OrderRequestRespone.*;
+import individual.individualsem3backend.controller.converters.OrderConverter;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderRequest;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderResponse;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersRequest;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersResponse;
 import individual.individualsem3backend.domain.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
-//@CrossOrigin("http://localhost:5173/")
 public class OrderController {
     private OrderManager orderManagerUseCase;
 

@@ -1,6 +1,9 @@
-package individual.individualsem3backend.controller.Converters;
+package individual.individualsem3backend.controller.converters;
 
-import individual.individualsem3backend.controller.ProductRequestResponse.*;
+import individual.individualsem3backend.controller.dtos.product.CreateProductRequest;
+import individual.individualsem3backend.controller.dtos.product.CreateProductResponse;
+import individual.individualsem3backend.controller.dtos.product.GetAllProductsResponse;
+import individual.individualsem3backend.controller.dtos.product.UpdateProductRequest;
 import individual.individualsem3backend.domain.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

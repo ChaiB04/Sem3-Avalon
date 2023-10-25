@@ -1,8 +1,10 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.UserManager;
-import individual.individualsem3backend.controller.Converters.UserConverter;
-import individual.individualsem3backend.controller.UserRequestResponse.*;
+import individual.individualsem3backend.controller.converters.UserConverter;
+import individual.individualsem3backend.controller.dtos.user.CreateUserRequest;
+import individual.individualsem3backend.controller.dtos.user.CreateUserResponse;
+import individual.individualsem3backend.controller.dtos.user.UpdateUserRequest;
 import individual.individualsem3backend.domain.User;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-//@CrossOrigin("http://localhost:5173/")
 public class UserController {
     private UserManager userManagerUseCase;
     private UserConverter converter;
@@ -30,7 +31,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @RolesAllowed({"Administrator"})
+    @RolesAllowed({"ADMINISTRATOR"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);
@@ -44,7 +45,7 @@ public class UserController {
         return UserOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @RolesAllowed({"Customer", "Administrator"})
+    @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @PutMapping("{userId}")
     public ResponseEntity<Void> updateUser(@PathVariable("userId") Integer userId,
                                               @RequestBody UpdateUserRequest request)

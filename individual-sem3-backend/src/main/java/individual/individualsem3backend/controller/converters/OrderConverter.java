@@ -1,6 +1,9 @@
-package individual.individualsem3backend.controller.Converters;
+package individual.individualsem3backend.controller.converters;
 
-import individual.individualsem3backend.controller.OrderRequestRespone.*;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderRequest;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderResponse;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersRequest;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersResponse;
 import individual.individualsem3backend.domain.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +15,8 @@ import java.util.List;
 public class OrderConverter {
     public Order createOrderRequestConvertToOrder(CreateOrderRequest request){
         return Order.builder().userId(request.getUserId())
-                .bundle_or_not(request.isBundle_or_not()).products(request.getProducts())
-                .date_of_purchase(request.getDate_of_purchase()).build();
+                .isBundled(request.isBundle_or_not()).products(request.getProducts())
+                .dateOfPurchase(request.getDate_of_purchase()).build();
     }
 
     public CreateOrderResponse orderConvertToCreateOrderResponse(Order order){

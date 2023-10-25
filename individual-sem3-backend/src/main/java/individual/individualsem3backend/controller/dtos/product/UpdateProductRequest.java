@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.ProductRequestResponse;
+package individual.individualsem3backend.controller.dtos.product;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateProductRequest {
+public class UpdateProductRequest {
     private int id;
     @NotBlank
     private String name;

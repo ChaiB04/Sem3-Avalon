@@ -4,7 +4,7 @@ import individual.individualsem3backend.business.LoginManager;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
 import individual.individualsem3backend.configuration.security.token.impl.AccessTokenImpl;
-import individual.individualsem3backend.controller.UserRequestResponse.UserLoginResponse;
+import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.UserRepository;
 import lombok.AllArgsConstructor;

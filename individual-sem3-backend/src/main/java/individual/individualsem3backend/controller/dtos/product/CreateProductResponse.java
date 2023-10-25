@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.ProductRequestResponse;
+package individual.individualsem3backend.controller.dtos.product;
 
 import lombok.*;
 

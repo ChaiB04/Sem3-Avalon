@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class FakeOrderRepositoryImpl implements OrderRepository {
@@ -46,7 +45,7 @@ public class FakeOrderRepositoryImpl implements OrderRepository {
         return this.savedOrders
                 .stream()
                 .filter(order -> order.getUserId().equals(userId))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

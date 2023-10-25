@@ -1,9 +1,9 @@
 package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.LoginManager;
-import individual.individualsem3backend.controller.Converters.UserConverter;
-import individual.individualsem3backend.controller.UserRequestResponse.UserLoginResponse;
-import individual.individualsem3backend.controller.UserRequestResponse.UserLoginRequest;
+import individual.individualsem3backend.controller.converters.UserConverter;
+import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
+import individual.individualsem3backend.controller.dtos.user.UserLoginRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +21,8 @@ public class LoginController {
 
 
     @PostMapping()
-    public ResponseEntity<UserLoginResponse> LoginUser(@RequestBody UserLoginRequest request){
+    public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest request){
         UserLoginResponse user = loginManager.userLogin(request.getEmail(), request.getPassword());
-
-        //UserLoginGetUserResponse response = converter.userConvertToUserLoginGetUserResponse(user);
 
         return ResponseEntity.ok().body(user);
     }

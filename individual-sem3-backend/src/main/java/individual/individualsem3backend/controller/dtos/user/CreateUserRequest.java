@@ -1,16 +1,14 @@
-package individual.individualsem3backend.controller.UserRequestResponse;
+package individual.individualsem3backend.controller.dtos.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserRequest {
-    @NotNull
-    private Integer id;
+public class CreateUserRequest {
     @NotBlank
     @Email(message = "Invalid email address")
     private String email;
