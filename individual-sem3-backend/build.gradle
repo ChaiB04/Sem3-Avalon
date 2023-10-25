@@ -25,7 +25,6 @@ repositories {
 sonarqube {
     properties {
         property "sonar.projectKey", "Avalon_Sem_3_individual"
-        property "sonar.projectName", "individual-sem3-backend"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.token", "sqp_efc30d0eefd097c8e80052dcb7b9d907e838cfcf"
         property "sonar.scm.disabled", true
