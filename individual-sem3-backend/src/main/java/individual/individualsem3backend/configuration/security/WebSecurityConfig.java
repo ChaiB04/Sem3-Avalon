@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class WebSecurityConfig {
 
+    private final String url_users= "/users/{userId}";
     private static final String[] SWAGGER_UI_RESOURCES = {
             "/v3/api-docs/**",
             "/swagger-resources/**",
@@ -36,9 +37,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()                 // CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
-                                .requestMatchers(HttpMethod.GET, "/users/{userId}").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/users/{userId}").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/users/{userId}").permitAll()
+                                .requestMatchers(HttpMethod.GET, url_users).permitAll()
+                                .requestMatchers(HttpMethod.DELETE, url_users).permitAll()
+                                .requestMatchers(HttpMethod.PUT, url_users).permitAll()
                                 //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour

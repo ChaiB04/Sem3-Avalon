@@ -58,7 +58,7 @@ public class OrderManagerImpl implements OrderManager {
 
     public Order update(Order updatedOrder){
         try{
-            if(updatedOrder.getId() > -1 && updatedOrder != null){
+            if(updatedOrder.getId() > -1){
                 Order oldOrder = orderRepository.findOrderById(updatedOrder.getId());
 
                 oldOrder.setProducts(updatedOrder.getProducts());
