@@ -1,6 +1,6 @@
 package individual.individualsem3backend.controller.dtos.user;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -8,10 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserLoginResponse {
-    @NotNull
-    private Integer id;
-//    @NotBlank
-//    @Email(message = "Invalid email address")
-    private String email;
+    @NotBlank
     private String accessToken;
 }

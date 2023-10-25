@@ -29,7 +29,7 @@ public class LoginManagerImpl implements LoginManager {
             }
 
             String accessToken = generateAccessToken(user);
-            return UserLoginResponse.builder().id(user.getId()).accessToken(accessToken).email(user.getEmail()).build();
+            return UserLoginResponse.builder().accessToken(accessToken).build();
         }
         else{
             throw new UserException("Invalid Credentials");
