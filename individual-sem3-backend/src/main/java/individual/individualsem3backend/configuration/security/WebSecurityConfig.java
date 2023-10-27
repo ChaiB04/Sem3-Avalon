@@ -42,6 +42,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, url_users).permitAll()
                                 //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
+                                //who gets
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))

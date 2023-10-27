@@ -20,7 +20,7 @@ public class LoginManagerImpl implements LoginManager {
     private PasswordEncoder passwordEncoder;
     private AccessTokenEncoderDecoder accessTokenEncoderDecoder;
 
-    public UserLoginResponse userLogin(String email, String password){
+    public String userLogin(String email, String password){
         if(!email.isEmpty() && !password.isEmpty()){
             User user = userRepository.findByEmail(email);
 
@@ -28,8 +28,7 @@ public class LoginManagerImpl implements LoginManager {
                 throw new UserException("Invalid Credentials");
             }
 
-            String accessToken = generateAccessToken(user);
-            return UserLoginResponse.builder().accessToken(accessToken).build();
+            return generateAccessToken(user);
         }
         else{
             throw new UserException("Invalid Credentials");

@@ -1,5 +1,6 @@
 package individual.individualsem3backend.persistence.impl;
 
+import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.UserRepository;
 import individual.individualsem3backend.persistence.exception.DatabaseException;
@@ -28,12 +29,15 @@ public class FakeUserRepositoryImpl implements UserRepository {
                 .filter(user -> user.getId() == userId)
                 .findFirst();
 
-          if(getUser != null){
-              return getUser.get();
+          User user;
+          if(getUser.isPresent()){
+              user = getUser.get();
           }
           else{
               throw new DatabaseException("User not found.");
           }
+
+        return user;
     }
     public void update(User user){
         try{
