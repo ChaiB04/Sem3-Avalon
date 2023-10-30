@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/login")
 @AllArgsConstructor
-@CrossOrigin
 public class LoginController {
 
     private LoginManager loginManager;

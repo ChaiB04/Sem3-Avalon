@@ -24,8 +24,13 @@ public class LoginManagerImpl implements LoginManager {
         if(!email.isEmpty() && !password.isEmpty()){
             User user = userRepository.findByEmail(email);
 
-            if(!matchesPassword(password, user.getPassword())){
-                throw new UserException("Invalid Credentials");
+            if(user != null){
+                if(!matchesPassword(password, user.getPassword())){
+                    throw new UserException("Invalid Credentials");
+                }
+            }
+            else{
+                throw new UserException("Couldn't find user.");
             }
 
             return generateAccessToken(user);
