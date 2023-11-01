@@ -7,7 +7,7 @@ import java.util.*;
 public interface OrderManager {
     List<Order> getAllOrders(Integer userId);
 
-    Optional<Order> findOrderById(Integer orderId);
+    Order findOrderById(Integer orderId);
 
     Order create(Order neworder);
 

@@ -1,12 +1,14 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.LoginManager;
+import individual.individualsem3backend.business.converters.UserEntityConverter;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
 import individual.individualsem3backend.configuration.security.token.impl.AccessTokenImpl;
 import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.UserRepository;
+import individual.individualsem3backend.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,11 @@ public class LoginManagerImpl implements LoginManager {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private AccessTokenEncoderDecoder accessTokenEncoderDecoder;
+    private UserEntityConverter converter;
 
     public String userLogin(String email, String password){
         if(!email.isEmpty() && !password.isEmpty()){
-            User user = userRepository.findByEmail(email);
+            User user = converter.userEntityConvertedToUser(userRepository.findByEmail(email));
 
             if(user != null){
                 if(!matchesPassword(password, user.getPassword())){

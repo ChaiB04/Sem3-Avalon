@@ -1,6 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.UserManager;
+import individual.individualsem3backend.business.converters.UserEntityConverter;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.domain.enumerations.Role;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UserManagerImpl implements UserManager {
         private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private UserEntityConverter converter;
 
 
     @Override
@@ -25,16 +27,18 @@ public class UserManagerImpl implements UserManager {
 
             newUser.setPassword(encodedPassword);
 
-            return userRepository.save(newUser);
+            return converter.userEntityConvertedToUser(userRepository.save(converter.userConvertedToUserEntity(newUser)));
         }
         else{
             throw new UserException("Could not create user.");
         }
     }
+
+    //change so it always returns a nonnullable
     @Override
     public Optional<User> getUser(int userId) {
         if(userId > -1){
-            return Optional.ofNullable(userRepository.findUserById(userId));
+            return Optional.ofNullable(converter.userEntityConvertedToUser(userRepository.findById(userId).get()));
         }
         else{
             throw new UserException("Could not find user id.");
@@ -54,7 +58,7 @@ public class UserManagerImpl implements UserManager {
         try{
             if(editedUser != null){
                 //get user from database
-                User user = userRepository.findUserById(editedUser.getId());
+                User user =converter.userEntityConvertedToUser( userRepository.findById(editedUser.getId()).get());
 
                 //change the information
                 user.setEmail(editedUser.getEmail());
@@ -69,7 +73,7 @@ public class UserManagerImpl implements UserManager {
                 user.setPhonenumber(editedUser.getPhonenumber());
 
                 //save it again
-                userRepository.update(user);
+                userRepository.save(converter.userConvertedToUserEntity(user));
             }
             else{
                 throw new UserException("No user available to update to.");

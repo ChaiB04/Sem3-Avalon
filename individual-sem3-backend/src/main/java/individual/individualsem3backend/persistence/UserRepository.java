@@ -1,17 +1,11 @@
 package individual.individualsem3backend.persistence;
 
 import individual.individualsem3backend.domain.User;
+import individual.individualsem3backend.persistence.entity.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-    void update(User user);
-    User findByEmail(String email);
-    void deleteById(int userId);
-
-    User findUserById(int userId);
-
-    User findByEmailAndPassword(String email, String password);
-
-    User save(User user);
+    UserEntity findByEmail(String email);
 
 }

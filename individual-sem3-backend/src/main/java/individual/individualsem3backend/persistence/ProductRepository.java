@@ -1,19 +1,11 @@
 package individual.individualsem3backend.persistence;
 
 import individual.individualsem3backend.domain.Product;
+import individual.individualsem3backend.persistence.entity.ProductEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProductRepository {
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
-    boolean existsById(int productId);
-
-    Product findById(int productId);
-
-    Product save(Product product);
-
-    List<Product> findAll();
-
-    void deleteById(int productId);
-    void update(Product product);
 }

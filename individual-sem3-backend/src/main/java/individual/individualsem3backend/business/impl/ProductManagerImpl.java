@@ -1,6 +1,7 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.ProductManager;
+import individual.individualsem3backend.business.converters.ProductEntityConverter;
 import individual.individualsem3backend.business.exception.ProductException;
 import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.ProductRepository;
@@ -18,7 +19,7 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public List<Product>  getProducts() {
         try{
-            return productRepository.findAll();
+            return ProductEntityConverter.listOfProductEntitiesConvertedToListOfProducts(productRepository.findAll());
         }
         catch(Exception ex){
             throw new ProductException("Something went wrong with getting all the products.");
@@ -35,7 +36,7 @@ public class ProductManagerImpl implements ProductManager {
                     .color(request.getColor())
                     .build();
 
-            return productRepository.save(newProduct);
+            return ProductEntityConverter.productEntityConvertedToProduct(productRepository.save(ProductEntityConverter.productConvertedToProductEntity(newProduct)));
         }
         else{
             throw new ProductException("Something went wrong while creating product.");
@@ -53,10 +54,11 @@ public class ProductManagerImpl implements ProductManager {
         }
     }
 
+    //change so it checks if its null or not
     @Override
     public Optional<Product> getProduct(int productId) {
        if(productId > -1){
-           return Optional.ofNullable(productRepository.findById(productId));
+           return Optional.ofNullable(ProductEntityConverter.productEntityConvertedToProduct(productRepository.findById(productId).get()));
        }
        else{
            throw new ProductException("Cannot find product with negative id.");
@@ -66,14 +68,14 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public void updateProduct(Product request) {
         if(request != null && request.getId() > -1){
-            Product product = productRepository.findById(request.getId());
+            Product product = ProductEntityConverter.productEntityConvertedToProduct(productRepository.findById(request.getId()).get());
 
             product.setName(request.getName());
             product.setPrice(request.getPrice());
             product.setColor(request.getColor());
             product.setDescription(request.getDescription());
 
-            productRepository.update(product);
+            productRepository.save(ProductEntityConverter.productConvertedToProductEntity(product));
         }
         else{
             throw new ProductException("Something went wrong while updating product.");

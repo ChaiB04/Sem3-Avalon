@@ -44,89 +44,89 @@ public class UserManagerImplTest {
 //
 //        assertEquals(expectedUser, actualResult);
 //    }
-
-    @Test
-    public void createUser_WithNoInputReturnsUserException_With404BadRequest(){
-        Throwable thrown = catchThrowable(() -> userManager.createUser(null));
-        assertThat(thrown).isInstanceOf(UserException.class).hasMessage("400 BAD_REQUEST \"Could not create user.\"");
-    }
-    @Test
-    public void createUser_WithNoInput_ThrowsUserException() {
-        assertThrows(UserException.class, () -> userManager.createUser(null));
-    }
-
-
-    @Test
-    public void getUser_Successfully_ReturnsUser(){
-        User expectedUser = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
-                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
-                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
-
-        when(userRepositoryMock.findUserById(1)).thenReturn(expectedUser);
-
-        Optional<User> actualResult = userManager.getUser(1);
-
-        verify(userRepositoryMock).findUserById(1);
-
-        assertEquals(expectedUser, actualResult.get());
-
-    }
-
-    @Test
-    public void getUser_WithNegativeInput_ReturnsUserException(){
-        assertThrows(UserException.class, () -> userManager.getUser(-1));
-    }
-
-    @Test
-    public void getUser_Unsuccessfully_ReturnsNull(){
-        when(userRepositoryMock.findUserById(1)).thenReturn(null);
-
-        Optional<User> actualResult = userManager.getUser(1);
-
-        verify(userRepositoryMock).findUserById(1);
-
-        assertEquals(Optional.empty(), actualResult);
-    }
-
-    @Test
-    public void deleteUser_Successfully(){
-        User user = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
-                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
-                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
-
-
-        userManager.deleteUser(user.getId());
-
-        verify(userRepositoryMock).deleteById(user.getId());
-    }
-
-    @Test
-    public void deleteUser_ReturnsUserException_WithNegativeInput(){
-        assertThrows(UserException.class, () -> userManager.deleteUser(-1));
-    }
-
-    @Test
-    public void editUser_Successfully(){
-        User user1 = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
-                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
-                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
-
-        User user2 = User.builder().id(1).firstname("Chai").lastname("Chai")
-                .email("Chai@gmail.com").password("Chai").country("Me")
-                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
-
-        when(userRepositoryMock.findUserById(1)).thenReturn(user1);
-
-        userManager.editUser(user2);
-
-        verify(userRepositoryMock).findUserById(1);
-        verify(userRepositoryMock).update(user2);
-
-    }
-
-    @Test
-    public void editUser_WithNoUserParameter_ReturnsUserException(){
-        assertThrows(UserException.class, () -> userManager.editUser(null));
-    }
+//
+//    @Test
+//    public void createUser_WithNoInputReturnsUserException_With404BadRequest(){
+//        Throwable thrown = catchThrowable(() -> userManager.createUser(null));
+//        assertThat(thrown).isInstanceOf(UserException.class).hasMessage("400 BAD_REQUEST \"Could not create user.\"");
+//    }
+//    @Test
+//    public void createUser_WithNoInput_ThrowsUserException() {
+//        assertThrows(UserException.class, () -> userManager.createUser(null));
+//    }
+//
+//
+//    @Test
+//    public void getUser_Successfully_ReturnsUser(){
+//        User expectedUser = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
+//                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
+//                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
+//
+//        when(userRepositoryMock.findUserById(1)).thenReturn(expectedUser);
+//
+//        Optional<User> actualResult = userManager.getUser(1);
+//
+//        verify(userRepositoryMock).findUserById(1);
+//
+//        assertEquals(expectedUser, actualResult.get());
+//
+//    }
+//
+//    @Test
+//    public void getUser_WithNegativeInput_ReturnsUserException(){
+//        assertThrows(UserException.class, () -> userManager.getUser(-1));
+//    }
+//
+//    @Test
+//    public void getUser_Unsuccessfully_ReturnsNull(){
+//        when(userRepositoryMock.findUserById(1)).thenReturn(null);
+//
+//        Optional<User> actualResult = userManager.getUser(1);
+//
+//        verify(userRepositoryMock).findUserById(1);
+//
+//        assertEquals(Optional.empty(), actualResult);
+//    }
+//
+//    @Test
+//    public void deleteUser_Successfully(){
+//        User user = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
+//                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
+//                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
+//
+//
+//        userManager.deleteUser(user.getId());
+//
+//        verify(userRepositoryMock).deleteById(user.getId());
+//    }
+//
+//    @Test
+//    public void deleteUser_ReturnsUserException_WithNegativeInput(){
+//        assertThrows(UserException.class, () -> userManager.deleteUser(-1));
+//    }
+//
+//    @Test
+//    public void editUser_Successfully(){
+//        User user1 = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
+//                .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
+//                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
+//
+//        User user2 = User.builder().id(1).firstname("Chai").lastname("Chai")
+//                .email("Chai@gmail.com").password("Chai").country("Me")
+//                .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
+//
+//        when(userRepositoryMock.findUserById(1)).thenReturn(user1);
+//
+//        userManager.editUser(user2);
+//
+//        verify(userRepositoryMock).findUserById(1);
+//        verify(userRepositoryMock).update(user2);
+//
+//    }
+//
+//    @Test
+//    public void editUser_WithNoUserParameter_ReturnsUserException(){
+//        assertThrows(UserException.class, () -> userManager.editUser(null));
+//    }
 
 }

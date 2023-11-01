@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @RolesAllowed({"ADMINISTRATOR"})
+    //@RolesAllowed({"ADMINISTRATOR"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);

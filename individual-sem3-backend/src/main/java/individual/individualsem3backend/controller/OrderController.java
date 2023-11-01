@@ -51,10 +51,10 @@ public class OrderController {
 
     @GetMapping("{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable Integer orderId){
-        Optional<Order> orderOptional = orderManagerUseCase.findOrderById(orderId);
-        if (orderOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(orderOptional.get());
+        Order orderOptional = orderManagerUseCase.findOrderById(orderId);
+//        if (orderOptional.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+        return ResponseEntity.ok().body(orderOptional);
     }
 }

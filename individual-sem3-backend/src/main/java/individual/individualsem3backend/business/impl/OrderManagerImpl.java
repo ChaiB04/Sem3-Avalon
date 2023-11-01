@@ -1,7 +1,9 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.OrderManager;
+import individual.individualsem3backend.business.converters.OrderEntityConverter;
 import individual.individualsem3backend.business.exception.OrderException;
+import individual.individualsem3backend.controller.converters.OrderConverter;
 import individual.individualsem3backend.domain.Order;
 import individual.individualsem3backend.persistence.OrderRepository;
 import lombok.AllArgsConstructor;
@@ -15,19 +17,21 @@ import java.util.Optional;
 public class OrderManagerImpl implements OrderManager {
 
     private OrderRepository orderRepository;
+    private OrderEntityConverter converter;
 
     public List<Order> getAllOrders(Integer userId){
         if(userId > -1){
-            return orderRepository.findAll(userId);
+
+            return converter.listOfOrderEntityConvertedToListOfOrder(orderRepository.findByUserId(userId));
         }
         else{
             throw new OrderException("Cannot find orders with a negative user id.");
         }
     }
 
-    public Optional<Order> findOrderById(Integer orderId){
+    public Order findOrderById(Integer orderId){
         if(orderId > -1){
-            return Optional.ofNullable(orderRepository.findOrderById(orderId));
+            return OrderEntityConverter.orderEntityConvertedToOrder(orderRepository.findById(orderId).get());
         }
         else{
             throw new OrderException("Cannot find orders with a negative user id.");
@@ -40,7 +44,7 @@ public class OrderManagerImpl implements OrderManager {
                     .isBundled(neworder.isBundled())
                     .dateOfPurchase(neworder.getDateOfPurchase()).build();
 
-            return orderRepository.save(order);
+            return OrderEntityConverter.orderEntityConvertedToOrder(orderRepository.save(converter.orderConvertedToOrderEntity(order)));
         }
         else{
             throw new OrderException("Something went wrong while creating the order.");
@@ -59,15 +63,18 @@ public class OrderManagerImpl implements OrderManager {
     public Order update(Order updatedOrder){
         try{
             if(updatedOrder.getId() > -1){
-                Order oldOrder = orderRepository.findOrderById(updatedOrder.getId());
+                Order oldOrder = OrderEntityConverter.orderEntityConvertedToOrder(orderRepository.findById(updatedOrder.getId()).get());
 
-                oldOrder.setProducts(updatedOrder.getProducts());
-                oldOrder.setBundled(updatedOrder.isBundled());
-                oldOrder.setDateOfPurchase(updatedOrder.getDateOfPurchase());
+                if(oldOrder != null){
 
-                orderRepository.update(oldOrder);
+                    oldOrder.setProducts(updatedOrder.getProducts());
+                    oldOrder.setBundled(updatedOrder.isBundled());
+                    oldOrder.setDateOfPurchase(updatedOrder.getDateOfPurchase());
 
-                return oldOrder;
+                    orderRepository.save(converter.orderConvertedToOrderEntity(oldOrder));
+
+                    return oldOrder;
+                }
             }
             else{
                 throw new OrderException("Something went wrong while updating the order.");
@@ -76,5 +83,6 @@ public class OrderManagerImpl implements OrderManager {
         catch(Exception ex){
             throw new OrderException("Something went wrong while updating the order.");
         }
+        return null;
     }
 }
