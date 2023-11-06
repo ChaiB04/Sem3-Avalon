@@ -1,6 +1,5 @@
 package individual.individualsem3backend.persistence;
 
-import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -9,7 +9,7 @@ public interface ProductManager {
     Product createProduct(Product request);
     void deleteProduct(int productId);
 
-    Optional<Product> getProduct(int productId);
+    Product getProduct(int productId);
     void updateProduct(Product request);
 
 }

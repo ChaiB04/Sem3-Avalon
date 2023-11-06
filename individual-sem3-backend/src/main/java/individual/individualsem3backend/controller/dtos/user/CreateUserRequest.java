@@ -1,7 +1,7 @@
 package individual.individualsem3backend.controller.dtos.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import individual.individualsem3backend.domain.enumeration.Role;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data

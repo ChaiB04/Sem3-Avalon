@@ -2,9 +2,7 @@ package individual.individualsem3backend.controller.dtos.order;
 
 import individual.individualsem3backend.domain.Product;
 import lombok.*;
-
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder

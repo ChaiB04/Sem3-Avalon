@@ -1,12 +1,8 @@
 package individual.individualsem3backend.configuration.security.token.impl;
 
-import individual.individualsem3backend.configuration.security.token.AccessToken;
-import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
+import individual.individualsem3backend.configuration.security.token.*;
 import individual.individualsem3backend.configuration.security.token.exception.InvalidAccessTokenException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
@@ -16,10 +12,7 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.*;
 @Service
 @Data
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder {
@@ -33,6 +26,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
     @Override
     public String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
+
         if (!accessToken.getRoles().isEmpty()) {
             claimsMap.put("roles", accessToken.getRoles());
         }

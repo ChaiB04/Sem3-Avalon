@@ -4,8 +4,9 @@ import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.business.converters.UserEntityConverter;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
-import individual.individualsem3backend.domain.enumerations.Role;
+import individual.individualsem3backend.domain.enumeration.Role;
 import individual.individualsem3backend.persistence.UserRepository;
+import individual.individualsem3backend.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,41 +17,59 @@ import java.util.Optional;
 public class UserManagerImpl implements UserManager {
         private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private UserEntityConverter converter;
 
 
     @Override
     public User createUser(User newUser) {
-        if(newUser != null){
-            newUser.setRole(Role.CUSTOMER);
-            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+        try{
+            if(newUser != null){
+                newUser.setRole(Role.CUSTOMER);
+                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 
-            newUser.setPassword(encodedPassword);
+                newUser.setPassword(encodedPassword);
 
-            return converter.userEntityConvertedToUser(userRepository.save(converter.userConvertedToUserEntity(newUser)));
+                return UserEntityConverter.userEntityConvertedToUser(userRepository.save(UserEntityConverter.userConvertedToUserEntity(newUser)));
+            }
+            else{
+                throw new UserException("Could not create user.");
+            }
         }
-        else{
-            throw new UserException("Could not create user.");
+        catch(Exception ex)
+        {
+            throw new UserException(ex.getMessage());
         }
     }
 
-    //change so it always returns a nonnullable
     @Override
-    public Optional<User> getUser(int userId) {
-        if(userId > -1){
-            return Optional.ofNullable(converter.userEntityConvertedToUser(userRepository.findById(userId).get()));
+    public User getUser(int userId) {
+        try{
+            UserEntity userEntity = userRepository.findById(userId).get();
+
+            if(userEntity != null){
+                return UserEntityConverter.userEntityConvertedToUser(userEntity);
+            }
+            else{
+                throw new UserException("Could not find user id.");
+            }
         }
-        else{
-            throw new UserException("Could not find user id.");
+        catch(Exception ex)
+        {
+            throw new UserException(ex.getMessage());
         }
     }
 
     public void deleteUser(int userid){
-        if(userid > -1){
-            userRepository.deleteById(userid);
+        try{
+            if(userid > -1){
+                userRepository.deleteById(userid);
+            }
+            else{
+                throw new UserException("Could not find user id.");
+            }
         }
-        else{
-            throw new UserException("Could not find user id.");
+        catch(Exception ex)
+        {
+            throw new UserException(ex.getMessage());
         }
     }
 
@@ -58,7 +77,7 @@ public class UserManagerImpl implements UserManager {
         try{
             if(editedUser != null){
                 //get user from database
-                User user =converter.userEntityConvertedToUser( userRepository.findById(editedUser.getId()).get());
+                User user = UserEntityConverter.userEntityConvertedToUser( userRepository.findById(editedUser.getId()).get());
 
                 //change the information
                 user.setEmail(editedUser.getEmail());
@@ -73,14 +92,14 @@ public class UserManagerImpl implements UserManager {
                 user.setPhonenumber(editedUser.getPhonenumber());
 
                 //save it again
-                userRepository.save(converter.userConvertedToUserEntity(user));
+                userRepository.save(UserEntityConverter.userConvertedToUserEntity(user));
             }
             else{
                 throw new UserException("No user available to update to.");
             }
         }
         catch(Exception ex){
-            throw new UserException("Could not edit the user.");
+            throw new UserException(ex.getMessage());
         }
 
     }

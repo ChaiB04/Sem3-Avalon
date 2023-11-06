@@ -2,17 +2,11 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.OrderManager;
 import individual.individualsem3backend.controller.converters.OrderConverter;
-import individual.individualsem3backend.controller.dtos.order.CreateOrderRequest;
-import individual.individualsem3backend.controller.dtos.order.CreateOrderResponse;
-import individual.individualsem3backend.controller.dtos.order.GetAllOrdersRequest;
-import individual.individualsem3backend.controller.dtos.order.GetAllOrdersResponse;
+import individual.individualsem3backend.controller.dtos.order.*;
 import individual.individualsem3backend.domain.Order;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -51,10 +45,7 @@ public class OrderController {
 
     @GetMapping("{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable Integer orderId){
-        Order orderOptional = orderManagerUseCase.findOrderById(orderId);
-//        if (orderOptional.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        }
-        return ResponseEntity.ok().body(orderOptional);
+        Order order = orderManagerUseCase.findOrderById(orderId);
+        return ResponseEntity.ok().body(order);
     }
 }

@@ -3,8 +3,7 @@ package individual.individualsem3backend.domain;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter

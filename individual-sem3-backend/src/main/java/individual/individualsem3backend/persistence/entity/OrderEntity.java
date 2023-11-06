@@ -1,14 +1,9 @@
 package individual.individualsem3backend.persistence.entity;
 
-import individual.individualsem3backend.domain.Product;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 @Entity
 @Table(name = "user_order")
 @Builder

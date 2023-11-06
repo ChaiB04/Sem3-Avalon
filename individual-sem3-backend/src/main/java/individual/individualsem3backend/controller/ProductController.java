@@ -2,17 +2,11 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.ProductManager;
 import individual.individualsem3backend.controller.converters.ProductConverter;
-import individual.individualsem3backend.controller.dtos.product.CreateProductRequest;
-import individual.individualsem3backend.controller.dtos.product.CreateProductResponse;
-import individual.individualsem3backend.controller.dtos.product.GetAllProductsResponse;
-import individual.individualsem3backend.controller.dtos.product.UpdateProductRequest;
+import individual.individualsem3backend.controller.dtos.product.*;
 import individual.individualsem3backend.domain.Product;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-
-import java.util.Optional;
+import org.springframework.http.*;
 
 @RestController
 @RequestMapping("/products")
@@ -44,11 +38,8 @@ public class ProductController {
 
     @GetMapping("{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
-        final Optional<Product> ProductOptional = productManagerUseCase.getProduct(productId);
-        if (ProductOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(ProductOptional.get());
+        Product product = productManagerUseCase.getProduct(productId);
+        return ResponseEntity.ok().body(product);
     }
 
     @PutMapping("{productId}")

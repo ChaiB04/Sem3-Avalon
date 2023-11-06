@@ -17,7 +17,7 @@ public class OrderEntityConverter {
                 .dateOfPurchase(entity.getDateOfPurchase()).isBundled(entity.isBundled()).build();
     }
 
-    public OrderEntity orderConvertedToOrderEntity(Order order){
+    public static OrderEntity orderConvertedToOrderEntity(Order order){
         return OrderEntity.builder()
                 .id(order.getId())
                 .userId(order.getUserId())
@@ -26,7 +26,7 @@ public class OrderEntityConverter {
                 .build();
     }
 
-    public List<Order> listOfOrderEntityConvertedToListOfOrder(List<OrderEntity> entities){
+    public static List<Order> listOfOrderEntityConvertedToListOfOrder(List<OrderEntity> entities){
         return entities.stream().map(OrderEntityConverter::orderEntityConvertedToOrder).toList();
     }
 }

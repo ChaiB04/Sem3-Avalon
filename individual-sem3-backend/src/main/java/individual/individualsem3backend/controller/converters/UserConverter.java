@@ -1,9 +1,6 @@
 package individual.individualsem3backend.controller.converters;
 
-import individual.individualsem3backend.controller.dtos.user.CreateUserRequest;
-import individual.individualsem3backend.controller.dtos.user.CreateUserResponse;
-import individual.individualsem3backend.controller.dtos.user.UpdateUserRequest;
-import individual.individualsem3backend.controller.dtos.user.UserLoginRequest;
+import individual.individualsem3backend.controller.dtos.user.*;
 import individual.individualsem3backend.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

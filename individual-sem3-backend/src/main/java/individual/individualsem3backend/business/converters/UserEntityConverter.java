@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserEntityConverter {
 
-    public User userEntityConvertedToUser(UserEntity entity){
+    public static User userEntityConvertedToUser(UserEntity entity){
         return User.builder()
                 .id(entity.getId())
                 .email(entity.getEmail())
@@ -20,7 +20,7 @@ public class UserEntityConverter {
                 .phonenumber(entity.getPhonenumber()).build();
     }
 
-    public UserEntity userConvertedToUserEntity(User user){
+    public static UserEntity userConvertedToUserEntity(User user){
         return UserEntity.builder()
                 .id(user.getId())
                 .email(user.getEmail())

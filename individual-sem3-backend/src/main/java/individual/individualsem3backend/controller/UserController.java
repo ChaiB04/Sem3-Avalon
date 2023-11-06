@@ -2,14 +2,11 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.controller.converters.UserConverter;
-import individual.individualsem3backend.controller.dtos.user.CreateUserRequest;
-import individual.individualsem3backend.controller.dtos.user.CreateUserResponse;
-import individual.individualsem3backend.controller.dtos.user.UpdateUserRequest;
+import individual.individualsem3backend.controller.dtos.user.*;
 import individual.individualsem3backend.domain.User;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -41,8 +38,8 @@ public class UserController {
 
     @GetMapping("{userId}")
     public ResponseEntity<User> getUser(@PathVariable Integer userId){
-        final Optional<User> UserOptional = userManagerUseCase.getUser(userId);
-        return UserOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
+        User user = userManagerUseCase.getUser(userId);
+        return ResponseEntity.ok().body(user);
     }
 
     @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
@@ -55,4 +52,6 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+
+
 }
