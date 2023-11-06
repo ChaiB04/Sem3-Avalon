@@ -18,24 +18,24 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
 
-    @Test
-    void saveUserWithAllFields()
-    {
-        UserEntity userEntity = UserEntity.builder()
-                .id(1)
-                .firstname("Neuvillette")
-                .lastname("Dragonidk")
-                .email("Neuvi@gmail.com")
-                .password("idontlikefurina")
-                .country("Fontaine")
-                .city("Court of Fontaine")
-                .housenumber(69)
-                .street("Courthouse")
-                .zipcode("4829HF")
-                .phonenumber("9039032")
-                .build();
-
-        //UserEntity user
-    }
+//    @Test
+//    void saveUserWithAllFields()
+//    {
+//        UserEntity userEntity = UserEntity.builder()
+//                .id(1)
+//                .firstname("Neuvillette")
+//                .lastname("Dragonidk")
+//                .email("Neuvi@gmail.com")
+//                .password("idontlikefurina")
+//                .country("Fontaine")
+//                .city("Court of Fontaine")
+//                .housenumber(69)
+//                .street("Courthouse")
+//                .zipcode("4829HF")
+//                .phonenumber("9039032")
+//                .build();
+//
+//        //UserEntity user
+//    }
 
 }

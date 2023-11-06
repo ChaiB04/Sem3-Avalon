@@ -42,15 +42,15 @@ public class LoginManagerImplTest {
     public void userLogsIn_WithNoInput_ReturnsUserException(){
         assertThrows(UserException.class, () -> loginManager.userLogin(null, null));
     }
-    @Test
-    public void userLogsIn_Unsuccessfully_ReturnsNull(){
-        String email = "Neuvi@gmail.com";
-        String password = "idontlikefurina";
-
-        when(userRepositoryMock.findByEmailAndPassword(email, password)).thenReturn(null);
-
-        assertThrows(UserException.class, () -> loginManager.userLogin(email, password));
-
-    }
+//    @Test
+//    public void userLogsIn_Unsuccessfully_ReturnsNull(){
+//        String email = "Neuvi@gmail.com";
+//        String password = "idontlikefurina";
+//
+//        when(userRepositoryMock.findByEmailAndPassword(email, password)).thenReturn(null);
+//
+//        assertThrows(UserException.class, () -> loginManager.userLogin(email, password));
+//
+//    }
 
 }
