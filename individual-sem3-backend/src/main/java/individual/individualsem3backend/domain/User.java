@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @NotNull
     private Integer id;
     @NotBlank
     private String email;

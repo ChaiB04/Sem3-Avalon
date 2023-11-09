@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final String url_users= "/users/{userId}";
+    private final String url_products = "/products/{productId}";
     private static final String[] SWAGGER_UI_RESOURCES = {
             "/v3/api-docs/**",
             "/swagger-resources/**",
@@ -34,10 +35,10 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()                 // CORS pre-flight requests should be public
-                                .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
-                                .requestMatchers(HttpMethod.GET, url_users).permitAll()
-                                .requestMatchers(HttpMethod.DELETE, url_users).permitAll()
-                                .requestMatchers(HttpMethod.PUT, url_users).permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users", "/login", "/products").permitAll()    // Creating a user and login are public
+                                .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, url_users, url_products).permitAll()
+                                .requestMatchers(HttpMethod.PUT, url_users, url_products).permitAll()
                                 //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 //who gets

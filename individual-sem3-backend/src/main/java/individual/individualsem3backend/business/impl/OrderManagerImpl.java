@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,40 +20,35 @@ public class OrderManagerImpl implements OrderManager {
 
     public List<Order> getAllOrders(Integer userId){
         try{
-            if(userId > -1){
-
-                return OrderEntityConverter.listOfOrderEntityConvertedToListOfOrder(orderRepository.findByUserId(userId));
-            }
-            else{
-                throw new OrderException("Cannot find orders with a negative user id.");
-            }
+            return OrderEntityConverter.listOfOrderEntityConvertedToListOfOrder(orderRepository.findByUserId(userId));
         }
         catch(Exception ex){
             throw new OrderException(ex.getMessage());
         }
     }
 
-    public Order findOrderById(Integer orderId){
-        try{
-            if(orderId > -1){
-                return OrderEntityConverter.orderEntityConvertedToOrder(orderRepository.findById(orderId).get());
+    public Order findOrderById(Integer orderId) {
+        try {
+            Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(orderId);
+
+            if (optionalOrderEntity.isPresent()) {
+                return OrderEntityConverter.orderEntityConvertedToOrder(optionalOrderEntity.get());
+            } else {
+                throw new OrderException("Order not found for ID: " + orderId);
             }
-            else{
-                throw new OrderException("Cannot find orders with a negative user id.");
-            }
-        }
-        catch(Exception ex){
-            throw new OrderException(ex.getMessage());
+        } catch (OrderException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new OrderException("Something went wrong while finding the order.");
         }
     }
+
     public Order create(Order neworder){
         try{
             if(neworder != null){
-                Order order = Order.builder().userId(neworder.getUserId()).products(neworder.getProducts())
-                        .isBundled(neworder.isBundled())
-                        .dateOfPurchase(neworder.getDateOfPurchase()).build();
-
-                return OrderEntityConverter.orderEntityConvertedToOrder(orderRepository.save(OrderEntityConverter.orderConvertedToOrderEntity(order)));
+                OrderEntity entity = OrderEntityConverter.orderConvertedToOrderEntity(neworder);
+                OrderEntity savedEntity = orderRepository.save(entity);
+                return OrderEntityConverter.orderEntityConvertedToOrder(savedEntity);
             }
             else{
                 throw new OrderException("Something went wrong while creating the order.");
@@ -77,12 +73,12 @@ public class OrderManagerImpl implements OrderManager {
         }
     }
 
-    public Order update(Order updatedOrder){
-        try{
-            if(updatedOrder.getId() > -1){
-                OrderEntity orderEntity = orderRepository.findById(updatedOrder.getId()).get();
+    public Order update(Order updatedOrder) {
+        try {
+                Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(updatedOrder.getId());
 
-                if(orderEntity != null){
+                if (optionalOrderEntity.isPresent()) {
+                    OrderEntity orderEntity = optionalOrderEntity.get();
 
                     Order oldOrder = OrderEntityConverter.orderEntityConvertedToOrder(orderEntity);
 
@@ -93,15 +89,14 @@ public class OrderManagerImpl implements OrderManager {
                     orderRepository.save(OrderEntityConverter.orderConvertedToOrderEntity(oldOrder));
 
                     return oldOrder;
+                } else {
+                    throw new OrderException("Order not found for ID: " + updatedOrder.getId());
                 }
-            }
-            else{
-                throw new OrderException("Something went wrong while updating the order.");
-            }
+        } catch (OrderException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new OrderException("Something went wrong while updating the order.");
         }
-        catch(Exception ex){
-            throw new OrderException(ex.getMessage());
-        }
-        return null;
     }
+
 }

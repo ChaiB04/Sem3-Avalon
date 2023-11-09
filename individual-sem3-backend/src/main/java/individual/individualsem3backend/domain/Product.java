@@ -3,7 +3,6 @@ package individual.individualsem3backend.domain;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-
 @Getter
 @Setter
 @Builder

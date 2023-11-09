@@ -12,7 +12,6 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    @NotNull
     private Integer id;
     @NotNull
     private Integer userId;

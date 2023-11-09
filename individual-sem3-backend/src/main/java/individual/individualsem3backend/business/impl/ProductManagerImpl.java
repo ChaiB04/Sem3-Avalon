@@ -9,6 +9,7 @@ import individual.individualsem3backend.persistence.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -52,12 +53,7 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public void deleteProduct(int productId) {
         try{
-            if(productId > -1){
                 this.productRepository.deleteById(productId);
-            }
-            else{
-                throw new ProductException("Cannot find product with negative id.");
-            }
         }
         catch(Exception ex){
             throw new ProductException(ex.getMessage());
@@ -66,26 +62,29 @@ public class ProductManagerImpl implements ProductManager {
 
     @Override
     public Product getProduct(int productId) {
-        try{
-            if(productId > -1){
-                return ProductEntityConverter.productEntityConvertedToProduct(productRepository.findById(productId).get());
-            }
-            else{
-                throw new ProductException("Cannot find product with negative id.");
-            }
-        }
-        catch(Exception ex){
-            throw new ProductException(ex.getMessage());
+        try {
+                Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+
+                if (optionalProductEntity.isPresent()) {
+                    return ProductEntityConverter.productEntityConvertedToProduct(optionalProductEntity.get());
+                } else {
+                    throw new ProductException("Product not found for ID: " + productId);
+                }
+        } catch (ProductException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new ProductException("Something went wrong while finding the product.");
         }
     }
 
     @Override
     public void updateProduct(Product request) {
-        try{
-            if(request != null && request.getId() > -1){
-                ProductEntity productEntity = productRepository.findById(request.getId()).get();
+        try {
+            if (request != null) {
+                Optional<ProductEntity> optionalProductEntity = productRepository.findById(request.getId());
 
-                if(productEntity != null){
+                if (optionalProductEntity.isPresent()) {
+                    ProductEntity productEntity = optionalProductEntity.get();
                     Product product = ProductEntityConverter.productEntityConvertedToProduct(productEntity);
 
                     product.setName(request.getName());
@@ -94,17 +93,19 @@ public class ProductManagerImpl implements ProductManager {
                     product.setDescription(request.getDescription());
 
                     productRepository.save(ProductEntityConverter.productConvertedToProductEntity(product));
+                } else {
+                    throw new ProductException("Product not found for ID: " + request.getId());
                 }
-
+            } else {
+                throw new ProductException("Invalid product information provided for update.");
             }
-            else{
-                throw new ProductException("Cannot receive the information to update the product.");
-            }
-        }catch(Exception ex){
-            throw new ProductException(ex.getMessage());
+        } catch (ProductException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new ProductException("Something went wrong while updating the product.");
         }
-
     }
+
 
 
 }

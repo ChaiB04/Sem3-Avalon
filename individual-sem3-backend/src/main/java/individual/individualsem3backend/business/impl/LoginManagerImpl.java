@@ -46,7 +46,7 @@ public class LoginManagerImpl implements LoginManager {
 
             }
             else{
-                throw new UserException("Invalid Credentials");
+                throw new UserException("No Input given.");
             }
         }
         catch(Exception ex){
@@ -57,6 +57,10 @@ public class LoginManagerImpl implements LoginManager {
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
         try{
+          //  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+//            // Encode the password
+//            String encodedPassword = passwordEncoder.encode(password);//
             return passwordEncoder.matches(rawPassword, encodedPassword);
         }
         catch(Exception ex){
