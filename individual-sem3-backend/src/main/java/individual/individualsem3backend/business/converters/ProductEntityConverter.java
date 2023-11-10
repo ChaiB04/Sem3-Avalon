@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class ProductEntityConverter {
+
+    private ProductEntityConverter(){
+
+    }
 
     public static List<Product> listOfProductEntitiesConvertedToListOfProducts(List<ProductEntity> entities){
         return entities.stream().map(ProductEntityConverter::productEntityConvertedToProduct).toList();

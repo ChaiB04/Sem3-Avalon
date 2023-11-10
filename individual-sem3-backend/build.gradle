@@ -62,6 +62,10 @@ tasks.named('test') {
     finalizedBy jacocoTestReport
 }
 
+tasks.named('sonar').configure {
+    dependsOn jacocoTestReport
+}
+
 jacocoTestReport {
     dependsOn test
     reports {
