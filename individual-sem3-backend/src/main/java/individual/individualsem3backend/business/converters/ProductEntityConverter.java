@@ -1,15 +1,12 @@
 package individual.individualsem3backend.business.converters;
 
-import individual.individualsem3backend.controller.converters.ProductConverter;
 import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-//@AllArgsConstructor
 public class ProductEntityConverter {
 
     private ProductEntityConverter(){

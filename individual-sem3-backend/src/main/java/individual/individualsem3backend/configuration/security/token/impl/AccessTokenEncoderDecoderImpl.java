@@ -2,9 +2,11 @@ package individual.individualsem3backend.configuration.security.token.impl;
 
 import individual.individualsem3backend.configuration.security.token.*;
 import individual.individualsem3backend.configuration.security.token.exception.InvalidAccessTokenException;
+import individual.individualsem3backend.domain.enumeration.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 @Service
-@Data
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder {
     private final Key key;
 
@@ -27,14 +28,16 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
     public String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
 
-        if (!accessToken.getRoles().isEmpty()) {
+        if (accessToken.getRoles() != null) {
             claimsMap.put("roles", accessToken.getRoles());
         }
         if (accessToken.getUserId() != null) {
             claimsMap.put("userId", accessToken.getUserId());
         }
-        // Include email if needed
-        claimsMap.put("email", accessToken.getEmail());
+
+        if(accessToken.getSubject() != null){
+            claimsMap.put("subject", accessToken.getSubject());
+        }
 
         Instant now = Instant.now();
         return Jwts.builder()
@@ -53,11 +56,11 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
                     .parseClaimsJws(accessTokenEncoded);
             Claims claims = jwt.getBody();
 
-            String roles = claims.get("roles", String.class);
+            Role roles = claims.get("roles", Role.class);
             Integer userId = claims.get("userId", Integer.class);
-            String email = claims.get("email", String.class);
+            String email = claims.get("subject", String.class);
 
-            return new AccessTokenImpl(claims.getSubject(), email, userId, roles);
+            return new AccessTokenImpl(email, userId, roles);
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }

@@ -2,8 +2,11 @@ package individual.individualsem3backend.configuration.security.auth;
 
 import individual.individualsem3backend.configuration.security.token.*;
 import individual.individualsem3backend.configuration.security.token.exception.InvalidAccessTokenException;
+import individual.individualsem3backend.domain.enumeration.Role;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +21,9 @@ import java.util.*;
 
 @Component
 public class AuthenticationRequestFilter extends OncePerRequestFilter {
+    private static final String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
 
+    @Autowired
     private AccessTokenEncoderDecoder accessTokenDecoder;
 
     @Override
@@ -50,12 +55,12 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
     private void setupSpringSecurityContext(AccessToken accessToken) {
 
-        String role = accessToken.getRoles();
+        Role role = accessToken.getRoles();
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        authorities.add(new SimpleGrantedAuthority(SPRING_SECURITY_ROLE_PREFIX + role));
 
 
-        UserDetails userDetails = new User(accessToken.getSubject(), "ignoredPassword", authorities);
+        UserDetails userDetails = new User(accessToken.getSubject(), "", authorities);
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails, null, userDetails.getAuthorities());

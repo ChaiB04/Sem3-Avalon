@@ -8,8 +8,7 @@ import individual.individualsem3backend.persistence.ProductRepository;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -51,7 +50,7 @@ public class ProductManagerImpl implements ProductManager {
 
 
     @Override
-    public void deleteProduct(int productId) {
+    public void deleteProduct(Integer productId) {
         try{
                 this.productRepository.deleteById(productId);
         }
@@ -61,7 +60,7 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public Product getProduct(int productId) {
+    public Product getProduct(Integer productId) {
         try {
                 Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
 

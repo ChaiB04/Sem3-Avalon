@@ -2,14 +2,13 @@ package individual.individualsem3backend.business.converters;
 
 import individual.individualsem3backend.domain.Order;
 import individual.individualsem3backend.persistence.entity.OrderEntity;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class OrderEntityConverter {
+    private OrderEntityConverter(){}
 
     public static Order orderEntityConvertedToOrder(OrderEntity entity){
         return Order.builder().id(entity.getId()).userId(entity.getUserId())

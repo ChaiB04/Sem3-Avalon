@@ -7,9 +7,9 @@ import java.util.*;
 public interface ProductManager {
     List<Product> getProducts();
     Product createProduct(Product request);
-    void deleteProduct(int productId);
+    void deleteProduct(Integer productId);
 
-    Product getProduct(int productId);
+    Product getProduct(Integer productId);
     void updateProduct(Product request);
 
 }

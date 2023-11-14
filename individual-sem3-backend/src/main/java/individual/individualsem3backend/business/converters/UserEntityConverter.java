@@ -2,13 +2,14 @@ package individual.individualsem3backend.business.converters;
 
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.persistence.entity.UserEntity;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 public class UserEntityConverter {
 
+    private UserEntityConverter(){
+
+    }
     public static User userEntityConvertedToUser(UserEntity entity){
         return User.builder()
                 .id(entity.getId())

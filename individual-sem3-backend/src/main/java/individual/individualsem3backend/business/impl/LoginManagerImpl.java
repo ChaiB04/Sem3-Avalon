@@ -7,6 +7,7 @@ import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
 import individual.individualsem3backend.configuration.security.token.impl.AccessTokenImpl;
 import individual.individualsem3backend.domain.User;
+import individual.individualsem3backend.domain.enumeration.Role;
 import individual.individualsem3backend.persistence.UserRepository;
 import individual.individualsem3backend.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
@@ -57,10 +58,6 @@ public class LoginManagerImpl implements LoginManager {
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
         try{
-          //  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-//            // Encode the password
-//            String encodedPassword = passwordEncoder.encode(password);//
             return passwordEncoder.matches(rawPassword, encodedPassword);
         }
         catch(Exception ex){
@@ -75,14 +72,14 @@ public class LoginManagerImpl implements LoginManager {
             }
 
 
-            String role = user.getRole().toString();
+            Role role = user.getRole();
 
             String email = user.getEmail();
 
             Integer id = user.getId();
 
             return accessTokenEncoderDecoder.encode(
-                    new AccessTokenImpl(user.getEmail(), email, id, role));
+                    new AccessTokenImpl(email, id, role));
         }
         catch(Exception ex){
             throw new UserException("Cannot generate access token.");
