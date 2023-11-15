@@ -37,12 +37,14 @@ public class UserController {
 
 
     @GetMapping("{userId}")
-    public ResponseEntity<User> getUser(@PathVariable Integer userId){
+    public ResponseEntity<GetUserResponse> getUser(@PathVariable Integer userId){
         User user = userManagerUseCase.getUser(userId);
-        return ResponseEntity.ok().body(user);
+
+        GetUserResponse response = converter.userConvertToGetUserResponse(user);
+        return ResponseEntity.ok().body(response);
     }
 
-    @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
+    //@RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @PutMapping("{userId}")
     public ResponseEntity<Void> updateUser(@PathVariable("userId") Integer userId,
                                               @RequestBody UpdateUserRequest request)

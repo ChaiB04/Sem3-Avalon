@@ -19,4 +19,5 @@ public class Product {
     private String description;
     @NotBlank
     private String color;
+    private byte[] picture;
 }

@@ -48,7 +48,7 @@ public class LoginManagerImplTest {
         when(userRepositoryMock.findByEmail(email)).thenReturn(userEntity);
         when(passwordEncoder.matches(password, encodedPassword)).thenReturn(true);
         //when(passwordEncoder.encode(any())).thenReturn(encodedPassword);
-        when(accessTokenEncoderDecoder.encode(new AccessTokenImpl(userEntity.getEmail(), userEntity.getId(), userEntity.getRole()))).thenReturn("accesstoken");
+        when(accessTokenEncoderDecoder.encode(new AccessTokenImpl(userEntity.getEmail(), userEntity.getId(), userEntity.getRole().toString()))).thenReturn("accesstoken");
 
         String accessToken = loginManager.userLogin(email, password);
 

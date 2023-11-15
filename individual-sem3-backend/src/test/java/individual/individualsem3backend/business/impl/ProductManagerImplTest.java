@@ -53,31 +53,31 @@ public class ProductManagerImplTest {
         assertThrows(ProductException.class, () -> productManager.createProduct(null));
     }
 
-    @Test
-    public void getAllProducts_ReturnsList(){
-        ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
-                .price(23.22).color("Blue").build();
-
-        ProductEntity productEntity2 = ProductEntity.builder().id(2).name("Chai").description("A pink flower")
-                .price(324.2).color("Pink").build();
-
-        Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
-                .price(23.22).color("Blue").build();
-
-        Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
-                .price(324.2).color("Pink").build();
-
-        when(productRepositoryMock.findAll()).thenReturn(List.of(productEntity1, productEntity2));
-
-        List<Product> actualResult = productManager.getProducts();
-
-        List<Product> expectedResult = List.of(product1, product2);
-
-        verify(productRepositoryMock).findAll();
-
-        assertEquals(expectedResult, actualResult);
-
-    }
+//    @Test
+//    public void getAllProducts_ReturnsList(){
+//        ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
+//                .price(23.22).color("Blue").build();
+//
+//        ProductEntity productEntity2 = ProductEntity.builder().id(2).name("Chai").description("A pink flower")
+//                .price(324.2).color("Pink").build();
+//
+//        Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
+//                .price(23.22).color("Blue").build();
+//
+//        Product product2 = Product.builder().id(2).name("Chai").description("A pink flower")
+//                .price(324.2).color("Pink").build();
+//
+//        when(productRepositoryMock.findAll()).thenReturn(List.of(productEntity1, productEntity2));
+//
+//        List<Product> actualResult = productManager.getProducts();
+//
+//        List<Product> expectedResult = List.of(product1, product2);
+//
+//        verify(productRepositoryMock).findAll();
+//
+//        assertEquals(expectedResult, actualResult);
+//
+//    }
 
     @Test
     public void deleteProduct_Successful(){

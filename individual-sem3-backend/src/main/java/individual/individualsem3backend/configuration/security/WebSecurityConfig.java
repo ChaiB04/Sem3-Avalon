@@ -38,11 +38,9 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/users", "/login", "/products").permitAll()    // Creating a user and login are public
                                 .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, url_users, url_products).permitAll()
-                                .requestMatchers(HttpMethod.PUT, url_users, url_products).permitAll()
-                                //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
+                                .requestMatchers(HttpMethod.PUT, url_users, url_products).permitAll()      //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
-                                //who gets
-                                .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
+                                .anyRequest().authenticated()                                        // Everything else --> authentication required, which is Spring security's default behaviour
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);

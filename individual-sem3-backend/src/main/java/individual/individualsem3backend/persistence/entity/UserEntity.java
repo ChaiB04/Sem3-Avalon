@@ -56,4 +56,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @Lob
+    @Column(name = "picture", columnDefinition = "LONGBLOB")
+    private byte[] picture;
 }

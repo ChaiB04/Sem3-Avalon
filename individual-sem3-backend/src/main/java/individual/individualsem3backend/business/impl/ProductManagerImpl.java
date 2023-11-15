@@ -4,6 +4,7 @@ import individual.individualsem3backend.business.ProductManager;
 import individual.individualsem3backend.business.converters.ProductEntityConverter;
 import individual.individualsem3backend.business.exception.ProductException;
 import individual.individualsem3backend.domain.Product;
+import individual.individualsem3backend.domain.ProductFilter;
 import individual.individualsem3backend.persistence.ProductRepository;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,9 @@ public class ProductManagerImpl implements ProductManager {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(ProductFilter filter) {
         try{
-            return ProductEntityConverter.listOfProductEntitiesConvertedToListOfProducts(productRepository.findAll());
+            return ProductEntityConverter.listOfProductEntitiesConvertedToListOfProducts(productRepository.findByFilter(filter.getName(), filter.getPrice(), filter.getColor()));
         }
         catch(Exception ex){
             throw new ProductException("Something went wrong with getting all the products.");
@@ -35,6 +36,7 @@ public class ProductManagerImpl implements ProductManager {
                         .price(request.getPrice())
                         .description(request.getDescription())
                         .color(request.getColor())
+                        .picture(request.getPicture())
                         .build();
 
                 return ProductEntityConverter.productEntityConvertedToProduct(productRepository.save(ProductEntityConverter.productConvertedToProductEntity(newProduct)));
@@ -66,6 +68,9 @@ public class ProductManagerImpl implements ProductManager {
 
                 if (optionalProductEntity.isPresent()) {
                     return ProductEntityConverter.productEntityConvertedToProduct(optionalProductEntity.get());
+
+
+
                 } else {
                     throw new ProductException("Product not found for ID: " + productId);
                 }
@@ -90,6 +95,7 @@ public class ProductManagerImpl implements ProductManager {
                     product.setPrice(request.getPrice());
                     product.setColor(request.getColor());
                     product.setDescription(request.getDescription());
+                    product.setPicture(request.getPicture());
 
                     productRepository.save(ProductEntityConverter.productConvertedToProductEntity(product));
                 } else {

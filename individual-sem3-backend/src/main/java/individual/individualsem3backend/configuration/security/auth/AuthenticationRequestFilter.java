@@ -33,6 +33,7 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
         final String requestTokenHeader = request.getHeader("Authorization");
         if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer ")) {
             chain.doFilter(request, response);
+            //sendAuthenticationError(response);
             return;
         }
 
@@ -55,7 +56,7 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
     private void setupSpringSecurityContext(AccessToken accessToken) {
 
-        Role role = accessToken.getRoles();
+        String role = accessToken.getRoles();
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(SPRING_SECURITY_ROLE_PREFIX + role));
 

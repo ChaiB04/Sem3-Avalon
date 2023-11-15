@@ -56,7 +56,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
                     .parseClaimsJws(accessTokenEncoded);
             Claims claims = jwt.getBody();
 
-            Role roles = claims.get("roles", Role.class);
+            String roles = claims.get("roles", String.class);
             Integer userId = claims.get("userId", Integer.class);
             String email = claims.get("subject", String.class);
 

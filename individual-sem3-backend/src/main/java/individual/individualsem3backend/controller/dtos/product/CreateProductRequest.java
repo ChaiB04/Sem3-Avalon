@@ -8,11 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateProductRequest {
-    private int id;
     @NotBlank
     private String name;
     @NotNull
     private Double price;
     private String description;
     private String color;
+    private byte[] picture;
 }

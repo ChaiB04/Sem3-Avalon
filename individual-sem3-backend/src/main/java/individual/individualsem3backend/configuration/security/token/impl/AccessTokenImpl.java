@@ -9,9 +9,9 @@ import lombok.*;
 public class AccessTokenImpl implements AccessToken {
     private final String subject;
     private final Integer userId;
-    private final Role roles;
+    private final String roles;
 
-    public AccessTokenImpl(String subject, Integer userId, Role roles) {
+    public AccessTokenImpl(String subject, Integer userId, String roles) {
         this.subject = subject;
         this.userId = userId;
         this.roles = roles != null ? roles : null;

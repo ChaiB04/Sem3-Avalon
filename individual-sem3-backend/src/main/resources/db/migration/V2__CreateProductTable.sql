@@ -6,5 +6,6 @@ CREATE TABLE product
     price DOUBLE NOT NULL,
     description VARCHAR(200),
     color VARCHAR(50) NOT NULL,
+    picture LONGBLOB,
     PRIMARY KEY (id)
 );

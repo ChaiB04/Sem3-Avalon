@@ -31,4 +31,8 @@ public class ProductEntity {
     @NotBlank
     @Column(name = "color")
     private String color;
+
+    @Lob
+    @Column(name = "picture", columnDefinition = "LONGBLOB")
+    private byte[] picture;
 }

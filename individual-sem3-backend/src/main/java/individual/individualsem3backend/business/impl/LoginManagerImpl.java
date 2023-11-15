@@ -72,7 +72,7 @@ public class LoginManagerImpl implements LoginManager {
             }
 
 
-            Role role = user.getRole();
+            String role = user.getRole().toString();
 
             String email = user.getEmail();
 

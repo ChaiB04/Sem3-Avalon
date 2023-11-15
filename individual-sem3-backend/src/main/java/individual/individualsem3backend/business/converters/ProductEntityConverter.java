@@ -19,12 +19,12 @@ public class ProductEntityConverter {
 
     public static Product productEntityConvertedToProduct(ProductEntity entity){
         return Product.builder().id(entity.getId()).name(entity.getName()).color(entity.getColor())
-                .price(entity.getPrice()).description(entity.getDescription()).build();
+                .price(entity.getPrice()).description(entity.getDescription()).picture(entity.getPicture()).build();
     }
 
     public static ProductEntity productConvertedToProductEntity(Product product){
         return ProductEntity.builder().id(product.getId()).name(product.getName()).color(product.getColor())
-                .price(product.getPrice()).description(product.getDescription()).build();
+                .price(product.getPrice()).description(product.getDescription()).picture(product.getPicture()).build();
     }
 
     public static List<ProductEntity> listOfProductConvertedToListOfProductEntities(List<Product> products){

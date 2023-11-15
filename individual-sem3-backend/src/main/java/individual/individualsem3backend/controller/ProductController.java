@@ -4,6 +4,7 @@ import individual.individualsem3backend.business.ProductManager;
 import individual.individualsem3backend.controller.converters.ProductConverter;
 import individual.individualsem3backend.controller.dtos.product.*;
 import individual.individualsem3backend.domain.Product;
+import individual.individualsem3backend.domain.ProductFilter;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +13,23 @@ import org.springframework.http.*;
 
 @RestController
 @RequestMapping("/products")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ProductController {
     private final ProductManager productManager;
     private ProductConverter converter;
 
-    @RolesAllowed({"CUSTOMER", "ADMINISTATOR"})
+    //@RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @GetMapping
-    public ResponseEntity<GetAllProductsResponse> getAllProducts() {
-        GetAllProductsResponse response = converter.productListConvertToGetAllProductResponse(productManager.getProducts());
+    public ResponseEntity<GetAllProductsResponse> getAllProducts(@ModelAttribute GetAllProductRequest request) {
+
+        ProductFilter filter = converter.GetAllProductsFilterToProductFilter(request);
+        System.out.println(request.getPrice());
+        GetAllProductsResponse response = converter.productListConvertToGetAllProductResponse(productManager.getProducts(filter));
+        System.out.println(response.getAllProducts());
         return ResponseEntity.ok(response);
     }
 
-    @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
+   // @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @PostMapping()
     public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) {
 
@@ -34,21 +39,21 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @RolesAllowed({"ADMINISTRATOR"})
+   // @RolesAllowed({"ADMINISTRATOR"})
     @DeleteMapping("{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
         productManager.deleteProduct(productId);
         return ResponseEntity.noContent().build();
     }
 
-//    @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
+    //@RolesAllowed({"ADMINISTRATOR"})
     @GetMapping("{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
-        Product product = productManager.getProduct(productId);
-        return ResponseEntity.ok().body(product);
+    public ResponseEntity<GetProductResponse> getProduct(@PathVariable Integer productId){
+        GetProductResponse response = converter.productToGetProductResponse(productManager.getProduct(productId));
+        return ResponseEntity.ok().body(response);
     }
 
-    @RolesAllowed({"ADMINISTRATOR"})
+   // @RolesAllowed({"ADMINISTRATOR"})
     @PutMapping("{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable("productId") Integer productId,
                                               @RequestBody UpdateProductRequest request)

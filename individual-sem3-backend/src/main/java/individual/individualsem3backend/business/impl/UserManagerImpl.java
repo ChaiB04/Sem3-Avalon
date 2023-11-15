@@ -86,6 +86,7 @@ public class UserManagerImpl implements UserManager {
                     user.setHousenumber(editedUser.getHousenumber());
                     user.setZipcode(editedUser.getZipcode());
                     user.setPhonenumber(editedUser.getPhonenumber());
+                    user.setPicture(editedUser.getPicture());
 
                     userRepository.save(UserEntityConverter.userConvertedToUserEntity(user));
                 } else {

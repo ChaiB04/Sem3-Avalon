@@ -12,6 +12,7 @@ CREATE TABLE app_user
     city VARCHAR(50),
     phonenumber VARCHAR(50),
     role VARCHAR(20),
+    picture LONGBLOB,
 
     PRIMARY KEY (id),
     UNIQUE (email)

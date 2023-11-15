@@ -24,4 +24,5 @@ public class CreateUserRequest {
     private String city;
     private String country;
     private String phonenumber;
+    private byte[] picture;
 }

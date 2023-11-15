@@ -15,7 +15,8 @@ public class UserConverter {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname()).country(request.getCountry()).city(request.getCity())
                 .street(request.getStreet()).housenumber(request.getHousenumber()).zipcode(request.getZipcode())
-                .phonenumber(request.getPhonenumber()).build();
+                .phonenumber(request.getPhonenumber())
+                .picture(request.getPicture()).build();
     }
 
     public User loginUserRequestConvertToUser(UserLoginRequest request){
@@ -34,7 +35,21 @@ public class UserConverter {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname()).country(request.getCountry()).city(request.getCity())
                 .street(request.getStreet()).housenumber(request.getHousenumber()).zipcode(request.getZipcode())
-                .phonenumber(request.getPhonenumber()).build();
+                .phonenumber(request.getPhonenumber()).picture(request.getPicture()).build();
+    }
+
+    public GetUserResponse userConvertToGetUserResponse(User user){
+        return GetUserResponse.builder().id(user.getId())
+                .email(user.getEmail())
+                .city(user.getCity())
+                .country(user.getCountry())
+                .firstname(user.getFirstname())
+                .housenumber(user.getHousenumber())
+                .lastname(user.getLastname())
+                .phonenumber(user.getPhonenumber())
+                .street(user.getStreet())
+                .picture(user.getPicture())
+                .zipcode(user.getZipcode()).build();
     }
 
 

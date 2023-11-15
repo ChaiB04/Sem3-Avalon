@@ -15,4 +15,5 @@ public class UpdateProductRequest {
     private Double price;
     private String description;
     private String color;
+    private byte[] picture;
 }

@@ -4,7 +4,7 @@ import individual.individualsem3backend.domain.enumeration.Role;
 
 public interface AccessToken {
 
-    Role getRoles();
+    String getRoles();
 
     Integer getUserId();
 

@@ -27,4 +27,5 @@ public class User {
     private String country;
     private String phonenumber;
     private Role role;
+    private byte[] picture;
 }
