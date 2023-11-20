@@ -31,7 +31,7 @@ public class UserConverter {
         return User.builder()
                 .id(request.getId())
                 .email(request.getEmail())
-                .password(request.getPassword())
+//                .password(request.getPassword())
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname()).country(request.getCountry()).city(request.getCity())
                 .street(request.getStreet()).housenumber(request.getHousenumber()).zipcode(request.getZipcode())

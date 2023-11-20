@@ -14,7 +14,7 @@ public class AccessTokenImpl implements AccessToken {
     public AccessTokenImpl(String subject, Integer userId, String roles) {
         this.subject = subject;
         this.userId = userId;
-        this.roles = roles != null ? roles : null;
+        this.roles = roles != null ? roles : "DEFAULT";
     }
 
 }

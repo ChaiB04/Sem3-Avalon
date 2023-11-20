@@ -35,15 +35,15 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
             claimsMap.put("userId", accessToken.getUserId());
         }
 
-        if(accessToken.getSubject() != null){
-            claimsMap.put("subject", accessToken.getSubject());
-        }
+//        if(accessToken.getSubject() != null){
+//            claimsMap.put("subject", accessToken.getSubject());
+//        }
 
         Instant now = Instant.now();
         return Jwts.builder()
                 .setSubject(accessToken.getSubject())
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                .setExpiration(Date.from(now.plus(10, ChronoUnit.DAYS)))
                 .addClaims(claimsMap)
                 .signWith(key)
                 .compact();
@@ -58,9 +58,9 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
 
             String roles = claims.get("roles", String.class);
             Integer userId = claims.get("userId", Integer.class);
-            String email = claims.get("subject", String.class);
+//            String email = claims.get("subject", String.class);
 
-            return new AccessTokenImpl(email, userId, roles);
+            return new AccessTokenImpl(claims.getSubject(), userId, roles);
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }

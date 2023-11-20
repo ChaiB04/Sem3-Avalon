@@ -21,15 +21,12 @@ public class ProductController {
     //@RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @GetMapping
     public ResponseEntity<GetAllProductsResponse> getAllProducts(@ModelAttribute GetAllProductRequest request) {
-
         ProductFilter filter = converter.GetAllProductsFilterToProductFilter(request);
-        System.out.println(request.getPrice());
         GetAllProductsResponse response = converter.productListConvertToGetAllProductResponse(productManager.getProducts(filter));
-        System.out.println(response.getAllProducts());
         return ResponseEntity.ok(response);
     }
 
-   // @RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
+   @RolesAllowed({"ADMINISTRATOR"})
     @PostMapping()
     public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) {
 

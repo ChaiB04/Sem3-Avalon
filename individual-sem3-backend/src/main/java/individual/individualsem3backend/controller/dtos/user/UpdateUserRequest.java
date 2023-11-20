@@ -13,8 +13,8 @@ public class UpdateUserRequest {
     @NotBlank
     @Email(message = "Invalid email address")
     private String email;
-    @NotBlank
-    private String password;
+//    @NotBlank
+//    private String password;
     @NotBlank
     private String firstname;
     @NotBlank

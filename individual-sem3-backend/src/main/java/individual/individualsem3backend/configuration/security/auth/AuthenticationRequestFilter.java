@@ -23,8 +23,11 @@ import java.util.*;
 public class AuthenticationRequestFilter extends OncePerRequestFilter {
     private static final String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
 
-    @Autowired
     private AccessTokenEncoderDecoder accessTokenDecoder;
+    @Autowired
+    public AuthenticationRequestFilter(AccessTokenEncoderDecoder accessTokenDecoder){
+        this.accessTokenDecoder = accessTokenDecoder;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

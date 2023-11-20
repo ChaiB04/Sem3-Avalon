@@ -77,7 +77,10 @@ public class UserManagerImpl implements UserManager {
                     User user = UserEntityConverter.userEntityConvertedToUser(optionalUserEntity.get());
 
                     user.setEmail(editedUser.getEmail());
-                    user.setPassword(editedUser.getPassword());
+
+                    if(editedUser.getPassword() != null && !editedUser.getPassword().isEmpty()){
+                        user.setPassword(editedUser.getPassword());
+                    }
                     user.setCity(editedUser.getCity());
                     user.setFirstname(editedUser.getFirstname());
                     user.setLastname(editedUser.getLastname());
@@ -85,7 +88,6 @@ public class UserManagerImpl implements UserManager {
                     user.setStreet(editedUser.getStreet());
                     user.setHousenumber(editedUser.getHousenumber());
                     user.setZipcode(editedUser.getZipcode());
-                    user.setPhonenumber(editedUser.getPhonenumber());
                     user.setPicture(editedUser.getPicture());
 
                     userRepository.save(UserEntityConverter.userConvertedToUserEntity(user));
