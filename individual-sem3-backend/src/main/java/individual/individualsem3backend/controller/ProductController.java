@@ -26,7 +26,7 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-   @RolesAllowed({"ADMINISTRATOR"})
+    //@RolesAllowed({"ADMINISTRATOR"})
     @PostMapping()
     public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) {
 
@@ -36,21 +36,21 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-   // @RolesAllowed({"ADMINISTRATOR"})
+    @RolesAllowed({"ADMINISTRATOR"})
     @DeleteMapping("{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
         productManager.deleteProduct(productId);
         return ResponseEntity.noContent().build();
     }
 
-    //@RolesAllowed({"ADMINISTRATOR"})
+   // @RolesAllowed({"ADMINISTRATOR", "CUSTOMER"})
     @GetMapping("{productId}")
     public ResponseEntity<GetProductResponse> getProduct(@PathVariable Integer productId){
         GetProductResponse response = converter.productToGetProductResponse(productManager.getProduct(productId));
         return ResponseEntity.ok().body(response);
     }
 
-   // @RolesAllowed({"ADMINISTRATOR"})
+    @RolesAllowed({"ADMINISTRATOR"})
     @PutMapping("{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable("productId") Integer productId,
                                               @RequestBody UpdateProductRequest request)
