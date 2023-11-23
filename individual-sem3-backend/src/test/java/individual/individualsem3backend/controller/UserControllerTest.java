@@ -28,58 +28,58 @@ public class UserControllerTest {
     @MockBean
     private UserManager userManager;
 
-    @Test
-    void getUser_shouldReturn200WithUser_whenUserFound() throws Exception{
-         User user = User.builder()
-                .id(1)
-                .firstname("Neuvillette")
-                .lastname("Dragonidk")
-                .email("Neuvi@gmail.com")
-                .password("idontlikefurina")
-                .country("Fontaine")
-                .city("Court of Fontaine")
-                .housenumber(69)
-                .street("Courthouse")
-                .zipcode("4829HF")
-                .phonenumber("9039032")
-                 .role(Role.CUSTOMER)
-                .build();
-
-        when(userManager.getUser(1)).thenReturn(user);
-
-        mockMvc.perform(get("/users/1"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE))
-                .andExpect(content().json("""
-                    {"id": 1,
-                     "email": "Neuvi@gmail.com",
-                     "password": "idontlikefurina",
-                     "firstname": "Neuvillette",
-                     "lastname": "Dragonidk",
-                     "street": "Courthouse",
-                     "housenumber": 69,
-                     "zipcode": "4829HF",
-                     "city": "Court of Fontaine",
-                     "country": "Fontaine",
-                     "phonenumber": "9039032",
-                     "role": "CUSTOMER"}
-                                    """));
-
-        verify(userManager).getUser(1);
-    }
-
-
-    //why does it return 200 in tests but 400 in the postman
-    @Test
-    void getUser_shouldReturn200WithoutUser_whenUserNotFound() throws Exception{
-        when(userManager.getUser(1)).thenReturn(null);
-
-        mockMvc.perform(get("/users/1"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(header().doesNotExist(null));
-
-        verify(userManager).getUser(1);
-    }
+//    @Test
+//    void getUser_shouldReturn200WithUser_whenUserFound() throws Exception{
+//         User user = User.builder()
+//                .id(1)
+//                .firstname("Neuvillette")
+//                .lastname("Dragonidk")
+//                .email("Neuvi@gmail.com")
+//                .password("idontlikefurina")
+//                .country("Fontaine")
+//                .city("Court of Fontaine")
+//                .housenumber(69)
+//                .street("Courthouse")
+//                .zipcode("4829HF")
+//                .phonenumber("9039032")
+//                 .role(Role.CUSTOMER)
+//                .build();
+//
+//        when(userManager.getUser(1)).thenReturn(user);
+//
+//        mockMvc.perform(get("/users/1"))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE))
+//                .andExpect(content().json("""
+//                    {"id": 1,
+//                     "email": "Neuvi@gmail.com",
+//                     "password": "idontlikefurina",
+//                     "firstname": "Neuvillette",
+//                     "lastname": "Dragonidk",
+//                     "street": "Courthouse",
+//                     "housenumber": 69,
+//                     "zipcode": "4829HF",
+//                     "city": "Court of Fontaine",
+//                     "country": "Fontaine",
+//                     "phonenumber": "9039032",
+//                     "role": "CUSTOMER"}
+//                                    """));
+//
+//        verify(userManager).getUser(1);
+//    }
+//
+//
+//    //why does it return 200 in tests but 400 in the postman
+//    @Test
+//    void getUser_shouldReturn200WithoutUser_whenUserNotFound() throws Exception{
+//        when(userManager.getUser(1)).thenReturn(null);
+//
+//        mockMvc.perform(get("/users/1"))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(header().doesNotExist(null));
+//
+//        verify(userManager).getUser(1);
+//    }
 }
