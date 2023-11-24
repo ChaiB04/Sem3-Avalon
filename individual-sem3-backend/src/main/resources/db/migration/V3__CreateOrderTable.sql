@@ -10,9 +10,10 @@ CREATE TABLE user_order (
 
 
 CREATE TABLE user_order_products (
+     id int NOT NULL AUTO_INCREMENT,
      order_entity_id int NOT NULL,
      products_id int NOT NULL,
-     PRIMARY KEY (order_entity_id, products_id),
+     PRIMARY KEY (id),
      FOREIGN KEY (order_entity_id) REFERENCES user_order(id),
      FOREIGN KEY (products_id) REFERENCES product(id)
 );

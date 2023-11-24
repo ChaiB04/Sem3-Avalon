@@ -27,7 +27,6 @@ public class OrderEntity {
     @OneToMany(cascade = CascadeType.MERGE)
     private List<ProductEntity> products;
 
-
     @Column(name = "date_of_purchase")
     private Date dateOfPurchase;
 }

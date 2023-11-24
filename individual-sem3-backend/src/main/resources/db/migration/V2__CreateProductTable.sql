@@ -1,4 +1,3 @@
--- CREATE TABLE product
 CREATE TABLE product (
      id int NOT NULL AUTO_INCREMENT,
      name VARCHAR(50) NOT NULL,
