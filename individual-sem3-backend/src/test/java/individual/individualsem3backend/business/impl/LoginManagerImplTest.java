@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class LoginManagerImplTest {
+class LoginManagerImplTest {
 
     @Mock
     private UserRepository userRepositoryMock;
@@ -33,7 +33,7 @@ public class LoginManagerImplTest {
     private LoginManagerImpl loginManager;
 
     @Test
-    public void userLogsIn_Successfully_ReturnsUser(){
+    void userLogsIn_Successfully_ReturnsUser(){
         String email = "Neuvi@gmail.com";
         String password = "idontlikefurina";
         // Encode the password
@@ -57,13 +57,13 @@ public class LoginManagerImplTest {
     }
 
     @Test
-    public void userLogsIn_WithNoInput_ReturnsUserException(){
+    void userLogsIn_WithNoInput_ReturnsUserException(){
         assertThrows(UserException.class, () -> loginManager.userLogin(null, null));
     }
 
 
     @Test
-    public void userLogsIn_Unsuccessfully_WithNoExistingAccount_ReturnsUserException(){
+    void userLogsIn_Unsuccessfully_WithNoExistingAccount_ReturnsUserException(){
         String email = "Neuvi@gmail.com";
         String password = "idontlikefurina";
 
@@ -73,7 +73,7 @@ public class LoginManagerImplTest {
     }
 
     @Test
-    public void userLogsIn_WithInvalidCredentials_ReturnsUserException(){
+    void userLogsIn_WithInvalidCredentials_ReturnsUserException(){
         String email = "Neuvi@gmail.com";
         String password = "idontlikefurina";
         // Encode the password

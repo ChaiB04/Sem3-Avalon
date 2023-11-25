@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderManagerImplTest {
+class OrderManagerImplTest {
 
     @Mock
     private OrderRepository orderRepositoryMock;
@@ -24,7 +24,7 @@ public class OrderManagerImplTest {
     private OrderManagerImpl orderManager;
 
     @Test
-    public void getAllOrdersOfUser_Successfully(){
+    void getAllOrdersOfUser_Successfully(){
         ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -63,12 +63,12 @@ public class OrderManagerImplTest {
 //    }
 
     @Test
-    public void findOrderById_WithNegativeId_ThrowsOrderException(){
+    void findOrderById_WithNegativeId_ThrowsOrderException(){
         assertThrows(OrderException.class, () -> orderManager.findOrderById(-1));
     }
 
     @Test
-    public void findOrderById_Successfully(){
+    void findOrderById_Successfully(){
         ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -96,7 +96,7 @@ public class OrderManagerImplTest {
     }
 
     @Test
-    public void createOrder_Successfully(){
+    void createOrder_Successfully(){
         ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -130,23 +130,23 @@ public class OrderManagerImplTest {
     }
 
     @Test
-    public void createOrder_WithNullParameter_ThrowsOrderException(){
+    void createOrder_WithNullParameter_ThrowsOrderException(){
         assertThrows(OrderException.class, () -> orderManager.create(null));
     }
 
     @Test
-    public void deleteOrder_Successfully(){
+    void deleteOrder_Successfully(){
         orderManager.delete(1);
         verify(orderRepositoryMock).deleteById(1);
     }
 
     @Test
-    public void deleteOrder_WithNegativeId_ThrowsOrderException(){
+    void deleteOrder_WithNegativeId_ThrowsOrderException(){
         assertThrows(OrderException.class, () -> orderManager.delete(-1));
     }
 
     @Test
-    public void updateOrder_Successfully(){
+    void updateOrder_Successfully(){
         ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -178,12 +178,12 @@ public class OrderManagerImplTest {
     }
 
     @Test
-    public void updateOrder_WithNullParameter_ThrowsOrderException(){
+    void updateOrder_WithNullParameter_ThrowsOrderException(){
         assertThrows(OrderException.class, () -> orderManager.update(null));
     }
 
     @Test
-    public void updateOrder_WithNegativeId_ThrowsOrderException(){
+    void updateOrder_WithNegativeId_ThrowsOrderException(){
 
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();

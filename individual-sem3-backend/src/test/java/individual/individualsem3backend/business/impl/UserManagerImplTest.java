@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserManagerImplTest {
+class UserManagerImplTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ public class UserManagerImplTest {
     private UserManagerImpl userManager;
 
     @Test
-    public void createUser_Successfully_ReturnUser(){
+    void createUser_Successfully_ReturnUser(){
 
         User user = User.builder().firstname("Neuvillette").lastname("Dragonidk")
                 .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
@@ -53,17 +53,17 @@ public class UserManagerImplTest {
     }
 
     @Test
-    public void createUser_WithNoInputReturnsUserException_With404BadRequest(){
+    void createUser_WithNoInputReturnsUserException_With404BadRequest(){
         assertThrows(UserException.class, () -> userManager.createUser(null));
     }
     @Test
-    public void createUser_WithNoInput_ThrowsUserException() {
+    void createUser_WithNoInput_ThrowsUserException() {
         assertThrows(UserException.class, () -> userManager.createUser(null));
     }
 
 
     @Test
-    public void getUser_Successfully_ReturnsUser(){
+    void getUser_Successfully_ReturnsUser(){
         UserEntity expectedUserEntity = UserEntity.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
                 .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
                 .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").role(Role.CUSTOMER).phonenumber("9039032").build();
@@ -83,17 +83,17 @@ public class UserManagerImplTest {
     }
 
     @Test
-    public void getUser_WithNegativeInput_ReturnsUserException(){
+    void getUser_WithNegativeInput_ReturnsUserException(){
         assertThrows(UserException.class, () -> userManager.getUser(-1));
     }
 
     @Test
-    public void getUser_Unsuccessfully_ThrowsUserException(){
+    void getUser_Unsuccessfully_ThrowsUserException(){
         assertThrows(UserException.class, () -> userManager.getUser(1));
     }
 
     @Test
-    public void deleteUser_Successfully(){
+    void deleteUser_Successfully(){
         User user = User.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
                 .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
                 .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
@@ -111,7 +111,7 @@ public class UserManagerImplTest {
 //    }
 
     @Test
-    public void editUser_Successfully(){
+    void editUser_Successfully(){
         UserEntity userEntity1 = UserEntity.builder().id(1).firstname("Neuvillette").lastname("Dragonidk")
                 .email("Neuvi@gmail.com").password("idontlikefurina").country("Fontaine")
                 .city("Court of Fontaine").housenumber(69).street("Courthouse").zipcode("4829HF").phonenumber("9039032").build();
@@ -134,7 +134,7 @@ public class UserManagerImplTest {
     }
 
     @Test
-    public void editUser_WithNoUserParameter_ReturnsUserException(){
+    void editUser_WithNoUserParameter_ReturnsUserException(){
         assertThrows(UserException.class, () -> userManager.editUser(null));
     }
 

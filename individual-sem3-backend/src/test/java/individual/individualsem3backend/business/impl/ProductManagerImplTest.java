@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductManagerImplTest {
+class ProductManagerImplTest {
 
     @Mock
     private ProductRepository productRepositoryMock;
@@ -25,7 +25,7 @@ public class ProductManagerImplTest {
     private ProductManagerImpl productManager;
 
     @Test
-    public void createProduct_Successful_ReturnsProduct(){
+     void createProduct_Successful_ReturnsProduct(){
         Product createProduct = Product.builder().name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -49,7 +49,7 @@ public class ProductManagerImplTest {
     }
 
     @Test
-    public void createProduct_WithNullRequest_ThrowsProductException(){
+    void createProduct_WithNullRequest_ThrowsProductException(){
         assertThrows(ProductException.class, () -> productManager.createProduct(null));
     }
 
@@ -80,7 +80,7 @@ public class ProductManagerImplTest {
 //    }
 
     @Test
-    public void deleteProduct_Successful(){
+    void deleteProduct_Successful(){
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -96,7 +96,7 @@ public class ProductManagerImplTest {
 
 
     @Test
-    public void getProduct_Successful_ReturnsProduct(){
+    void getProduct_Successful_ReturnsProduct(){
         ProductEntity productEntity1 = ProductEntity.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -112,12 +112,12 @@ public class ProductManagerImplTest {
     }
 
     @Test
-    public void getProduct_WithNegativeID_ThrowsProductException(){
+    void getProduct_WithNegativeID_ThrowsProductException(){
         assertThrows(ProductException.class, () -> productManager.getProduct(-1));
     }
 
     @Test
-    public void updateProduct_Successful(){
+    void updateProduct_Successful(){
         Product product1 = Product.builder().id(1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 
@@ -135,12 +135,12 @@ public class ProductManagerImplTest {
     }
 
     @Test
-    public void updateProduct_WithNullParameters_ThrowsProductException(){
+    void updateProduct_WithNullParameters_ThrowsProductException(){
         assertThrows(ProductException.class, () -> productManager.updateProduct(null));
     }
 
     @Test
-    public void updateProduct_WithNegativeId_ThrowsProductException(){
+    void updateProduct_WithNegativeId_ThrowsProductException(){
         Product product1 = Product.builder().id(-1).name("Neuvi").description("A blue flower")
                 .price(23.22).color("Blue").build();
 

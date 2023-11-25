@@ -27,9 +27,10 @@ sonarqube {
     properties {
         property "sonar.projectKey", "Avalon_Sem_3_individual"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.token", "sqp_efc30d0eefd097c8e80052dcb7b9d907e838cfcf"
+        property "sonar.token", "sqp_20f8993b0a413e0730711b000a478b39e56f04b4"
         property "sonar.scm.disabled", true
         property "sonar.qualitygate.wait", true
+        property "sonar.sources", "src/main/java/individual/individualsem3backend/business"
     }
 }
 
