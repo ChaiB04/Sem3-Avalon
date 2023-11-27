@@ -47,7 +47,8 @@ public class UserManagerImpl implements UserManager {
 
             if (userEntity.isPresent()) {
                 return UserEntityConverter.userEntityConvertedToUser(userEntity.get());
-            } else {
+            }
+            else {
                 throw new UserException("User not found for ID: " + userId);
             }
         } catch (UserException ex) {

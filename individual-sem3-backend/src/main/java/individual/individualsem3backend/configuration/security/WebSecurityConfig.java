@@ -36,7 +36,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()                 // CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
-                                .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll() //PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
+                                .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll()
+                                .requestMatchers(HttpMethod.PUT, url_users).permitAll()//PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 .anyRequest().authenticated()                                        // Everything else --> authentication required, which is Spring security's default behaviour
                 )

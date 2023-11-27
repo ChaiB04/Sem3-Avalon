@@ -40,7 +40,12 @@ public class UserController {
     public ResponseEntity<GetUserResponse> getUser(@PathVariable Integer userId){
         User user = userManagerUseCase.getUser(userId);
 
+//        if(user == null){
+//            return ResponseEntity.notFound().build();
+//        }
+
         GetUserResponse response = converter.userConvertToGetUserResponse(user);
+
         return ResponseEntity.ok().body(response);
     }
 
