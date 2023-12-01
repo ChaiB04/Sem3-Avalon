@@ -2,7 +2,6 @@ package individual.individualsem3backend.persistence.entity;
 
 import java.util.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 @Entity
@@ -24,7 +23,7 @@ public class OrderEntity {
     @Column(name = "is_bundled")
     private boolean isBundled;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<ProductEntity> products;
 
     @Column(name = "date_of_purchase")
