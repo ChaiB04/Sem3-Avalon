@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -28,7 +26,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    //@RolesAllowed({"ADMINISTRATOR"})
+    @RolesAllowed({"ADMINISTRATOR"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);
@@ -39,10 +37,6 @@ public class UserController {
     @GetMapping("{userId}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable Integer userId){
         User user = userManagerUseCase.getUser(userId);
-
-//        if(user == null){
-//            return ResponseEntity.notFound().build();
-//        }
 
         GetUserResponse response = converter.userConvertToGetUserResponse(user);
 
