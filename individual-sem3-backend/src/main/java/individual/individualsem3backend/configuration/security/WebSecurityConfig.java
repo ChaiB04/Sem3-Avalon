@@ -35,7 +35,8 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/ws/**").permitAll()// CORS pre-flight requests should be public
+                                .requestMatchers("/ws/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/notifications").permitAll()// CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
                                 .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll()
                                 .requestMatchers(HttpMethod.PUT, url_users).permitAll()//PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
