@@ -30,7 +30,7 @@ public class ChatManagerImpl implements ChatManager {
 
                     MessageEntity saveEntity = ChatEntityConverter.chatMessageToChatMessageEntity(message);
                     MessageEntity entity = messageRepository.save(saveEntity);
-                    if(entity != null){
+                    if(entity.getId() != null){
 
                         return ChatEntityConverter.chatMessageEntityToChatMessage(entity);
                     }
@@ -54,7 +54,7 @@ public class ChatManagerImpl implements ChatManager {
 
                 MessageEntity entity = messageRepository.save(ChatEntityConverter.chatMessageToChatMessageEntity(message));
 
-                if(entity != null){
+                if(entity.getId() != null){
                      return ChatEntityConverter.chatMessageEntityToChatMessage(entity);
                 }
                 else throw new WebSocketException("Error creating message.");
@@ -103,7 +103,7 @@ public class ChatManagerImpl implements ChatManager {
         try{
            ChatEntity entity1 = chatRepository.findByUser1(id);
 
-           if(entity1 != null || entity1.getId() != null){
+           if(entity1 != null){
                return ChatEntityConverter.chatEntityToChat(entity1);
            }
            else{

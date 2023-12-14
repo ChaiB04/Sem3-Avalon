@@ -51,35 +51,5 @@ public class ChatEntityConverter {
 
 
 
-//    public ChatMessage chatMessageDtoToChatMessage(ChatMessageRequest dto){
-//        return ChatMessage.builder()
-//                .id(dto.getId())
-//                .from(dto.getFrom())
-//                .text(dto.getText())
-//                .date(dto.getDate())
-//                .seen(dto.getSeen())
-//                .build();
-//    }
-//
-//    public ChatMessageRequest chatMessageToChatMessageDTO(ChatMessage chatMessage){
-//        return ChatMessageRequest.builder()
-//                .id(chatMessage.getId())
-//                .from(chatMessage.getFrom())
-//                .text(chatMessage.getText())
-//                .date(chatMessage.getDate())
-//                .seen(chatMessage.getSeen())
-//                .build();
-//    }
-//
-//
-//    public Chat chatDtoToChat(ChatLogResponse dto){
-//        return Chat.builder()
-//                .id(dto.getId())
-//                .user_1(dto.getUser_1())
-//                .user_2(dto.getUser_2())
-//                .chatMessages()
-//                .build();
-//    }
-
 
 }
