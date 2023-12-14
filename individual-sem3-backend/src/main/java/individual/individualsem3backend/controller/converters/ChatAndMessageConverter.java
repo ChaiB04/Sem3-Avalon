@@ -1,6 +1,8 @@
 package individual.individualsem3backend.controller.converters;
 
 import individual.individualsem3backend.controller.dtos.websocket.ChatMessageRequest;
+import individual.individualsem3backend.controller.dtos.websocket.GetChatResponse;
+import individual.individualsem3backend.domain.Chat;
 import individual.individualsem3backend.domain.ChatMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,12 @@ public class ChatAndMessageConverter {
                 .text(dto.getText())
                 .date(dto.getDate())
                 .seen(dto.getSeen())
+                .build();
+    }
+
+    public GetChatResponse chatToGetChatResponse(Chat chat){
+        return GetChatResponse.builder()
+                .chat(chat)
                 .build();
     }
 }

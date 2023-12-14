@@ -37,12 +37,6 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-//    @DeleteMapping("{orderId}")
-//    public ResponseEntity<Void> deleteOrder(@PathVariable Integer orderId) {
-//        orderManagerUseCase.delete(orderId);
-//        return ResponseEntity.noContent().build();
-//    }
-
     @GetMapping("{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable Integer orderId){
         Order order = orderManagerUseCase.findOrderById(orderId);

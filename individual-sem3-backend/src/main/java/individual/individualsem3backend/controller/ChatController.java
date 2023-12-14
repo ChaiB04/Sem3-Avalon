@@ -2,16 +2,15 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.ChatManager;
 import individual.individualsem3backend.controller.converters.ChatAndMessageConverter;
-import individual.individualsem3backend.controller.dtos.websocket.ChatLogResponse;
 import individual.individualsem3backend.controller.dtos.websocket.ChatMessageRequest;
 import individual.individualsem3backend.controller.dtos.websocket.GetAllChats;
+import individual.individualsem3backend.controller.dtos.websocket.GetChatResponse;
 import individual.individualsem3backend.domain.Chat;
 import individual.individualsem3backend.domain.ChatMessage;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +52,18 @@ public class ChatController {
         System.out.println(response.getChats());
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetChatResponse> getChat(@PathVariable Integer id){
+
+        if(id != null){
+            Chat chat = chatManager.getChat(id);
+            return ResponseEntity.ok().body(converter.chatToGetChatResponse(chat));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 //    @GetMapping("{id}")

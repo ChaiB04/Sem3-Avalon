@@ -1,7 +1,6 @@
 package individual.individualsem3backend.business;
 
-import individual.individualsem3backend.domain.Product;
-import individual.individualsem3backend.domain.ProductFilter;
+import individual.individualsem3backend.domain.*;
 
 import java.util.*;
 

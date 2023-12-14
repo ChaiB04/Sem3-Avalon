@@ -7,7 +7,6 @@ import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.domain.ProductFilter;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
