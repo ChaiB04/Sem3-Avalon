@@ -7,8 +7,9 @@ import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.domain.ProductFilter;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
 
 @RestController
 @RequestMapping("/products")

@@ -1,8 +1,8 @@
 package individual.individualsem3backend.configuration.security.token.impl;
 
 import individual.individualsem3backend.configuration.security.token.AccessToken;
-import individual.individualsem3backend.domain.enumeration.Role;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @EqualsAndHashCode
 @Getter

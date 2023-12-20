@@ -1,7 +1,6 @@
 package individual.individualsem3backend.business.impl;
 
 import individual.individualsem3backend.business.LoginManager;
-
 import individual.individualsem3backend.business.converters.UserEntityConverter;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;

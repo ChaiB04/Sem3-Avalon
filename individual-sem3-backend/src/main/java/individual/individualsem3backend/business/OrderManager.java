@@ -2,7 +2,7 @@ package individual.individualsem3backend.business;
 
 import individual.individualsem3backend.domain.Order;
 
-import java.util.*;
+import java.util.List;
 
 public interface OrderManager {
     List<Order> getAllOrders(Integer userId);

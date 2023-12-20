@@ -3,7 +3,7 @@ package individual.individualsem3backend.controller.dtos.product;
 import individual.individualsem3backend.domain.Product;
 import lombok.*;
 
-import java.util.*;
+import java.util.List;
 
 @Getter
 @Setter

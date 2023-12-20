@@ -1,6 +1,9 @@
 package individual.individualsem3backend.controller.converters;
 
-import individual.individualsem3backend.controller.dtos.order.*;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderRequest;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderResponse;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersRequest;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersResponse;
 import individual.individualsem3backend.domain.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

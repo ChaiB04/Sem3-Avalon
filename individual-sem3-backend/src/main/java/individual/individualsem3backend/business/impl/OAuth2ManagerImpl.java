@@ -2,13 +2,6 @@ package individual.individualsem3backend.business.impl;
 
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.Scanner;
-
-import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_ID;
-
 @Service
 public class OAuth2ManagerImpl {
 

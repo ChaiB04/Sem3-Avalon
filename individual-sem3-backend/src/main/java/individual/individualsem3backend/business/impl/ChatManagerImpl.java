@@ -3,14 +3,19 @@ package individual.individualsem3backend.business.impl;
 import individual.individualsem3backend.business.ChatManager;
 import individual.individualsem3backend.business.converters.ChatEntityConverter;
 import individual.individualsem3backend.business.exception.WebSocketException;
-import individual.individualsem3backend.domain.*;
-import individual.individualsem3backend.persistence.*;
-import individual.individualsem3backend.persistence.entity.*;
+import individual.individualsem3backend.domain.Chat;
+import individual.individualsem3backend.domain.ChatMessage;
+import individual.individualsem3backend.persistence.ChatRepository;
+import individual.individualsem3backend.persistence.MessageRepository;
+import individual.individualsem3backend.persistence.entity.ChatEntity;
+import individual.individualsem3backend.persistence.entity.MessageEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor

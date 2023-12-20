@@ -9,7 +9,9 @@ import individual.individualsem3backend.persistence.ProductRepository;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor

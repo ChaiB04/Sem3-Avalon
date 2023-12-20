@@ -1,7 +1,10 @@
 package individual.individualsem3backend.controller.dtos.websocket;
 
 import individual.individualsem3backend.domain.Chat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder

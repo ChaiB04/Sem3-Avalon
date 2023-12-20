@@ -1,7 +1,7 @@
 package individual.individualsem3backend.domain;
 
 import individual.individualsem3backend.domain.enumeration.Role;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter

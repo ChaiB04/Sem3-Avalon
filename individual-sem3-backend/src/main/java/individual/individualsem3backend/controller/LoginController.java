@@ -2,20 +2,16 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.LoginManager;
 import individual.individualsem3backend.controller.converters.LoginConverter;
-import individual.individualsem3backend.controller.dtos.GetGoogleLink;
-import individual.individualsem3backend.controller.dtos.user.*;
+import individual.individualsem3backend.controller.dtos.user.UserLoginRequest;
+import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")

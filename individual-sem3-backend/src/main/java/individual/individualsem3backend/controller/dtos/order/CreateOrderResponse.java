@@ -1,5 +1,9 @@
 package individual.individualsem3backend.controller.dtos.order;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder

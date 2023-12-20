@@ -2,9 +2,13 @@ package individual.individualsem3backend.configuration.security.auth;
 
 
 import individual.individualsem3backend.configuration.security.token.AccessToken;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.*;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
 
 @Configuration

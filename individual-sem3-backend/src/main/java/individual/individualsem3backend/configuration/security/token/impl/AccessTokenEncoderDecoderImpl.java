@@ -1,20 +1,23 @@
 package individual.individualsem3backend.configuration.security.token.impl;
 
-import individual.individualsem3backend.configuration.security.token.*;
+import individual.individualsem3backend.configuration.security.token.AccessToken;
+import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
 import individual.individualsem3backend.configuration.security.token.exception.InvalidAccessTokenException;
-import individual.individualsem3backend.domain.enumeration.Role;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 @Service
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder {
     private final Key key;
