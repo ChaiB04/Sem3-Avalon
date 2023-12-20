@@ -8,4 +8,5 @@ public interface ChatManager {
     ChatMessage sendMessage(ChatMessage message);
     Chat getChat(Integer id);
     List<Chat> getAllChatsCustomerService();
+    Chat getChatOfCustomer(Integer id);
 }

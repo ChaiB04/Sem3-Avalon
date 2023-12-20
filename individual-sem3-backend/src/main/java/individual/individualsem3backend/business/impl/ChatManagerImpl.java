@@ -102,18 +102,39 @@ public class ChatManagerImpl implements ChatManager {
     public Chat getChatOfCustomer(Integer id){
         try{
            ChatEntity entity1 = chatRepository.findByUser1(id);
+            ChatEntity entity2 = chatRepository.findByUser2(id);
 
            if(entity1 != null){
                return ChatEntityConverter.chatEntityToChat(entity1);
            }
-           else{
-               ChatEntity entity2 = chatRepository.findByUser2(id);
+           else if(entity2 != null){
                return ChatEntityConverter.chatEntityToChat(entity2);
-
            }
+           else{
+               return createChat(id);
+           }
+
         }
         catch(Exception ex){
             throw new WebSocketException("Something went wrong with getting the chat of the customer");
+        }
+    }
+
+    public Chat createChat(Integer userId){
+        try{
+            Chat newChat = Chat.builder()
+                    .user_1(userId)
+                    .user_2(2)
+                    .chatMessages(new ArrayList<>())
+                    .build();
+
+
+            ChatEntity id = chatRepository.saveAndFlush(ChatEntityConverter.chatConvertedToChatEntity(newChat));
+
+            return ChatEntityConverter.chatEntityToChat(id);
+        }
+        catch(Exception ex){
+            throw new WebSocketException("Something went wrong with making the chat of the customer");
         }
     }
 }

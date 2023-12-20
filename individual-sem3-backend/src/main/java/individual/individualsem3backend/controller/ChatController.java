@@ -66,6 +66,17 @@ public class ChatController {
         }
     }
 
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<GetChatResponse> getCustomerChat(@PathVariable Integer id){
+        if(id != null){
+            Chat chat = chatManager.getChatOfCustomer(id);
+            return ResponseEntity.ok().body(converter.chatToGetChatResponse(chat));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
 //    @GetMapping("{id}")
 //    public ResponseEntity<ChatLogResponse> getChatLogOfCustomerService(@PathVariable Integer id){
 ////        ChatLogResponse response = ChatLogResponse.builder().getChat(chatManager.getChatMessagesToCustomerService()).build();

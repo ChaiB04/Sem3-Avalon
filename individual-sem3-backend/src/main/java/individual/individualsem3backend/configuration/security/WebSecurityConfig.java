@@ -3,11 +3,14 @@ package individual.individualsem3backend.configuration.security;
 import individual.individualsem3backend.configuration.security.auth.AuthenticationRequestFilter;
 import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.web.*;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -35,17 +38,25 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/ws/**").permitAll()
+                                .requestMatchers("/ws/**", "/oauth2login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/notifications").permitAll()// CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
-                                .requestMatchers(HttpMethod.GET, url_users, url_products, "/products").permitAll()
+                                .requestMatchers(HttpMethod.GET, url_users, url_products, "/products","/login/**").permitAll()
                                 .requestMatchers(HttpMethod.PUT, url_users).permitAll()//PermitAll() removes security checks, if you want a specific http method to be authenticated, you replace it with authenticated()
-                                .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
-                                .anyRequest().authenticated()                                        // Everything else --> authentication required, which is Spring security's default behaviour
-                )
+                                .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()// Swagger is also public (In "real life" it would only be public in non-production environments)
+                                .anyRequest().authenticated()
+
+                        // Everything else --> authentication required, which is Spring security's default behaviour
+
+			)
+
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
+
     }
+
+
+
 
 }
