@@ -1,5 +1,11 @@
 package individual.individualsem3backend.configuration.security.token.impl;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jwt.SignedJWT;
 import individual.individualsem3backend.configuration.security.token.AccessToken;
 import individual.individualsem3backend.configuration.security.token.AccessTokenEncoderDecoder;
 import individual.individualsem3backend.configuration.security.token.exception.InvalidAccessTokenException;
@@ -13,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -68,4 +75,5 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoderDecoder 
             throw new InvalidAccessTokenException(e.getMessage());
         }
     }
+
 }

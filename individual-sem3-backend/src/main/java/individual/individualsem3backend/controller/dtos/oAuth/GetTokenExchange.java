@@ -1,4 +1,4 @@
-package individual.individualsem3backend.controller.dtos;
+package individual.individualsem3backend.controller.dtos.oAuth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetGoogleLink {
-    private String link;
+public class GetTokenExchange {
+    private String code;
 }

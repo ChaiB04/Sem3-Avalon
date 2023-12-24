@@ -1,35 +1,44 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.controller.dtos.GetGoogleLink;
+import individual.individualsem3backend.business.OAuth2Manager;
+import individual.individualsem3backend.business.UserManager;
+import individual.individualsem3backend.controller.dtos.oAuth.GetGoogleLink;
+import individual.individualsem3backend.controller.dtos.oAuth.GetTokenExchange;
+import individual.individualsem3backend.controller.dtos.oAuth.LinkGoogleAccount;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @RestController
-@RequestMapping("/oauth2login")
+@RequestMapping("/oauth2")
 @RequiredArgsConstructor
 public class OAuth2Controller {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String client_id;
 
-    @GetMapping
-    public ResponseEntity<GetGoogleLink> chooseAccount(){
+    @Autowired
+    private OAuth2Manager oAuth2Manager;
+
+    @Autowired
+    private UserManager userManager;
+
+    @GetMapping()
+    public ResponseEntity<GetGoogleLink> loginWithGoogleAccount(){
 
         try {
             String redirect = "https://accounts.google.com/o/oauth2/v2/auth?" +
-                    "scope=" + URLEncoder.encode("https://www.googleapis.com/auth/drive.metadata.readonly", "UTF-8") +
+                    "scope=" + URLEncoder.encode("https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",  "UTF-8") +
                     "&access_type=offline" +
                     "&include_granted_scopes=true" +
                     "&response_type=code" +
-                    "&redirect_uri=" + URLEncoder.encode("http://localhost:5173/", "UTF-8") +
+                    "&redirect_uri=" + URLEncoder.encode("http://localhost:5173/loadingLoggingIn", "UTF-8") +
                     "&client_id=" + client_id;
 
             GetGoogleLink link = GetGoogleLink.builder().link(redirect).build();
@@ -40,6 +49,46 @@ public class OAuth2Controller {
         }
     }
 
+    @GetMapping("link")
+    public ResponseEntity<GetGoogleLink> linkWithGoogleAccount(){
+
+        try {
+            String redirect = "https://accounts.google.com/o/oauth2/v2/auth?" +
+                    "scope=" + URLEncoder.encode("https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",  "UTF-8") +
+                    "&access_type=offline" +
+                    "&include_granted_scopes=true" +
+                    "&response_type=code" +
+                    "&redirect_uri=" + URLEncoder.encode("http://localhost:5173/loadingLinking", "UTF-8") +
+                    "&client_id=" + client_id;
+
+            GetGoogleLink link = GetGoogleLink.builder().link(redirect).build();
+
+            return ResponseEntity.ok().body(link);
+        } catch (UnsupportedEncodingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<String> ExchangeCodeForToken(@RequestBody GetTokenExchange code){
+
+        String accessToken = oAuth2Manager.receiveAccessTokenFromApi(code.getCode());
+
+        return ResponseEntity.ok().body(accessToken);
+    }
+
+
+    @PostMapping("linkGoogle")
+    public ResponseEntity<Void> linkGoogleAccount(@RequestBody LinkGoogleAccount linkaccounts){
+
+        if(userManager.linkGoogleToAccount(linkaccounts.getUser_id(), linkaccounts.getAccessToken())){
+            return ResponseEntity.ok().build();
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
 
 }
 

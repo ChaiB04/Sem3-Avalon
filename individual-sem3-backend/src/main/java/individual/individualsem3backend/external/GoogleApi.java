@@ -1,14 +1,9 @@
 package individual.individualsem3backend.external;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import com.google.gson.JsonElement;
 
-@Service
-public class GoogleApi {
-    private final RestTemplate restTemplate;
+public interface GoogleApi {
+    String getAccessToken(String authorizationCode);
 
-    public GoogleApi() {
-        restTemplate = new RestTemplate();
-    }
-
+    String getSub(String jsonElement);
 }

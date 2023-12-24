@@ -63,7 +63,7 @@ public class LoginManagerImpl implements LoginManager {
         }
     }
 
-    private String generateAccessToken(User user){
+    public String generateAccessToken(User user){
         try{
             if(user.getId() == null){
                 throw new UserException("Could not grab user to generate access token.");

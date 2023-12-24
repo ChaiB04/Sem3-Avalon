@@ -17,3 +17,12 @@ CREATE TABLE app_user
     PRIMARY KEY (id),
     UNIQUE (email)
 );
+
+CREATE TABLE google_user (
+ id INT NOT NULL AUTO_INCREMENT,
+ sub VARCHAR(255) NOT NULL,
+ user_id INT NOT NULL,
+ FOREIGN KEY (user_id) REFERENCES app_user(id),
+ PRIMARY KEY (id),
+ UNIQUE (sub)
+);

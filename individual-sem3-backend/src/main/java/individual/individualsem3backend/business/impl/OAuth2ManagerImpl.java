@@ -1,9 +1,35 @@
 package individual.individualsem3backend.business.impl;
 
+import individual.individualsem3backend.business.OAuth2Manager;
+import individual.individualsem3backend.domain.User;
+import individual.individualsem3backend.external.GoogleApi;
+import jakarta.persistence.Access;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OAuth2ManagerImpl {
+@AllArgsConstructor
+public class OAuth2ManagerImpl implements OAuth2Manager {
+
+    private GoogleApi googleApi;
+
+    public String receiveAccessTokenFromApi(String code){
+       try{
+           return googleApi.getAccessToken(code);
+       }
+       catch(Exception ex){
+
+        }
+       return null;
+    }
+
+
+//    public String loginWithGoogleAccount(String googleAccessToken){
+//        String sub = googleApi.getSub(googleAccessToken);
+//
+//
+//
+//    }
 
 //    public  Scanner  stateToken(){
 //        String state = new BigInteger(130, new SecureRandom()).toString(32);
