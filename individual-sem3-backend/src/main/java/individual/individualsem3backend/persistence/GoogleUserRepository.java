@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GoogleUserRepository extends JpaRepository<GoogleUserEntity, Integer> {
 
-    public boolean existsBySub(String sub);
+    boolean existsBySub(String sub);
+    GoogleUserEntity getGoogleUserEntityBySub(String sub);
 }

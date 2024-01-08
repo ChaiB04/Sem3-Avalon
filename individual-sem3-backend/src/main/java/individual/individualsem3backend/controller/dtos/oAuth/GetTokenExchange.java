@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetTokenExchange {
     private String code;
+    private boolean login;
 }

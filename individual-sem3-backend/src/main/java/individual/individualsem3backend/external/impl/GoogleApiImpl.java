@@ -1,16 +1,11 @@
 package individual.individualsem3backend.external.impl;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.Payload;
-import com.nimbusds.jwt.SignedJWT;
 import individual.individualsem3backend.external.GoogleApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -33,7 +28,7 @@ public class GoogleApiImpl implements GoogleApi {
         restTemplate = new RestTemplate();
     }
 
-    public String getAccessToken(String authorizationCode){
+    public String getAccessToken(String authorizationCode, boolean login){
         try{
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -42,28 +37,33 @@ public class GoogleApiImpl implements GoogleApi {
             requestBody.add("code", authorizationCode);
             requestBody.add("client_id", client_id);
             requestBody.add("client_secret", client_secret);
-            requestBody.add("redirect_uri", "http://localhost:5173/loading");
+            if(login){
+                requestBody.add("redirect_uri", "http://localhost:5173/loadingLoggingIn");
+            }
+            else{
+
+
+                requestBody.add("redirect_uri", "http://localhost:5173/loadingLinking");
+
+            }
             requestBody.add("grant_type", "authorization_code");
-//            requestBody.add("access_type", "offline");
 
             HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
 
             ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", requestEntity, String.class);
+
+            if(responseEntity.getBody() == null){
+                throw new Exception("No response entity");
+            }
             JsonElement jsonElement = JsonParser.parseString(responseEntity.getBody());
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             String accessToken = jsonObject.get("access_token").getAsString();
-            String refreshToken = jsonObject.get("refresh_token").getAsString();
-//
-//            System.out.println(accessToken);
             getInfoFromGoogle(accessToken);
-//            refreshAccessToken(accessToken);
 
             return accessToken;
         }
         catch (Exception ex) {
-            // Print or log the exception details
-            ex.printStackTrace();
             System.out.println("Token exchange failed: " + ex.getMessage());
             return null;
         }
@@ -77,29 +77,31 @@ public class GoogleApiImpl implements GoogleApi {
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
             ResponseEntity<String> response = restTemplate.exchange("https://www.googleapis.com/oauth2/v3/userinfo", HttpMethod.GET, entity, String.class);
+            if(response.getBody() == null){
+                throw new Exception("No response entity");
+            }
 
             JsonElement jsonElement = JsonParser.parseString(response.getBody());
-            JsonObject jsonObject = jsonElement.getAsJsonObject();
-
 
 
             System.out.println(response);
             return jsonElement;
         }
         catch (Exception ex) {
-            ex.printStackTrace();
             System.out.println("Token exchange failed: " + ex.getMessage());
         }
         return null;
     }
 
     public String getSub(String accessToken){
+        try{
+            JsonObject object = getInfoFromGoogle(accessToken).getAsJsonObject();
 
-        JsonObject object = getInfoFromGoogle(accessToken).getAsJsonObject();
-
-        String sub = object.get("sub").getAsString();
-
-        return sub;
+            return object.get("sub").getAsString();
+        }
+        catch(NullPointerException ex){
+            throw new NullPointerException();
+        }
     }
 
 

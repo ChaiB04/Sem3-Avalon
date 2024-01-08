@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/ws/**", "/oauth2login").permitAll()
+                                .requestMatchers("/ws/**", "/oauth2", "/oauth2/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/notifications").permitAll()// CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.POST, "/users", "/login").permitAll()    // Creating a user and login are public
                                 .requestMatchers(HttpMethod.GET, url_users, url_products, "/products","/login/**").permitAll()

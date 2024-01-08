@@ -1,13 +1,11 @@
 package individual.individualsem3backend.business.impl;
 
-import com.google.gson.JsonElement;
 import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.business.converters.UserEntityConverter;
 import individual.individualsem3backend.business.exception.UserException;
 import individual.individualsem3backend.domain.User;
 import individual.individualsem3backend.domain.enumeration.Role;
 import individual.individualsem3backend.external.GoogleApi;
-import individual.individualsem3backend.external.impl.GoogleApiImpl;
 import individual.individualsem3backend.persistence.GoogleUserRepository;
 import individual.individualsem3backend.persistence.UserRepository;
 import individual.individualsem3backend.persistence.entity.GoogleUserEntity;
@@ -16,12 +14,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserManagerImpl implements UserManager {
-        private UserRepository userRepository;
+    private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private GoogleApi googleApi;
     private GoogleUserRepository googleUserRepository;
@@ -114,8 +111,6 @@ public class UserManagerImpl implements UserManager {
     }
 
     public boolean linkGoogleToAccount(Integer userId, String accessTokenGoogle){
-            User getUser = getUser(userId);
-
             String sub = googleApi.getSub(accessTokenGoogle);
 
             GoogleUserEntity entity = GoogleUserEntity.builder()
@@ -131,8 +126,6 @@ public class UserManagerImpl implements UserManager {
                 googleUserRepository.save(entity);
                 return true;
             }
-
-
 
         }
 

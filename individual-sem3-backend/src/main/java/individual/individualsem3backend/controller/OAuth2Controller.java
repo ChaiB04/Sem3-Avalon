@@ -1,10 +1,12 @@
 package individual.individualsem3backend.controller;
 
+import individual.individualsem3backend.business.LoginManager;
 import individual.individualsem3backend.business.OAuth2Manager;
 import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.controller.dtos.oAuth.GetGoogleLink;
 import individual.individualsem3backend.controller.dtos.oAuth.GetTokenExchange;
 import individual.individualsem3backend.controller.dtos.oAuth.LinkGoogleAccount;
+import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +30,9 @@ public class OAuth2Controller {
 
     @Autowired
     private UserManager userManager;
+
+    @Autowired
+    private LoginManager loginManager;
 
     @GetMapping()
     public ResponseEntity<GetGoogleLink> loginWithGoogleAccount(){
@@ -70,9 +75,9 @@ public class OAuth2Controller {
     }
 
     @PostMapping
-    public ResponseEntity<String> ExchangeCodeForToken(@RequestBody GetTokenExchange code){
+    public ResponseEntity<String> ExchangeCodeForToken(@RequestBody GetTokenExchange getTokenExchange){
 
-        String accessToken = oAuth2Manager.receiveAccessTokenFromApi(code.getCode());
+        String accessToken = oAuth2Manager.receiveAccessTokenFromApi(getTokenExchange.getCode(), getTokenExchange.isLogin());
 
         return ResponseEntity.ok().body(accessToken);
     }
@@ -88,6 +93,19 @@ public class OAuth2Controller {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+    }
+
+    @PostMapping("loginGoogle")
+    public ResponseEntity<UserLoginResponse> loginWithGoogleResponse(@RequestBody GetTokenExchange code){
+        String accessToken = loginManager.loginWithGoogleAccount(code.getCode());
+
+        System.out.println("Accesstoken from avalon: " + accessToken);
+        if(accessToken != null){
+            return ResponseEntity.ok().body(UserLoginResponse.builder().accessToken(accessToken).build());
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
