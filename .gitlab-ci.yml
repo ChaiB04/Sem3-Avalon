@@ -4,6 +4,7 @@ variables:
 stages:   
     - build 
     - test
+    - docker
     # - sonarqube-check
     # - sonarqube-vulnerability-report
 
@@ -14,11 +15,11 @@ build:
         - ./gradlew assemble
 
 docker_build:
-    stage: build
+    stage: docker
     script:
         - cd .\individual-sem3-backend
-        - docker build -t avalon .
-        # - docker push avalonGit
+        - docker build -t avalonGit .
+        - docker push avalonGit
     
 test: 
     stage: test 
