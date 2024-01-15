@@ -2,15 +2,11 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.ChatManager;
 import individual.individualsem3backend.controller.converters.ChatAndMessageConverter;
-import individual.individualsem3backend.controller.dtos.websocket.ChatMessageRequest;
-import individual.individualsem3backend.controller.dtos.websocket.GetAllChats;
-import individual.individualsem3backend.controller.dtos.websocket.GetChatResponse;
-import individual.individualsem3backend.domain.Chat;
-import individual.individualsem3backend.domain.ChatMessage;
+import individual.individualsem3backend.controller.dtos.websocket.*;
+import individual.individualsem3backend.domain.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

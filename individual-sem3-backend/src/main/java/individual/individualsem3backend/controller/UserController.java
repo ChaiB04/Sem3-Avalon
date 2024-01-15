@@ -2,10 +2,7 @@ package individual.individualsem3backend.controller;
 
 import individual.individualsem3backend.business.UserManager;
 import individual.individualsem3backend.controller.converters.UserConverter;
-import individual.individualsem3backend.controller.dtos.user.CreateUserRequest;
-import individual.individualsem3backend.controller.dtos.user.CreateUserResponse;
-import individual.individualsem3backend.controller.dtos.user.GetUserResponse;
-import individual.individualsem3backend.controller.dtos.user.UpdateUserRequest;
+import individual.individualsem3backend.controller.dtos.user.*;
 import individual.individualsem3backend.domain.User;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;

@@ -1,17 +1,11 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.business.LoginManager;
-import individual.individualsem3backend.business.OAuth2Manager;
-import individual.individualsem3backend.business.UserManager;
-import individual.individualsem3backend.controller.dtos.oAuth.GetGoogleLink;
-import individual.individualsem3backend.controller.dtos.oAuth.GetTokenExchange;
-import individual.individualsem3backend.controller.dtos.oAuth.LinkGoogleAccount;
+import individual.individualsem3backend.business.*;
+import individual.individualsem3backend.controller.dtos.oAuth.*;
 import individual.individualsem3backend.controller.dtos.user.UserLoginResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -52,6 +46,7 @@ public class OAuth2Controller {
         } catch (UnsupportedEncodingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
     }
 
     @GetMapping("link")
