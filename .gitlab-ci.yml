@@ -12,6 +12,12 @@ build:
     script: 
         - cd .\individual-sem3-backend
         - ./gradlew assemble
+
+docker_build:
+    stage: build
+    script:
+        - docker build -t avalon .
+        # - docker push avalonGit
     
 test: 
     stage: test 
