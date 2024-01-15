@@ -19,7 +19,7 @@ docker_build:
     script:
         - cd .\individual-sem3-backend
         - ./gradlew clean assemble
-        - docker build -t avalongit .
+        - docker build -t avalon .
         # - docker push avalonGit
     
 test: 
