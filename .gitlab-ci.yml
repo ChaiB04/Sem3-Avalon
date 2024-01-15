@@ -18,8 +18,9 @@ docker_build:
     stage: docker
     script:
         - cd .\individual-sem3-backend
+        - ./gradlew clean assemble
         - docker build -t avalonGit .
-        - docker push avalonGit
+        # - docker push avalonGit
     
 test: 
     stage: test 
