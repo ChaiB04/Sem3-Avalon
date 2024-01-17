@@ -19,6 +19,7 @@ docker_build:
     script:
         - cd .\individual-sem3-backend
         - ./gradlew clean assemble
+        - docker rmi avalon
         - docker build -t avalon .
         - docker stop individual-sem3-backend2
         - docker rm individual-sem3-backend2
