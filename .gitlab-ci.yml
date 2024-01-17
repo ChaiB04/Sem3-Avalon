@@ -19,9 +19,9 @@ docker_build:
     script:
         - cd .\individual-sem3-backend
         - ./gradlew clean assemble
+        - docker stop individual-sem3-backend2
         - docker rmi avalon
         - docker build -t avalon .
-        - docker stop individual-sem3-backend2
         - docker rm individual-sem3-backend2
         - docker run -d -p 8090:8080 --net=docker_avalon_network_staging --env spring_profiles_active=staging --name=individual-sem3-backend2 avalon
         # - docker push avalonGit
