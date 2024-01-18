@@ -18,7 +18,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UserManagerImplTest {
 
-
+    @Mock
+    private PasswordEncoder passwordEncoder;
     @Mock
     private UserRepository userRepositoryMock;
 
