@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class OAuth2ManagerImplTest {
+class OAuth2ManagerImplTest {
 
     @Mock
     private GoogleApi googleApi;

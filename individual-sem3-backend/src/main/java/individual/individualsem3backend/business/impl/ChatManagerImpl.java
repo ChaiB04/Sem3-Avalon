@@ -65,7 +65,6 @@ public class ChatManagerImpl implements ChatManager {
                 else throw new WebSocketException("Error creating message.");
 
             }
-//            throw new WebSocketException("Error with making chat or getting message");
         }
         catch(Exception ex){
             throw new WebSocketException(ex.getMessage());

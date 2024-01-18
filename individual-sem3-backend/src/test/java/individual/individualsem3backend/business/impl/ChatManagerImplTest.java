@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ChatManagerImplTest {
+class ChatManagerImplTest {
 
     @Mock
     private SimpMessagingTemplate messagingTemplate;
@@ -83,12 +83,12 @@ public class ChatManagerImplTest {
         doNothing().when(messagingTemplate).convertAndSend(anyString(), eq(message));
         when(chatRepository.existsById(1)).thenReturn(true);
 
-        when(messageRepository.save(eq(messageEntity))).thenReturn(messageEntityresult);
+        when(messageRepository.save(messageEntity)).thenReturn(messageEntityresult);
 
         ChatMessage result = chatManager.sendMessage(message);
         verify(messagingTemplate).convertAndSend(anyString(), eq(message));
         verify(chatRepository).existsById(1);
-        verify(messageRepository).save(eq(messageEntity));
+        verify(messageRepository).save(messageEntity);
 
         assertEquals(messageresult, result);
     }
@@ -117,7 +117,7 @@ public class ChatManagerImplTest {
         doNothing().when(messagingTemplate).convertAndSend(anyString(), eq(message));
         when(chatRepository.existsById(1)).thenReturn(true);
 
-        when(messageRepository.save(eq(messageEntity))).thenReturn(null);
+        when(messageRepository.save(messageEntity)).thenReturn(null);
 
         assertThrows(WebSocketException.class, () -> chatManager.sendMessage(message));
         verify(messagingTemplate).convertAndSend(anyString(), eq(message));
@@ -199,14 +199,14 @@ public class ChatManagerImplTest {
 
 
         doNothing().when(messagingTemplate).convertAndSend(anyString(), eq(message));
-        when(chatRepository.saveAndFlush(eq(newChat))).thenReturn(newChatResult);
+        when(chatRepository.saveAndFlush(newChat)).thenReturn(newChatResult);
 
-        when(messageRepository.save(eq(messageEntity))).thenReturn(messageEntityresult);
+        when(messageRepository.save(messageEntity)).thenReturn(messageEntityresult);
 
         ChatMessage result = chatManager.sendMessage(message);
         verify(messagingTemplate).convertAndSend(anyString(), eq(message));
-        verify(messageRepository).save(eq(messageEntity));
-        verify(chatRepository).saveAndFlush(eq(newChat));
+        verify(messageRepository).save(messageEntity);
+        verify(chatRepository).saveAndFlush(newChat);
 
         assertEquals(messageresult, result);
     }
@@ -245,15 +245,15 @@ public class ChatManagerImplTest {
 
 
         doNothing().when(messagingTemplate).convertAndSend(anyString(), eq(message));
-        when(chatRepository.saveAndFlush(eq(newChat))).thenReturn(newChatResult);
+        when(chatRepository.saveAndFlush(newChat)).thenReturn(newChatResult);
 
-        when(messageRepository.save(eq(messageEntity))).thenReturn(null);
+        when(messageRepository.save(messageEntity)).thenReturn(null);
 
 //        ChatMessage result = chatManager.sendMessage(message);
         assertThrows(WebSocketException.class, () -> chatManager.sendMessage(message));
         verify(messagingTemplate).convertAndSend(anyString(), eq(message));
-        verify(messageRepository).save(eq(messageEntity));
-        verify(chatRepository).saveAndFlush(eq(newChat));
+        verify(messageRepository).save(messageEntity);
+        verify(chatRepository).saveAndFlush(newChat);
 
 //        assertEquals(messageresult, result);
     }

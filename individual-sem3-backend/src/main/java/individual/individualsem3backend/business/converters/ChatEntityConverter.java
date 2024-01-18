@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChatEntityConverter {
 
+    private ChatEntityConverter(){}
+
     public static ChatMessage chatMessageEntityToChatMessage(MessageEntity dto){
         return ChatMessage.builder()
                 .id(dto.getId())
