@@ -29,7 +29,7 @@ public class ChatEntity {
     @Column(name = "user2")
     private Integer user2;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "chat_id")
     private List<MessageEntity> messages;
 

@@ -28,7 +28,7 @@ public class OrderEntity {
     @Column(name = "is_bundled")
     private boolean isBundled;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductEntity> products;
 
     @Column(name = "date_of_purchase")

@@ -125,7 +125,7 @@ public class ChatManagerImpl implements ChatManager {
         }
     }
 
-    public Chat createChat(Integer userId){
+    private Chat createChat(Integer userId){
         try{
             Chat newChat = Chat.builder()
                     .user_1(userId)

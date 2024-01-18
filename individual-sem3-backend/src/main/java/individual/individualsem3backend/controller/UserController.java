@@ -27,7 +27,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @RolesAllowed({"ADMINISTRATOR"})
+    @PostMapping("ADMINISTRATOR")
+    public ResponseEntity<CreateUserResponse> createAdminUser(@RequestBody CreateUserRequest request) {
+
+        User user = converter.createUserRequestConvertToUser(request);
+
+        CreateUserResponse response = converter.userConvertToCreateUserResponse(userManagerUseCase.createAdminUser(user));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @RolesAllowed({"ADMINISTRATOR", "CUSTOMER"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);

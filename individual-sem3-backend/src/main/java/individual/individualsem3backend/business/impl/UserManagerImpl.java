@@ -23,6 +23,26 @@ public class UserManagerImpl implements UserManager {
     private GoogleApi googleApi;
     private GoogleUserRepository googleUserRepository;
 
+    @Override
+    public User createAdminUser(User newUser) {
+        try{
+            if(newUser != null){
+                newUser.setRole(Role.ADMINISTRATOR);
+                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+
+                newUser.setPassword(encodedPassword);
+
+                return UserEntityConverter.userEntityConvertedToUser(userRepository.save(UserEntityConverter.userConvertedToUserEntity(newUser)));
+            }
+            else{
+                throw new UserException("Could not create user.");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new UserException("Something went wrong with creating a user");
+        }
+    }
 
     @Override
     public User createUser(User newUser) {
@@ -41,7 +61,7 @@ public class UserManagerImpl implements UserManager {
         }
         catch(Exception ex)
         {
-            throw new UserException(ex.getMessage());
+            throw new UserException("Something went wrong with creating a user");
         }
     }
 
@@ -66,7 +86,12 @@ public class UserManagerImpl implements UserManager {
 
     public void deleteUser(int userid){
         try{
-                userRepository.deleteById(userid);
+
+
+            userRepository.deleteChatMessages(userid);
+            userRepository.deleteOrders(userid);
+            userRepository.deleteChats(userid);
+            userRepository.deleteById(userid);
         }
         catch(Exception ex)
         {

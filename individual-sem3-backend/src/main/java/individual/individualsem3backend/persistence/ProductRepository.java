@@ -15,4 +15,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
             "AND (:price=0 or p.price <= :price)" +
             "AND (:color IS NULL or p.color = :color)")
     List<ProductEntity> findByFilter(@Param("name") String name, @Param("price") Double price, @Param("color") String color);
+
 }

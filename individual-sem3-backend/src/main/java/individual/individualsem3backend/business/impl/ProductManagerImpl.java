@@ -7,6 +7,7 @@ import individual.individualsem3backend.domain.Product;
 import individual.individualsem3backend.domain.ProductFilter;
 import individual.individualsem3backend.persistence.ProductRepository;
 import individual.individualsem3backend.persistence.entity.ProductEntity;
+import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +59,11 @@ public class ProductManagerImpl implements ProductManager {
         try{
                 this.productRepository.deleteById(productId);
         }
+        catch(ConstraintViolationException ex){
+            throw new ProductException("Could not delete product because it's in an order");
+        }
         catch(Exception ex){
-            throw new ProductException(ex.getMessage());
+            throw new ProductException("Could not delete product.");
         }
     }
 
