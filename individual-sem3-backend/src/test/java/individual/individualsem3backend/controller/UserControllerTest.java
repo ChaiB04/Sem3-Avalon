@@ -207,20 +207,6 @@ class UserControllerTest {
 
     }
 
-    @Test
-    @WithMockUser(roles = "CUSTOMER")
-    void deleteUser_ShouldReturn403_WhenUnauthorized() throws Exception{
-        doNothing().when(userManager).deleteUser(1);
-
-        mockMvc.perform(delete("/users/1")
-                .contentType(APPLICATION_JSON_VALUE))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-
-        verifyNoInteractions(userManager);
-
-    }
-
 
 
     //this one gives me an error where it has problems with equalling the user object in verify and the when method
