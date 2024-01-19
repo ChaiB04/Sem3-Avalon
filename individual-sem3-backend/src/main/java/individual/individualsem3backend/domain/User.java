@@ -1,7 +1,7 @@
 package individual.individualsem3backend.domain;
 
+import individual.individualsem3backend.domain.enumeration.Role;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @NotNull
     private Integer id;
     @NotBlank
     private String email;
@@ -27,4 +26,6 @@ public class User {
     private String city;
     private String country;
     private String phonenumber;
+    private Role role;
+    private byte[] picture;
 }

@@ -4,15 +4,36 @@ variables:
 stages:   
     - build 
     - test
+    - docker
+    # - sonarqube-check
+    # - sonarqube-vulnerability-report
 
 build: 
     stage: build 
     script: 
         - cd .\individual-sem3-backend
         - ./gradlew assemble
+
+docker_build:
+    stage: docker
+    script:
+        - cd .\individual-sem3-backend
+        - ./gradlew clean assemble
+        - docker stop individual-sem3-backend2
+        - docker rm individual-sem3-backend2
+        - docker rmi avalon
+        - docker build -t avalon .
+        - docker run -d -p 8090:8080 --net=docker_avalon_network_staging --env spring_profiles_active=staging --name=individual-sem3-backend2 avalon
+        # - docker push avalonGit
     
 test: 
     stage: test 
     script: 
         - cd .\individual-sem3-backend
         - ./gradlew test
+
+sonar: 
+    stage: test 
+    script: 
+        - cd .\individual-sem3-backend
+        - ./gradlew sonar

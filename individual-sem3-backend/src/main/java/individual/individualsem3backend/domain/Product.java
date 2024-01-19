@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-
 @Getter
 @Setter
 @Builder
@@ -21,4 +20,5 @@ public class Product {
     private String description;
     @NotBlank
     private String color;
+    private byte[] picture;
 }

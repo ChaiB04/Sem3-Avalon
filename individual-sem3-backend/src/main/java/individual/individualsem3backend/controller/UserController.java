@@ -1,24 +1,21 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.business.UserManagerUseCase;
-import individual.individualsem3backend.controller.Converters.UserConverter;
-import individual.individualsem3backend.controller.UserRequestResponse.*;
+import individual.individualsem3backend.business.UserManager;
+import individual.individualsem3backend.controller.converters.UserConverter;
+import individual.individualsem3backend.controller.dtos.user.*;
 import individual.individualsem3backend.domain.User;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-//@CrossOrigin("http://localhost:5173/")
 public class UserController {
-    private UserManagerUseCase userManagerUseCase;
+    private UserManager userManagerUseCase;
     private UserConverter converter;
-
 
     @PostMapping()
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
@@ -26,35 +23,38 @@ public class UserController {
         User user = converter.createUserRequestConvertToUser(request);
 
         CreateUserResponse response = converter.userConvertToCreateUserResponse(userManagerUseCase.createUser(user));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("ADMINISTRATOR")
+    public ResponseEntity<CreateUserResponse> createAdminUser(@RequestBody CreateUserRequest request) {
+
+        User user = converter.createUserRequestConvertToUser(request);
+
+        CreateUserResponse response = converter.userConvertToCreateUserResponse(userManagerUseCase.createAdminUser(user));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @RolesAllowed({"ADMINISTRATOR", "CUSTOMER"})
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
         userManagerUseCase.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("login")
-    public ResponseEntity<UserLoginGetUserResponse> LoginUser(@RequestBody UserLoginRequest request){
 
-        User user = userManagerUseCase.userLogin(request.getEmail(), request.getPassword());
+    @GetMapping("{userId}")
+    public ResponseEntity<GetUserResponse> getUser(@PathVariable Integer userId){
+        User user = userManagerUseCase.getUser(userId);
 
-        UserLoginGetUserResponse response = converter.userConvertToUserLoginGetUserResponse(user);
+        GetUserResponse response = converter.userConvertToGetUserResponse(user);
 
         return ResponseEntity.ok().body(response);
     }
 
-
-    @GetMapping("{userId}")
-    public ResponseEntity<User> getUser(@PathVariable Integer userId){
-        final Optional<User> UserOptional = userManagerUseCase.getUser(userId);
-        if (UserOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(UserOptional.get());
-    }
-
+    //@RolesAllowed({"CUSTOMER", "ADMINISTRATOR"})
     @PutMapping("{userId}")
     public ResponseEntity<Void> updateUser(@PathVariable("userId") Integer userId,
                                               @RequestBody UpdateUserRequest request)
@@ -64,4 +64,6 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+
+
 }

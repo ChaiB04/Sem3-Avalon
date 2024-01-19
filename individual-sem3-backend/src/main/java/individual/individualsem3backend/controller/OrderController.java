@@ -1,22 +1,22 @@
 package individual.individualsem3backend.controller;
 
-import individual.individualsem3backend.business.OrderManagerUseCase;
-import individual.individualsem3backend.controller.Converters.OrderConverter;
-import individual.individualsem3backend.controller.OrderRequestRespone.*;
+import individual.individualsem3backend.business.OrderManager;
+import individual.individualsem3backend.controller.converters.OrderConverter;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderRequest;
+import individual.individualsem3backend.controller.dtos.order.CreateOrderResponse;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersRequest;
+import individual.individualsem3backend.controller.dtos.order.GetAllOrdersResponse;
 import individual.individualsem3backend.domain.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
-//@CrossOrigin("http://localhost:5173/")
 public class OrderController {
-    private OrderManagerUseCase orderManagerUseCase;
+    private OrderManager orderManagerUseCase;
 
     private OrderConverter converter;
 
@@ -41,18 +41,9 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("{orderId}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Integer orderId) {
-        orderManagerUseCase.delete(orderId);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping("{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable Integer orderId){
-        Optional<Order> orderOptional = orderManagerUseCase.findOrderById(orderId);
-        if (orderOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(orderOptional.get());
+        Order order = orderManagerUseCase.findOrderById(orderId);
+        return ResponseEntity.ok().body(order);
     }
 }

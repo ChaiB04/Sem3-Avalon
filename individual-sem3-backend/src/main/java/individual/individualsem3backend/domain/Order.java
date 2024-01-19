@@ -13,11 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    @NotNull
     private Integer id;
     @NotNull
     private Integer userId;
     private List<Product> products;
-    private boolean bundle_or_not;
-    private Date date_of_purchase;
+    private boolean isBundled;
+    private Date dateOfPurchase;
 }

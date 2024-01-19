@@ -1,17 +1,13 @@
 package individual.individualsem3backend.persistence;
 
-import individual.individualsem3backend.domain.Order;
+import individual.individualsem3backend.persistence.entity.OrderEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+@Repository
+public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
 
-public interface OrderRepository {
-    Order findOrderById(Integer orderId);
+    List<OrderEntity> findByUserId(Integer userId);
 
-    void update(Order order);
-
-    Order save(Order order);
-
-    List<Order> findAll(Integer userId);
-
-    void deleteById(Integer orderId);
 }
